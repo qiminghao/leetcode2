@@ -250,7 +250,7 @@ public class Main {
 //        System.out.println(jump(IntStream.of(1).toArray()));
 //        System.out.println(jump(IntStream.of(1, 2, 3).toArray()));
 
-        System.out.println(maximalRectangle(new char[][]{
+        System.out.println(maximalRectangle(new char[][] {
                 {'1', '0', '1', '0', '0'},
                 {'1', '0', '1', '1', '1'},
                 {'1', '1', '1', '1', '1'},
@@ -281,7 +281,7 @@ public class Main {
 //        Solution obj = new Solution();
 //        System.out.println(obj.nthUglyNumber(1000000000, 2, 217983653, 336916467));
 
-        System.out.println(maximalSquare(new char[][]{
+        System.out.println(maximalSquare(new char[][] {
                 {'1', '0', '1', '0', '0'},
                 {'1', '0', '1', '1', '1'},
                 {'1', '1', '1', '1', '1'},
@@ -308,9 +308,9 @@ public class Main {
 //        System.out.println(numComponents(createLinkedList(new int[]{0, 1, 2, 3}), new int[]{0, 1, 3}));
 //        System.out.println(numComponents(createLinkedList(new int[]{0, 1, 2, 3, 4}), new int[]{0, 3, 1, 4}));
 
-        System.out.println(Arrays.toString(nextLargerNodes(createLinkedList(new int[]{2, 1, 5}))));
-        System.out.println(Arrays.toString(nextLargerNodes(createLinkedList(new int[]{2, 7, 4, 3, 5}))));
-        System.out.println(Arrays.toString(nextLargerNodes(createLinkedList(new int[]{1, 7, 5, 1, 9, 2, 5, 1}))));
+        System.out.println(Arrays.toString(nextLargerNodes(createLinkedList(new int[] {2, 1, 5}))));
+        System.out.println(Arrays.toString(nextLargerNodes(createLinkedList(new int[] {2, 7, 4, 3, 5}))));
+        System.out.println(Arrays.toString(nextLargerNodes(createLinkedList(new int[] {1, 7, 5, 1, 9, 2, 5, 1}))));
 
 //        System.out.println(partition(createLinkedList(new int[]{1, 4, 3, 2, 5, 2}),3));
 
@@ -352,8 +352,8 @@ public class Main {
 //        System.out.println(findLength(new int[]{1, 2, 3, 2, 1}, new int[]{3, 2, 1, 4, 7}));
 //        System.out.println(findLength(new int[]{0,1,1,1,1}, new int[]{1,0,1,0,1}));
 
-        System.out.println(minSubArrayLen(7, new int[]{2, 3, 1, 2, 4, 3}));
-        System.out.println(minSubArrayLen(11, new int[]{1, 2, 3, 4, 5}));
+        System.out.println(minSubArrayLen(7, new int[] {2, 3, 1, 2, 4, 3}));
+        System.out.println(minSubArrayLen(11, new int[] {1, 2, 3, 4, 5}));
 
 //        SnapshotArray snapshotArr = new SnapshotArray(3); // set the length to be 3
 //        snapshotArr.set(0,5);  // Set array[0] = 5
@@ -480,9 +480,9 @@ public class Main {
 //        System.out.println(getPermutation(3, 8));
 //        System.out.println(getPermutation(4, 9));
 
-        System.out.println(printLinkedList(reverseKGroup(createLinkedList(new int[]{1, 2, 3, 4, 5}), 2)));
-        System.out.println(printLinkedList(reverseKGroup(createLinkedList(new int[]{1, 2, 3, 4, 5, 6, 7, 8}), 3)));
-        System.out.println(printLinkedList(reverseKGroup(createLinkedList(new int[]{1, 2, 3, 4, 5}), 3)));
+        System.out.println(printLinkedList(reverseKGroup(createLinkedList(new int[] {1, 2, 3, 4, 5}), 2)));
+        System.out.println(printLinkedList(reverseKGroup(createLinkedList(new int[] {1, 2, 3, 4, 5, 6, 7, 8}), 3)));
+        System.out.println(printLinkedList(reverseKGroup(createLinkedList(new int[] {1, 2, 3, 4, 5}), 3)));
 
 //        System.out.println(Arrays.toString(singleNumber(new int[]{1, 2, 1, 3, 2, 5})));
 
@@ -554,30 +554,171 @@ public class Main {
 //        System.out.println(repeatedStringMatch("ab", "babababa"));
 //        System.out.println(repeatedStringMatch("aaaaaab", "ba"));
 
-        System.out.println(largestTimeFromDigits(new int[]{1, 2, 3, 4}));
-        System.out.println(largestTimeFromDigits(new int[]{5, 5, 5, 5}));
-        System.out.println(largestTimeFromDigits(new int[]{0, 3, 0, 3}));
+        System.out.println(largestTimeFromDigits(new int[] {1, 2, 3, 4}));
+        System.out.println(largestTimeFromDigits(new int[] {5, 5, 5, 5}));
+        System.out.println(largestTimeFromDigits(new int[] {0, 3, 0, 3}));
 
-        Executors.newSingleThreadExecutor();
+//        System.out.println(merge(new int[][] {{1, 3}, {2, 6}, {8, 10}, {15, 18}}));
+//        System.out.println(merge(new int[][] {{1, 4}, {1, 5}}));
 
+//        System.out.println(Arrays.toString(searchRange(new int[] {5, 7, 7, 8, 8, 10}, 8)));
+//        System.out.println(Arrays.toString(searchRange(new int[] {5, 7, 7, 8, 8, 10}, 6)));
+//        System.out.println(Arrays.toString(searchRange(new int[] {1}, 0)));
 
+//        System.out.println(firstMissingPositive(new int[] {1, 2, 0}));
+//        System.out.println(firstMissingPositive(new int[] {3, 4, -1, 1}));
+//        System.out.println(firstMissingPositive(new int[] {7, 8, 9, 11, 12}));
+
+//        System.out.println(insert(new int[][] {{1, 3}, {6, 9}}, new int[] {2, 5}));
+//        System.out.println(insert(new int[][] {}, new int[] {2, 5}));
+//        System.out.println(insert(new int[][] {{1,5}}, new int[] {6,8}));
+//        System.out.println(insert(new int[][] {{11,15}}, new int[] {6,8}));
+//        System.out.println(insert(new int[][] {{1, 2}, {3, 5}, {6, 7}, {8, 10}, {12, 16}}, new int[] {4, 8}));
+//        System.out.println(minPathSum(new int[][] {{1, 3, 1}, {1, 5, 1}, {4, 2, 1}}));
     }
 
-    public static boolean isValid(String s) {
-        Stack<Character> stack = new Stack<>();
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (stack.isEmpty() || c == '(' || c =='[') {
-                stack.push(c);
-            } else if (c == ')' && stack.peek() == '(') {
-                stack.pop();
-            } else if (c == ']' && stack.peek() == '[') {
-                stack.pop();
-            } else {
-                stack.push(c);
+    // 64. Minimum Path Sum
+    public static int minPathSum(int[][] grid) {
+        int m = grid.length, n = grid[0].length;
+        for (int i = 1; i < m; i++) {
+            grid[i][0] += grid[i - 1][0];
+        }
+        for (int i = 1; i < n; i++) {
+            grid[0][i] += grid[0][i - 1];
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                grid[i][j] = Math.min(grid[i - 1][j], grid[i][j - 1]) + grid[i][j];
             }
         }
-        return stack.size() == 0;
+        return grid[m - 1][n - 1];
+    }
+
+    // 57. Insert Interval
+    public static int[][] insert(int[][] intervals, int[] newInterval) {
+        if (intervals == null || intervals.length == 0) {
+            return new int[][] {newInterval};
+        }
+        int len = intervals.length, l = 0, r = len - 1;
+        while (l <= r) {
+            int mid = (l + r) / 2;
+            if (intervals[mid][0] >= newInterval[0]) {
+                r = mid - 1;
+            } else {
+                l = mid + 1;
+            }
+        }
+        int start = r + 1;
+        l = start;
+        r = len - 1;
+        while (l <= r) {
+            int mid = (l + r) / 2;
+            if (intervals[mid][1] > newInterval[1]) {
+                r = mid - 1;
+            } else {
+                l = mid + 1;
+            }
+        }
+        int end = l - 1;
+
+        if (start > 0 && intervals[start - 1][1] >= newInterval[0]) {
+            start--;
+        }
+        if (end < len - 1 && intervals[end + 1][0] <= newInterval[1]) {
+            end++;
+        }
+        int[][] res = new int[len - end + start][2];
+        int index = 0;
+        for (int i = 0; i < start; i++) {
+            res[index++] = intervals[i];
+        }
+        if (start <= end) {
+            res[index++] = new int[] {Math.min(intervals[start][0], newInterval[0]), Math.max(intervals[end][1], newInterval[1])};
+        } else {
+            res[index++] = newInterval;
+        }
+        for (int i = end + 1; i < len; i++) {
+            res[index++] = intervals[i];
+        }
+        return res;
+    }
+
+    // 41. First Missing Positive
+    public static int firstMissingPositive(int[] nums) {
+        int len = nums.length;
+        for (int i = 0; i < len; i++) {
+            if (nums[i] <= 0 || nums[i] > len) {
+                nums[i] = len + 1;
+            }
+        }
+
+        for (int i = 0; i < len; i++) {
+            int num = Math.abs(nums[i]);
+            if (num <= len) {
+                nums[num - 1] = -1 * Math.abs(nums[num - 1]);
+            }
+        }
+
+        for (int i = 0; i < len; i++) {
+            if (nums[i] > 0) {
+                return i + 1;
+            }
+        }
+        return len + 1;
+    }
+
+    // 34. Find First and Last Position of Element in Sorted Array
+    public static int[] searchRange(int[] nums, int target) {
+        if (nums == null || nums.length == 0) {
+            return new int[] {-1, -1};
+        }
+        int l = 0, r = nums.length - 1;
+        while (l <= r) {
+            int mid = (l + r) / 2;
+            if (nums[mid] > target) {
+                r = mid - 1;
+            } else {
+                l = mid + 1;
+            }
+        }
+        if (l - 1 < 0 || nums[l - 1] != target) {
+            return new int[] {-1, -1};
+        }
+        int end = l - 1;
+        r = l - 1;
+        l = 0;
+        while (l <= r) {
+            int mid = (l + r) / 2;
+            if (nums[mid] >= target) {
+                r = mid - 1;
+            } else {
+                l = mid + 1;
+            }
+        }
+        int start = r + 1;
+        return new int[] {start, end};
+    }
+
+    // 56. Merge Intervals
+    public static int[][] merge(int[][] intervals) {
+        if (intervals == null || intervals.length < 2) {
+            return intervals;
+        }
+        Arrays.sort(intervals, (o1, o2) -> o1[0] != o2[0] ? o1[0] - o2[0] : o1[1] - o2[1]);
+        ArrayList<int[]> res = new ArrayList<>();
+        for (int[] o : intervals) {
+            if (res.isEmpty()) {
+                res.add(o);
+            } else {
+                int[] last = res.get(res.size() - 1);
+                if (o[0] >= last[0] && o[0] <= last[1]) {
+                    last[1] = Math.max(o[1], last[1]);
+                } else {
+                    res.add(o);
+                }
+            }
+        }
+        return res.toArray(new int[res.size()][2]);
     }
 
     // 949. Largest Time for Given Digits
@@ -642,7 +783,9 @@ public class Main {
 
     public static boolean isPalindrome(String s, int i, int j) {
         for (int k = i; k <= i + (j - i) / 2; k++) {
-            if (s.charAt(k) != s.charAt(j - k + i)) return false;
+            if (s.charAt(k) != s.charAt(j - k + i)) {
+                return false;
+            }
         }
         return true;
     }
@@ -660,8 +803,12 @@ public class Main {
             sb.append(A);
             count++;
         }
-        if(sb.toString().contains(B)) return count;
-        if(sb.append(A).toString().contains(B)) return ++count;
+        if (sb.toString().contains(B)) {
+            return count;
+        }
+        if (sb.append(A).toString().contains(B)) {
+            return ++count;
+        }
         return -1;
     }
 
@@ -759,7 +906,7 @@ public class Main {
         int index = 0;
         for (int i = 0; i < R; i++) {
             for (int j = 0; j < C; j++) {
-                res[index++] = new int[]{i, j};
+                res[index++] = new int[] {i, j};
             }
         }
         Arrays.sort(res, Comparator.comparingInt(o -> Math.abs(o[0] - r0) + Math.abs(o[1] - c0)));
@@ -847,7 +994,7 @@ public class Main {
             }
             i++;
         }
-        return new int[]{curLine, curWidth};
+        return new int[] {curLine, curWidth};
     }
 
     // 476. Number Complement
@@ -952,12 +1099,12 @@ public class Main {
 
     // 929. Unique Email Addresses
     public static int numUniqueEmails(String[] emails) {
-        Map<String, Set<String> > map = new HashMap<>();
+        Map<String, Set<String>> map = new HashMap<>();
         for (String email : emails) {
             int index = email.indexOf('@');
             String localName = email.substring(0, index);
             int i;
-            if ((i =  localName.indexOf('+')) != -1) {
+            if ((i = localName.indexOf('+')) != -1) {
                 localName = localName.substring(0, i);
             }
             localName = localName.replaceAll("\\.", "");
@@ -1063,8 +1210,9 @@ public class Main {
         Stack<Integer> opened = new Stack<>();
         int[] pair = new int[n];
         for (int i = 0; i < n; ++i) {
-            if (s.charAt(i) == '(')
+            if (s.charAt(i) == '(') {
                 opened.push(i);
+            }
             if (s.charAt(i) == ')') {
                 int j = opened.pop();
                 pair[i] = j;
@@ -1101,7 +1249,7 @@ public class Main {
                 num2 ^= x;
             }
         }
-        return new int[]{num1, num2};
+        return new int[] {num1, num2};
     }
 
     // 25. Reverse Nodes in k-Group
@@ -1247,19 +1395,27 @@ public class Main {
         int l = 0, r = 255, nl = 0, nr = 0, mn = 255, mx = -1, mid1 = 0, mid2 = 0, mode = 0;
         double avg = 0, mid = 0;
         while (l <= r) {
-            while (count[l] == 0) l++;
-            while (count[r] == 0) r--;
+            while (count[l] == 0) {
+                l++;
+            }
+            while (count[r] == 0) {
+                r--;
+            }
             if (nl < nr) {
                 avg += count[l] * l;
                 nl += count[l];
-                if (count[l] > count[(int) mode]) mode = l;
+                if (count[l] > count[(int) mode]) {
+                    mode = l;
+                }
                 mn = Math.min(mn, l);
                 mid1 = l;
                 l++;
             } else {
                 avg += count[r] * r;
                 nr += count[r];
-                if (count[r] > count[(int) mode]) mode = r;
+                if (count[r] > count[(int) mode]) {
+                    mode = r;
+                }
                 mx = Math.max(mx, r);
                 mid2 = r;
                 r--;
@@ -1267,10 +1423,14 @@ public class Main {
         }
         avg /= (nl + nr);
         // Find median
-        if (nl < nr) mid = mid2;
-        else if (nl > nr) mid = mid1;
-        else mid = (double) (mid1 + mid2) / 2;
-        return new double[]{mn, mx, avg, mid, mode};
+        if (nl < nr) {
+            mid = mid2;
+        } else if (nl > nr) {
+            mid = mid1;
+        } else {
+            mid = (double) (mid1 + mid2) / 2;
+        }
+        return new double[] {mn, mx, avg, mid, mode};
     }
 
     // 441. Arranging Coins
@@ -1280,8 +1440,8 @@ public class Main {
 
     // 1041. Robot Bounded In Circle
     public static boolean isRobotBounded(String instructions) {
-        int[] xDict = new int[]{1, 0, -1, 0};
-        int[] yDict = new int[]{0, 1, 0, -1};
+        int[] xDict = new int[] {1, 0, -1, 0};
+        int[] yDict = new int[] {0, 1, 0, -1};
         int d = 1, x = 0, y = 0;
         for (char c : instructions.toCharArray()) {
             if (c == 'G') {
@@ -1299,11 +1459,13 @@ public class Main {
     // 866. Prime Palindrome
     public static int primePalindrome(int N) {
         while (true) {
-            if (isPalindrome(N) && isPrime(N))
+            if (isPalindrome(N) && isPrime(N)) {
                 return N;
+            }
             N++;
-            if (10_000_000 < N && N < 100_000_000)
+            if (10_000_000 < N && N < 100_000_000) {
                 N = 100_000_000;
+            }
         }
     }
 
@@ -1806,7 +1968,9 @@ public class Main {
     public static boolean isIsomorphic(String s1, String s2) {
         int[] m = new int[512];
         for (int i = 0; i < s1.length(); i++) {
-            if (m[s1.charAt(i)] != m[s2.charAt(i) + 256]) return false;
+            if (m[s1.charAt(i)] != m[s2.charAt(i) + 256]) {
+                return false;
+            }
             m[s1.charAt(i)] = m[s2.charAt(i) + 256] = i + 1;
         }
         return true;
@@ -1815,12 +1979,15 @@ public class Main {
     // 290. Word Pattern
     public static boolean wordPattern(String pattern, String str) {
         String[] words = str.split(" ");
-        if (words.length != pattern.length())
+        if (words.length != pattern.length()) {
             return false;
+        }
         Map index = new HashMap();
-        for (Integer i = 0; i < words.length; ++i)
-            if (index.put(pattern.charAt(i), i) != index.put(words[i], i))
+        for (Integer i = 0; i < words.length; ++i) {
+            if (index.put(pattern.charAt(i), i) != index.put(words[i], i)) {
                 return false;
+            }
+        }
         return true;
     }
 
@@ -1907,7 +2074,7 @@ public class Main {
         for (int i = 0; i < nums.length; i++) {
             int comp = target - nums[i];
             if (map.containsKey(comp)) {
-                return new int[]{map.get(comp), i};
+                return new int[] {map.get(comp), i};
             }
             map.put(nums[i], i);
         }
@@ -3671,11 +3838,15 @@ public class Main {
     //830. Positions of Large Groups
     public static List<List<Integer>> largeGroupPositions(String S) {
         List<List<Integer>> res = new ArrayList<List<Integer>>();
-        if (S.length() < 3) return res;
+        if (S.length() < 3) {
+            return res;
+        }
         int start = 0, end = 0, p = 1;
         boolean flag = false;
         for (; p < S.length(); ) {
-            for (; p < S.length() && S.charAt(p) == S.charAt(p - 1); p++) ;
+            for (; p < S.length() && S.charAt(p) == S.charAt(p - 1); p++) {
+                ;
+            }
             if (flag) {
                 start = p++;
                 flag = false;
@@ -3695,13 +3866,17 @@ public class Main {
 
     //724. Find Pivot Index
     public static int pivotIndex(int[] nums) {
-        if (nums == null || nums.length == 0) return -1;
+        if (nums == null || nums.length == 0) {
+            return -1;
+        }
         int[] sumL = new int[nums.length];
         sumL[0] = nums[0];
         for (int i = 1; i < nums.length; i++) {
             sumL[i] = sumL[i - 1] + nums[i];
         }
-        if (sumL[sumL.length - 1] == sumL[0]) return 0;
+        if (sumL[sumL.length - 1] == sumL[0]) {
+            return 0;
+        }
         for (int i = 1; i < sumL.length; i++) {
             if (sumL[i - 1] == (sumL[sumL.length - 1] - sumL[i])) {
                 return i;
@@ -3762,10 +3937,16 @@ public class Main {
     public static int[] fairCandySwap(int[] A, int[] B) {
         int[] res = new int[2];
         int sumA = 0, sumB = 0;
-        for (int i : A) sumA += i;
-        for (int i : B) sumB += i;
+        for (int i : A) {
+            sumA += i;
+        }
+        for (int i : B) {
+            sumB += i;
+        }
         Set<Integer> setB = new HashSet<Integer>();
-        for (int i : B) setB.add(i);
+        for (int i : B) {
+            setB.add(i);
+        }
         for (int x : A) {
             int y = x + (sumB - sumA) / 2;
             if (setB.contains(y)) {
@@ -3830,7 +4011,9 @@ public class Main {
         for (int i = 0; i < nums.length; i++) {
             if (result == nums[i]) {
                 count++;
-            } else count--;
+            } else {
+                count--;
+            }
             if (count < 0) {
                 result = nums[i];
                 count = 0;
@@ -3843,24 +4026,33 @@ public class Main {
     public static boolean isOneBitCharacter(int[] bits) {
         int len = bits.length, i = 0;
         while (i < len - 1) {
-            if (bits[i] == 0) i++;
-            else i += 2;
+            if (bits[i] == 0) {
+                i++;
+            } else {
+                i += 2;
+            }
         }
         return i == len - 1;
     }
 
     //122. Best Time to Buy and Sell Stock II
     public static int maxProfit(int[] prices) {
-        if (prices == null || prices.length < 2) return 0;
+        if (prices == null || prices.length < 2) {
+            return 0;
+        }
         int res = 0, buyIndex = 0, sellIndex = 0, curPointer = 1;
         boolean flag = true;
         for (; curPointer < prices.length; ) {
             if (flag) {
-                for (; curPointer < prices.length && prices[curPointer] <= prices[curPointer - 1]; curPointer++) ;
+                for (; curPointer < prices.length && prices[curPointer] <= prices[curPointer - 1]; curPointer++) {
+                    ;
+                }
                 buyIndex = curPointer - 1;
                 flag = false;
             } else {
-                for (; curPointer < prices.length && prices[curPointer] >= prices[curPointer - 1]; curPointer++) ;
+                for (; curPointer < prices.length && prices[curPointer] >= prices[curPointer - 1]; curPointer++) {
+                    ;
+                }
                 sellIndex = curPointer - 1;
                 flag = true;
                 res = res + prices[sellIndex] - prices[buyIndex];
@@ -3871,13 +4063,18 @@ public class Main {
 
     //217. Contains Duplicate
     public static boolean containsDuplicate(int[] nums) {
-        if (nums.length == 0 || nums == null) return false;
+        if (nums.length == 0 || nums == null) {
+            return false;
+        }
         Set<Integer> set = new HashSet<>();
         for (int i = 0; i < nums.length; i++) {
             set.add(nums[i]);
         }
-        if (nums.length == set.size()) return false;
-        else return true;
+        if (nums.length == set.size()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     //167. Two Sum II - Input array is sorted
@@ -3890,7 +4087,9 @@ public class Main {
                 j--;
             } else if (numbers[i] + numbers[j] < target) {
                 i++;
-            } else break;
+            } else {
+                break;
+            }
         }
         result[0] = i + 1;
         result[1] = j + 1;
@@ -3907,10 +4106,15 @@ public class Main {
         Map<Integer, Integer> left = new HashMap<Integer, Integer>();
         Map<Integer, Integer> right = new HashMap<Integer, Integer>();
         for (int i = 0; i < len; i++) {
-            if (frequency.containsKey(nums[i])) frequency.put(nums[i], frequency.get(nums[i]) + 1);
-            else frequency.put(nums[i], 1);
+            if (frequency.containsKey(nums[i])) {
+                frequency.put(nums[i], frequency.get(nums[i]) + 1);
+            } else {
+                frequency.put(nums[i], 1);
+            }
             degree = Math.max(degree, frequency.get(nums[i]));
-            if (!left.containsKey(nums[i])) left.put(nums[i], i);
+            if (!left.containsKey(nums[i])) {
+                left.put(nums[i], i);
+            }
             right.put(nums[i], i);
         }
         Iterator<Map.Entry<Integer, Integer>> iter = frequency.entrySet().iterator();
@@ -3982,11 +4186,14 @@ public class Main {
         int res = 0;
         for (int i = 1; i < grid.length - 1; i++) {
             for (int j = 1; j < grid[0].length - 1; j++) {
-                if (grid[i][j] != 5) continue;
+                if (grid[i][j] != 5) {
+                    continue;
+                }
                 if (magic(grid[i - 1][j - 1], grid[i - 1][j], grid[i - 1][j + 1],
                         grid[i][j - 1], grid[i][j], grid[i][j + 1],
-                        grid[i + 1][j - 1], grid[i + 1][j], grid[i + 1][j + 1]))
+                        grid[i + 1][j - 1], grid[i + 1][j], grid[i + 1][j + 1])) {
                     res++;
+                }
             }
         }
         return res;
@@ -3994,10 +4201,14 @@ public class Main {
 
     public static boolean magic(int... vals) {
         int[] count = new int[16];
-        for (int v : vals) count[v]++;
-        for (int v = 1; v <= 9; ++v)
-            if (count[v] != 1)
+        for (int v : vals) {
+            count[v]++;
+        }
+        for (int v = 1; v <= 9; ++v) {
+            if (count[v] != 1) {
                 return false;
+            }
+        }
         return (vals[0] + vals[1] + vals[2] == 15 &&
                 vals[3] + vals[4] + vals[5] == 15 &&
                 vals[6] + vals[7] + vals[8] == 15 &&
@@ -4258,22 +4469,30 @@ class Solution {
     }
 
     public long gcd(long x, long y) {
-        if (x < y)
+        if (x < y) {
             return gcd(y, x);
-        if (y == 0)
+        }
+        if (y == 0) {
             return x;
+        }
         if ((x & 1) == 1) //x为奇数
         {
             if ((y & 1) == 1) //y为奇数
+            {
                 return gcd(x - y, y);
-            else         //y为偶数
+            } else         //y为偶数
+            {
                 return gcd(x, y >> 1);
+            }
         } else         //x为偶数
         {
             if ((y & 1) == 1) //y为奇数
+            {
                 return gcd(x >> 1, y);
-            else         //y为偶数
+            } else         //y为偶数
+            {
                 return 2 * gcd(x >> 1, y >> 1);
+            }
 
         }
     }
@@ -4372,12 +4591,16 @@ class Solution384 {
         this.length = nums.length;
     }
 
-    /** Resets the array to its original configuration and return it. */
+    /**
+     * Resets the array to its original configuration and return it.
+     */
     public int[] reset() {
         return nums;
     }
 
-    /** Returns a random shuffling of the array. */
+    /**
+     * Returns a random shuffling of the array.
+     */
     public int[] shuffle() {
         int[] res = Arrays.copyOf(nums, length);
         Random random = new Random();
@@ -4431,7 +4654,9 @@ class MyCircularQueue {
     private int capacity;
     private int size;
 
-    /** Initialize your data structure here. Set the size of the queue to be k. */
+    /**
+     * Initialize your data structure here. Set the size of the queue to be k.
+     */
     public MyCircularQueue(int k) {
         data = new int[k];
         front = 0;
@@ -4440,7 +4665,9 @@ class MyCircularQueue {
         size = 0;
     }
 
-    /** Insert an element into the circular queue. Return true if the operation is successful. */
+    /**
+     * Insert an element into the circular queue. Return true if the operation is successful.
+     */
     public boolean enQueue(int value) {
         if (isFull()) {
             return false;
@@ -4451,7 +4678,9 @@ class MyCircularQueue {
         return true;
     }
 
-    /** Delete an element from the circular queue. Return true if the operation is successful. */
+    /**
+     * Delete an element from the circular queue. Return true if the operation is successful.
+     */
     public boolean deQueue() {
         if (isEmpty()) {
             return false;
@@ -4461,22 +4690,30 @@ class MyCircularQueue {
         return true;
     }
 
-    /** Get the front item from the queue. */
+    /**
+     * Get the front item from the queue.
+     */
     public int Front() {
         return isEmpty() ? -1 : data[front];
     }
 
-    /** Get the last item from the queue. */
+    /**
+     * Get the last item from the queue.
+     */
     public int Rear() {
         return isEmpty() ? -1 : data[(tail - 1 + capacity) % capacity];
     }
 
-    /** Checks whether the circular queue is empty or not. */
+    /**
+     * Checks whether the circular queue is empty or not.
+     */
     public boolean isEmpty() {
         return size == 0;
     }
 
-    /** Checks whether the circular queue is full or not. */
+    /**
+     * Checks whether the circular queue is full or not.
+     */
     public boolean isFull() {
         return size == capacity;
     }
@@ -4502,7 +4739,9 @@ class MyCircularDeque {
     private int front;
     private int tail;
 
-    /** Initialize your data structure here. Set the size of the deque to be k. */
+    /**
+     * Initialize your data structure here. Set the size of the deque to be k.
+     */
     public MyCircularDeque(int k) {
         data = new int[k];
         capacity = k;
@@ -4511,7 +4750,9 @@ class MyCircularDeque {
         tail = 0;
     }
 
-    /** Adds an item at the front of Deque. Return true if the operation is successful. */
+    /**
+     * Adds an item at the front of Deque. Return true if the operation is successful.
+     */
     public boolean insertFront(int value) {
         if (isFull()) {
             return false;
@@ -4522,7 +4763,9 @@ class MyCircularDeque {
         return true;
     }
 
-    /** Adds an item at the rear of Deque. Return true if the operation is successful. */
+    /**
+     * Adds an item at the rear of Deque. Return true if the operation is successful.
+     */
     public boolean insertLast(int value) {
         if (isFull()) {
             return false;
@@ -4533,7 +4776,9 @@ class MyCircularDeque {
         return true;
     }
 
-    /** Deletes an item from the front of Deque. Return true if the operation is successful. */
+    /**
+     * Deletes an item from the front of Deque. Return true if the operation is successful.
+     */
     public boolean deleteFront() {
         if (isEmpty()) {
             return false;
@@ -4543,7 +4788,9 @@ class MyCircularDeque {
         return true;
     }
 
-    /** Deletes an item from the rear of Deque. Return true if the operation is successful. */
+    /**
+     * Deletes an item from the rear of Deque. Return true if the operation is successful.
+     */
     public boolean deleteLast() {
         if (isEmpty()) {
             return false;
@@ -4553,22 +4800,30 @@ class MyCircularDeque {
         return true;
     }
 
-    /** Get the front item from the queue. */
+    /**
+     * Get the front item from the queue.
+     */
     public int getFront() {
         return isEmpty() ? -1 : data[front];
     }
 
-    /** Get the last item from the queue. */
+    /**
+     * Get the last item from the queue.
+     */
     public int getRear() {
         return isEmpty() ? -1 : data[(tail - 1 + capacity) % capacity];
     }
 
-    /** Checks whether the circular deque is empty or not. */
+    /**
+     * Checks whether the circular deque is empty or not.
+     */
     public boolean isEmpty() {
         return size == 0;
     }
 
-    /** Checks whether the circular deque is full or not. */
+    /**
+     * Checks whether the circular deque is full or not.
+     */
     public boolean isFull() {
         return size == capacity;
     }
