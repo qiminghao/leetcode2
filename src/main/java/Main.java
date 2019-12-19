@@ -575,6 +575,865 @@ public class Main {
 //        System.out.println(insert(new int[][] {{11,15}}, new int[] {6,8}));
 //        System.out.println(insert(new int[][] {{1, 2}, {3, 5}, {6, 7}, {8, 10}, {12, 16}}, new int[] {4, 8}));
 //        System.out.println(minPathSum(new int[][] {{1, 3, 1}, {1, 5, 1}, {4, 2, 1}}));
+
+//        System.out.println(summaryRanges(new int[] {0, 1, 2, 4, 5, 7}));
+//        System.out.println(summaryRanges(new int[] {0, 2, 3, 4, 6, 8, 9}));
+//        System.out.println(summaryRanges(new int[] {0}));
+//        System.out.println(summaryRanges(new int[] {}));
+
+//        System.out.println(numPairsDivisibleBy60(new int[] {60, 60, 60}));
+
+//        System.out.println(findMinII(new int[] {1, 3, 5}));
+//        System.out.println(findMinII(new int[] {2, 2, 2, 0, 1}));
+//        System.out.println(findMinII(new int[] {3, 1, 3}));
+
+//        int[] arr = new int[]{1,0,2,3,0,4};
+//        duplicateZeros(arr);
+//        System.out.println(Arrays.toString(arr));
+
+//        System.out.println(canThreePartsEqualSum(new int[] {12, -4, 16, -5, 9, -3, 3, 8, 0}));
+
+//        System.out.println(Arrays.toString(deckRevealedIncreasing(new int[] {17, 13, 11, 2, 3, 5, 7})));
+
+//        System.out.println(findDuplicates(new int[] {4, 3, 2, 7, 8, 2, 3, 1}));
+
+//        System.out.println(pancakeSort(new int[] {3, 2, 4, 1}));
+//        System.out.println(pancakeSort(new int[] {1, 2, 3}));
+
+//        System.out.println(subsets(new int[] {1, 2, 3}));
+
+//        System.out.println(maxChunksToSorted(new int[] {2, 0, 1}));
+//        System.out.println(maxChunksToSorted(new int[] {4, 3, 2, 1, 0}));
+//        System.out.println(maxChunksToSorted(new int[] {1, 0, 2, 3, 4}));
+
+//        System.out.println(findDuplicate(new int[] {1, 3, 4, 2, 2}));
+//        System.out.println(findDuplicate(new int[] {3, 1, 3, 4, 2}));
+//        System.out.println(maxScoreSightseeingPair(new int[] {8, 1, 5, 2, 6}));
+
+//        System.out.println(generateMatrix(1));
+//        System.out.println(generateMatrix(3));
+//        System.out.println(generateMatrix(4));
+
+//        System.out.println(dayOfYear("2019-02-10"));
+
+//        System.out.println(subarraysDivByK(new int[] {-1, -9, -4, 0}, 9));
+
+//        System.out.println(Arrays.toString(prevPermOpt1(new int[] {1, 9, 4, 6, 7})));
+//        System.out.println(Arrays.toString(prevPermOpt1(new int[] {3, 1, 1, 3})));
+
+//        System.out.println(triangleNumber(new int[] {2, 2, 3, 4}));
+
+//        System.out.println(numMatchingSubseq("abcde", new String[] {"a", "bb", "acd", "ace"}));
+
+//        System.out.println(removeDuplicates(new int[] {1, 1, 1, 2, 2, 3}));
+//        System.out.println(removeDuplicates(new int[] {0, 0, 1, 1, 1, 1, 2, 3, 3}));
+    }
+
+    // 80. Remove Duplicates from Sorted Array II
+    public static int removeDuplicates(int[] nums) {
+        int n = nums.length;
+        int index = 0, i = 0;
+        while (i < n) {
+            int j = i + 1, count = 1;
+            while (j < n && nums[j] == nums[i]) {
+                count++;
+                j++;
+            }
+            for (int k = 0; k < Math.min(2, count); k++) {
+                nums[index++] = nums[i];
+            }
+            i = j;
+        }
+        return index;
+    }
+
+    // 18. 4Sum
+    public static List<List<Integer>> fourSum(int[] nums, int target) {
+        Arrays.sort(nums);
+        int n = nums.length;
+        Set<List<Integer>> res = new HashSet<>();
+        for (int i = 0; i < n - 3; i++) {
+            for (int j = i + 1; j < n - 2; j++) {
+                int l = j + 1, r = n - 1;
+                while (l < r) {
+                    int sum = nums[i] + nums[j] + nums[l] + nums[r];
+                    if (sum == target) {
+                        res.add(Arrays.asList(nums[i], nums[j], nums[l], nums[r]));
+                        l++;
+                    } else if (sum < target) {
+                        l++;
+                    } else {
+                        r--;
+                    }
+                }
+            }
+        }
+        return res.stream().collect(Collectors.toList());
+    }
+
+    // 15. 3Sum
+    public static List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        int n = nums.length;
+        Set<List<Integer>> res = new HashSet<>();
+        for (int i = 0; i < n - 2; i++) {
+            int l = i + 1, r = n - 1;
+            while (l < r) {
+                int sum = nums[i] + nums[l] + nums[r];
+                if (sum == 0) {
+                    res.add(Arrays.asList(nums[i], nums[l], nums[r]));
+                    l++;
+                } else if (sum < 0) {
+                    l++;
+                } else {
+                    r--;
+                }
+            }
+        }
+        return res.stream().collect(Collectors.toList());
+    }
+
+    // 16. 3Sum Closest
+    public static int threeSumClosest(int[] nums, int target) {
+        Arrays.sort(nums);
+        int n = nums.length;
+        int res = nums[0] + nums[1] + nums[2];
+        for (int i = 0; i < n - 2; i++) {
+            int l = i + 1, r = n - 1;
+            while (l < r) {
+                int sum = nums[i] + nums[l] + nums[r];
+                if (sum == target) {
+                    return sum;
+                } else if (sum < target) {
+                    l++;
+                } else {
+                    r--;
+                }
+                if (Math.abs(sum - target) < Math.abs(res - target)) {
+                    res = sum;
+                }
+            }
+        }
+        return res;
+    }
+
+    // 792. Number of Matching Subsequences
+    public static int numMatchingSubseq(String S, String[] words) {
+        Map<Character, TreeSet<Integer>> map = new HashMap<>();
+        for (int i = S.length() - 1; i >= 0; i--) {
+            map.computeIfAbsent(S.charAt(i), k -> new TreeSet<>()).add(i);
+        }
+        int res = 0;
+        Set<String> set = new HashSet<>();
+        for (String word : words) {
+            if (set.contains(word)) {
+                res++;
+                continue;
+            }
+            int pre = -1;
+            boolean flag = true;
+            for (int i = 0; i < word.length(); i++) {
+                char c = word.charAt(i);
+                if (!map.containsKey(c)) {
+                    flag = false;
+                    break;
+                }
+                Integer cur = map.get(c).higher(pre);
+                if (cur == null) {
+                    flag = false;
+                    break;
+                }
+                pre = cur;
+            }
+            if (flag) {
+                set.add(word);
+                res++;
+            }
+        }
+        return res;
+    }
+
+    // 611. Valid Triangle Number
+    public static int triangleNumber(int[] nums) {
+        Arrays.sort(nums);
+        int n = nums.length, res = 0;
+        for (int c = n - 1; c >= 2; c--) {
+            int a = 0, b = c - 1;
+            while (a < b) {
+                if (nums[a] + nums[b] > nums[c]) {
+                    res += b - a;
+                    b--;
+                } else {
+                    a++;
+                }
+            }
+        }
+        return res;
+    }
+
+    // 1053. Previous Permutation With One Swap
+    public static int[] prevPermOpt1(int[] A) {
+        int i = A.length - 2;
+        while (i >= 0 && A[i] <= A[i + 1]) {
+            i--;
+        }
+        if (i < 0) {
+            return A;
+        }
+        int minIndex = i + 1;
+        for (int j = minIndex + 1; j < A.length; j++) {
+            if (A[j] < A[i] && A[j] > A[i + 1]) {
+                minIndex = j;
+            }
+        }
+        swap(A, i, minIndex);
+        return A;
+    }
+
+    // 974. Subarray Sums Divisible by K
+    public static int subarraysDivByK(int[] A, int K) {
+        int n = A.length, res = 0;
+        int[] preSum = new int[n + 1];
+        for (int i = 0; i < n; i++) {
+            preSum[i + 1] = preSum[i] + A[i];
+        }
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 1; i <= n; i++) {
+            int mod = (preSum[i] % K + K) % K;
+            map.put(mod, map.getOrDefault(mod, 0) + 1);
+        }
+        for (int value : map.values()) {
+            if (value > 1) {
+                res += value * (value - 1) / 2;
+            }
+        }
+        return res + map.getOrDefault(0, 0);
+    }
+
+    // 873. Length of Longest Fibonacci Subsequence
+//    public static int lenLongestFibSubseq(int[] A) {
+//        int n = A.length;
+//        int[][] dp = new int[n][n];
+//    }
+
+    // 63. Unique Paths II
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int m = obstacleGrid.length, n = obstacleGrid[0].length;
+        int[][] dp = new int[m][n];
+        dp[0][0] = 1 - obstacleGrid[0][0];
+        for (int i = 1; i < m; i++) {
+            dp[i][0] = Math.min(1 - obstacleGrid[i][0], dp[i - 1][0]);
+        }
+        for (int i = 1; i < n; i++) {
+            dp[0][i] = Math.min(1 - obstacleGrid[0][i], dp[0][i - 1]);
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[i][j] = obstacleGrid[i][j] == 1 ? 0 : dp[i - 1][j] + dp[i][j - 1];
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+
+    // 62. Unique Paths
+    public static int uniquePaths(int m, int n) {
+        int[][] dp = new int[m][n];
+        Arrays.fill(dp[0], 1);
+        for (int i = 0; i < m; i++) {
+            dp[i][0] = 1;
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+
+    // 1154. Day of the Year
+    public static int dayOfYear(String date) {
+        int[] leap = new int[] {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        int[] common = new int[] {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        String[] strs = date.split("-");
+        int year = Integer.valueOf(strs[0]);
+        int month = Integer.valueOf(strs[1]) - 1;
+        int day = Integer.valueOf(strs[2]);
+        int res = 0;
+        if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+            for (int i = 0; i < month; i++) {
+                res += leap[i];
+            }
+        } else {
+            for (int i = 0; i < month; i++) {
+                res += common[i];
+            }
+        }
+        res += day;
+        return res;
+    }
+
+    // 1109. Corporate Flight Bookings
+    public static int[] corpFlightBookings(int[][] bookings, int n) {
+        int[] res = new int[n];
+        for (int[] booking : bookings) {
+            for (int i = booking[0] - 1; i < booking[1]; i++) {
+                res[i] += booking[2];
+            }
+        }
+        return res;
+    }
+
+    // 59. Spiral Matrix II
+    public static int[][] generateMatrix(int n) {
+        int[] dI = new int[] {0, 1, 0, -1};
+        int[] dJ = new int[] {1, 0, -1, 0};
+        int dire = 0, num = n * n, i = 0, j = 0, x = 1;
+        int[][] res = new int[n][n];
+        while (x <= num) {
+            res[i][j] = x++;
+            i += dI[dire];
+            j += dJ[dire];
+            if (i >= n || i < 0 || j >= n || j < 0 || res[i][j] != 0) {
+                i -= dI[dire];
+                j -= dJ[dire];
+                dire = (dire + 1) % 4;
+                i += dI[dire];
+                j += dJ[dire];
+            }
+        }
+        return res;
+    }
+
+    // 1014. Best Sightseeing Pair
+    public static int maxScoreSightseeingPair(int[] A) {
+        int preMax = A[0] + 0, n = A.length;
+        int res = Integer.MIN_VALUE;
+        for (int j = 1; j < n; j++) {
+            res = Math.max(res, preMax + A[j] - j);
+            preMax = Math.max(preMax, A[j] + j);
+        }
+        return res;
+    }
+
+    // 287. Find the Duplicate Number
+    public static int findDuplicate(int[] nums) {
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            int index = Math.abs(nums[i]) - 1;
+            if (nums[index] < 0) {
+                return index + 1;
+            }
+            nums[index] = -nums[index];
+        }
+        return -1;
+    }
+
+    // 48. Rotate Image
+    public static void rotate(int[][] matrix) {
+        int n = matrix.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n / 2; j++) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[i][n - 1 - j];
+                matrix[i][n - 1 - j] = temp;
+            }
+        }
+    }
+
+    // 1035. Uncrossed Lines
+    public static int maxUncrossedLines(int[] A, int[] B) {
+        int lenA = A.length, lenB = B.length;
+        int[][] dp = new int[lenA + 1][lenB + 1];
+        for (int i = 0; i < lenA; i++) {
+            for (int j = 0; j < lenB; j++) {
+                if (A[i] == B[j]) {
+                    dp[i + 1][j + 1] = dp[i][j] + 1;
+                } else {
+                    dp[i + 1][j + 1] = Math.max(dp[i + 1][j], dp[i][j + 1]);
+                }
+            }
+        }
+        return dp[lenA][lenB];
+    }
+
+    // 495. Teemo Attacking
+    public static int findPoisonedDuration(int[] timeSeries, int duration) {
+        if (timeSeries == null || timeSeries.length == 0) {
+            return 0;
+        }
+        int res = 0;
+        int i = 0, n = timeSeries.length;
+        while (i < n) {
+            int j = i + 1;
+            while (j < n && timeSeries[j] <= timeSeries[j - 1] + duration) {
+                j++;
+            }
+            res += timeSeries[j - 1] - timeSeries[i] + duration;
+            i = j;
+        }
+        return res;
+    }
+
+    // 667. Beautiful Arrangement II
+    public static int[] constructArray(int n, int k) {
+        int[] ans = new int[n];
+        int c = 0;
+        for (int v = 1; v < n - k; v++) {
+            ans[c++] = v;
+        }
+        for (int i = 0; i <= k; i++) {
+            ans[c++] = (i % 2 == 0) ? (n - k + i / 2) : (n - i / 2);
+        }
+        return ans;
+    }
+
+    // 769. Max Chunks To Make Sorted
+    public static int maxChunksToSorted(int[] arr) {
+        int ans = 0, max = 0;
+        for (int i = 0; i < arr.length; ++i) {
+            max = Math.max(max, arr[i]);
+            if (max == i) {
+                ans++;
+            }
+        }
+        return ans;
+    }
+
+    // 565. Array Nesting
+    public static int arrayNesting(int[] nums) {
+        int res = 1;
+        boolean[] vis = new boolean[nums.length];
+        for (int i = nums.length - 1; i >= 0; i--) {
+            if (!vis[i]) {
+                int index = i;
+                Set<Integer> set = new HashSet<>();
+                while (!set.contains(nums[index])) {
+                    vis[index] = true;
+                    set.add(nums[index]);
+                    index = nums[index];
+                }
+                res = Math.max(set.size(), res);
+            }
+        }
+        return res;
+    }
+
+    // 1233. Remove Sub-Folders from the Filesystem
+    public static List<String> removeSubfolders(String[] folder) {
+        return null;
+    }
+
+    // 1031. Maximum Sum of Two Non-Overlapping Subarrays
+    public static int maxSumTwoNoOverlap(int[] A, int L, int M) {
+        return 0;
+    }
+
+    // 1267. Count Servers that Communicate
+    public static int countServers(int[][] grid) {
+        if (grid == null || grid.length == 0 || grid[0].length == 0) {
+            return 0;
+        }
+        int numRows = grid.length;
+        int numCols = grid[0].length;
+        int rowCount[] = new int[numRows];
+        int colCount[] = new int[numCols];
+        int totalServers = 0;
+        for (int row = 0; row < numRows; row++) {
+            for (int col = 0; col < numCols; col++) {
+                if (grid[row][col] == 1) {
+                    rowCount[row]++;
+                    colCount[col]++;
+                    totalServers++;
+                }
+            }
+        }
+        for (int row = 0; row < numRows; row++) {
+            for (int col = 0; col < numCols; col++) {
+                if (grid[row][col] == 1) {
+                    if (rowCount[row] == 1 && colCount[col] == 1) {
+                        totalServers--;
+                    }
+                }
+            }
+        }
+        return totalServers;
+    }
+
+    // 78. Subsets
+    public static List<List<Integer>> subsets(int[] nums) {
+        int n = nums.length;
+        List<Integer>[] res = new List[(int) Math.pow(2, n)];
+        int index = 0;
+        res[index++] = Collections.EMPTY_LIST;
+        int end = 1;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < end; j++) {
+                List<Integer> tmp = new ArrayList<>();
+                tmp.addAll(res[j]);
+                tmp.add(nums[i]);
+                res[index++] = tmp;
+            }
+            end *= 2;
+        }
+        return Arrays.stream(res).collect(Collectors.toList());
+    }
+
+    // 238. Product of Array Except Self
+    public static int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+        int[] res = new int[n];
+        Arrays.fill(res, 1);
+        for (int i = 1; i < n; i++) {
+            res[i] = res[i - 1] * nums[i - 1];
+        }
+        int x = nums[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            res[i] = res[i] * x;
+            x *= nums[i];
+        }
+        return res;
+    }
+
+    // 969. Pancake Sorting
+    public static List<Integer> pancakeSort(int[] A) {
+        int n = A.length;
+        List<Integer> res = new ArrayList<>();
+        for (int i = n - 1; i > 0; i--) {
+            if (A[i] == i + 1) {
+                continue;
+            }
+            int index = 0;
+            for (int j = 0; j < i; j++) {
+                if (A[j] == i + 1) {
+                    reverse(A, 0, j);
+                    res.add(j + 1);
+                }
+            }
+            reverse(A, 0, i);
+            res.add(i + 1);
+        }
+        return res;
+    }
+
+    // 442. Find All Duplicates in an Array
+    public static List<Integer> findDuplicates(int[] nums) {
+        List<Integer> res = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            int index = Math.abs(nums[i]) - 1;
+            if (nums[index] < 0) {
+                res.add(index + 1);
+            }
+            nums[index] = -nums[index];
+        }
+        return res;
+    }
+
+    // 1222. Queens That Can Attack the King
+    public static List<List<Integer>> queensAttacktheKing(int[][] queens, int[] king) {
+        List<List<Integer>> result = new ArrayList<>();
+        boolean[][] seen = new boolean[8][8];
+        for (int[] queen : queens) {
+            seen[queen[0]][queen[1]] = true;
+        }
+        int[] dirs = {-1, 0, 1};
+        for (int dx : dirs) {
+            for (int dy : dirs) {
+                if (dx == 0 && dy == 0) {
+                    continue;
+                }
+                int x = king[0], y = king[1];
+                while (x + dx >= 0 && x + dx < 8 && y + dy >= 0 && y + dy < 8) {
+                    x += dx;
+                    y += dy;
+                    if (seen[x][y]) {
+                        result.add(Arrays.asList(x, y));
+                        break;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    // 950. Reveal Cards In Increasing Order
+    public static int[] deckRevealedIncreasing(int[] deck) {
+        Arrays.sort(deck);
+        LinkedList<Integer> res = new LinkedList<>();
+        for (int i = deck.length - 1; i >= 0; i--) {
+            res.addFirst(deck[i]);
+            if (i != 0) {
+                res.offerFirst(res.pollLast());
+            }
+        }
+        return res.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+    // 1128. Number of Equivalent Domino Pairs
+    public static int numEquivDominoPairs(int[][] dominoes) {
+        Map<String, Integer> map = new HashMap<>();
+        int res = 0;
+        for (int[] domino : dominoes) {
+            StringBuilder sb = new StringBuilder();
+            if (domino[0] < domino[1]) {
+                sb.append(domino[0]).append("_").append(domino[1]);
+            } else {
+                sb.append(domino[1]).append("_").append(domino[0]);
+            }
+            String key = sb.toString();
+            if (map.containsKey(key)) {
+                res += map.get(key);
+            }
+            map.put(key, map.getOrDefault(key, 0) + 1);
+        }
+        return res;
+    }
+
+    static class Point {
+        int x, y;
+
+        public Point(int _x, int _y) {
+            x = _x;
+            y = _y;
+        }
+    }
+
+    // 1018. Binary Prefix Divisible By 5
+    public static List<Boolean> prefixesDivBy5(int[] A) {
+        int num = 0;
+        List<Boolean> res = new ArrayList<>();
+        for (int x : A) {
+            num = (num << 1 | x) % 5;
+            res.add(num == 0);
+        }
+        return res;
+    }
+
+    // 1184. Distance Between Bus Stops
+    public static int distanceBetweenBusStops(int[] distance, int start, int destination) {
+        int dis1 = 0, len = distance.length;
+        for (int i = start; i % len != destination; i++) {
+            dis1 += distance[i % len];
+        }
+        int dis2 = 0;
+        for (int i = destination; i % len != start; i++) {
+            dis2 += distance[(i + len) % len];
+        }
+        return Math.min(dis1, dis2);
+    }
+
+    // 1013. Partition Array Into Three Parts With Equal Sum
+    public static boolean canThreePartsEqualSum(int[] A) {
+        int sum = 0;
+        for (int x : A) {
+            sum += x;
+        }
+        if (sum % 3 != 0) {
+            return false;
+        }
+        sum /= 3;
+        int count = 0;
+        for (int i = 0; i < A.length; ) {
+            int tmpSum = A[i];
+            int j = i + 1;
+            if (count < 2) {
+                while (j < A.length && tmpSum != sum) {
+                    tmpSum += A[j++];
+                }
+            } else {
+                while (j < A.length) {
+                    tmpSum += A[j++];
+                }
+            }
+            count++;
+            i = j;
+        }
+        return count == 3;
+    }
+
+    // 1089. Duplicate Zeros
+    public static void duplicateZeros(int[] arr) {
+        int possibleDups = 0;
+        int length_ = arr.length - 1;
+
+        for (int left = 0; left <= length_ - possibleDups; left++) {
+
+            if (arr[left] == 0) {
+
+                if (left == length_ - possibleDups) {
+                    arr[length_] = 0;
+                    length_ -= 1;
+                    break;
+                }
+                possibleDups++;
+            }
+        }
+
+        int last = length_ - possibleDups;
+
+        for (int i = last; i >= 0; i--) {
+            if (arr[i] == 0) {
+                arr[i + possibleDups] = 0;
+                possibleDups--;
+                arr[i + possibleDups] = 0;
+            } else {
+                arr[i + possibleDups] = arr[i];
+            }
+        }
+    }
+
+    // 1260. Shift 2D Grid
+    public static List<List<Integer>> shiftGrid(int[][] grid, int k) {
+        int m = grid.length, n = grid[0].length, len = m * n;
+        k %= len;
+        for (int i = 0; i < (len - k) / 2; i++) {
+            int temp = grid[i / n][i % n];
+            grid[i / n][i % n] = grid[(len - k - 1 - i) / n][(len - k - 1 - i) % n];
+            grid[(len - k - 1 - i) / n][(len - k - 1 - i) % n] = temp;
+        }
+        for (int i = 0; i < k / 2; i++) {
+            int temp = grid[(len - k + i) / n][(len - k + i) % n];
+            grid[(len - k + i) / n][(len - k + i) % n] = grid[(len - 1 - i) / n][(len - 1 - i) % n];
+            grid[(len - 1 - i) / n][(len - 1 - i) % n] = temp;
+        }
+        for (int i = 0; i < len / 2; i++) {
+            int temp = grid[i / n][i % n];
+            grid[i / n][i % n] = grid[(len - 1 - i) / n][(len - 1 - i) % n];
+            grid[(len - 1 - i) / n][(len - 1 - i) % n] = temp;
+        }
+        List<List<Integer>> res = new ArrayList<>();
+        for (int i = 0; i < m; i++) {
+            List<Integer> list = new ArrayList<>();
+            for (int j = 0; j < n; j++) {
+                list.add(grid[i][j]);
+            }
+            res.add(list);
+        }
+        return res;
+    }
+
+    // 1287. Element Appearing More Than 25% In Sorted Array
+    public static int findSpecialInteger(int[] arr) {
+        int len = arr.length, num = len % 4 == 0 ? len / 4 + 1 : (int) Math.ceil(len / 4.0);
+        for (int i = 0, j = num - 1; j < len; i++, j++) {
+            if (arr[i] == arr[j]) {
+                return arr[i];
+            }
+        }
+        return -1;
+    }
+
+    // 999. Available Captures for Rook
+    public static int numRookCaptures(char[][] board) {
+        int x = 0, y = 0, res = 0;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j] == 'R') {
+                    x = i;
+                    y = j;
+                    break;
+                }
+            }
+        }
+        for (int i = x - 1; i >= 0 && board[i][y] != 'B'; i--) {
+            if (board[i][y] == 'p') {
+                res++;
+                break;
+            }
+        }
+
+        for (int i = x + 1; i < 8 && board[i][y] != 'B'; i++) {
+            if (board[i][y] == 'p') {
+                res++;
+                break;
+            }
+        }
+
+        for (int i = y - 1; i >= 0 && board[x][i] != 'B'; i--) {
+            if (board[x][i] == 'p') {
+                res++;
+                break;
+            }
+        }
+
+        for (int i = y + 1; i < 8 && board[x][i] != 'B'; i++) {
+            if (board[x][i] == 'p') {
+                res++;
+                break;
+            }
+        }
+
+        return res;
+    }
+
+    // 1200. Minimum Absolute Difference
+    public static List<List<Integer>> minimumAbsDifference(int[] arr) {
+        Arrays.sort(arr);
+        List<List<Integer>> res = new ArrayList<>();
+        int minDis = Integer.MAX_VALUE;
+        for (int i = 1; i < arr.length; i++) {
+            minDis = Math.min(minDis, arr[i] - arr[i - 1]);
+        }
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] - arr[i - 1] == minDis) {
+                res.add(Arrays.asList(arr[i - 1], arr[i]));
+            }
+        }
+        return res;
+    }
+
+    // 154. Find Minimum in Rotated Sorted Array II
+    public static int findMinII(int[] nums) {
+        int l = 0, r = nums.length - 1;
+        while (l <= r) {
+            int mid = (l + r) / 2;
+            if (nums[mid] > nums[r]) {
+                l = mid + 1;
+            } else if (nums[mid] < nums[r]) {
+                r = mid;
+            } else {
+                r--;
+            }
+        }
+        return nums[l];
+    }
+
+    // 1010. Pairs of Songs With Total Durations Divisible by 60
+    public static int numPairsDivisibleBy60(int[] time) {
+        int res = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int t : time) {
+            t %= 60;
+            int d = (60 - t) % 60;
+            res += map.getOrDefault(d, 0);
+            map.put(t, map.getOrDefault(t, 0) + 1);
+        }
+        return res;
+    }
+
+    // 228. Summary Ranges
+    public static List<String> summaryRanges(int[] nums) {
+        List<String> res = new ArrayList<>();
+        int start = 0, end = 1, len = nums.length;
+        while (end <= len) {
+            while (end < len && nums[end] == nums[end - 1] + 1) {
+                end++;
+            }
+            if (start == end - 1) {
+                res.add(String.valueOf(nums[start]));
+            } else {
+                res.add(nums[start] + "->" + nums[end - 1]);
+            }
+            start = end;
+            end = start + 1;
+        }
+        return res;
     }
 
     // 64. Minimum Path Sum
