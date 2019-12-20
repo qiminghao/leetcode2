@@ -627,6 +627,156 @@ public class Main {
 
 //        System.out.println(removeDuplicates(new int[] {1, 1, 1, 2, 2, 3}));
 //        System.out.println(removeDuplicates(new int[] {0, 0, 1, 1, 1, 1, 2, 3, 3}));
+
+//        System.out.println(groupThePeople(new int[] {3, 3, 3, 3, 3, 1, 3}));
+
+//        System.out.println(fractionAddition("-1/2+1/2+1/3"));
+//        System.out.println(fractionAddition("5/3+1/3"));
+
+        System.out.println(brokenCalc(2, 3));
+        System.out.println(brokenCalc(5, 8));
+        System.out.println(brokenCalc(3, 10));
+        System.out.println(brokenCalc(1024, 1));
+    }
+
+    // 991. Broken Calculator
+    public static int brokenCalc(int x, int y) {
+        if (x >= y) {
+            return x - y;
+        }
+        int res = 0;
+        while (x < y) {
+            if ((y & 1) == 1) {
+                y++;
+            } else {
+                y /= 2;
+            }
+            res++;
+        }
+        return res + x - y;
+    }
+
+    // 592. Fraction Addition and Subtraction
+    public static String fractionAddition(String expression) {
+        int i = 0, n = expression.length();
+        Fraction fraction = new Fraction(0, 1);
+        while (i < n) {
+            int j = i + 1;
+            while (j < n && expression.charAt(j) != '+' && expression.charAt(j) != '-') {
+                j++;
+            }
+            fraction = fraction.add(new Fraction(expression.substring(i, j)));
+            i = j;
+            if (i < n && expression.charAt(j) == '+') {
+                i++;
+            }
+        }
+        return fraction.numerator + "/" + fraction.denominator;
+    }
+
+    private static class Fraction {
+        int numerator;
+        int denominator;
+
+        public Fraction(int numerator, int denominator) {
+            this.numerator = numerator;
+            this.denominator = denominator;
+        }
+
+        public Fraction(String s) {
+            String[] strs = s.split("/");
+            this.numerator = Integer.valueOf(strs[0]);
+            this.denominator = Integer.valueOf(strs[1]);
+        }
+
+        public Fraction add(Fraction addend) {
+            int x = this.numerator * addend.denominator + addend.numerator * this.denominator;
+            if (x == 0) {
+                return new Fraction(0, 1);
+            }
+            int y = this.denominator * addend.denominator;
+            int gcd = gcd(Math.abs(x), Math.abs(y));
+            return new Fraction(x / gcd, y / gcd);
+        }
+    }
+
+    public static int gcd(int m, int n) {
+        return n == 0 ? m : gcd(n, m % n);
+    }
+
+    // 89. Gray Code
+    public static List<Integer> grayCode(int n) {
+        List<Integer> res = new ArrayList<>((int) Math.pow(2, n));
+        if (n == 0) {
+            res.add(0);
+            return res;
+        }
+        res.add(0);
+        for (int i = 0; i < n; i++) {
+            int temp = 1 << i;
+            for (int j = res.size() - 1; j >= 0; j--) {
+                res.add(res.get(j) ^ temp);
+            }
+        }
+        return res;
+    }
+
+    // 1282. Group the People Given the Group Size They Belong To
+    public static List<List<Integer>> groupThePeople(int[] groupSizes) {
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for (int i = groupSizes.length - 1; i >= 0; i--) {
+            map.computeIfAbsent(groupSizes[i], k -> new ArrayList<>()).add(i);
+        }
+        List<List<Integer>> res = new ArrayList<>();
+        for (Map.Entry<Integer, List<Integer>> entry : map.entrySet()) {
+            int size = entry.getKey();
+            List<Integer> list = entry.getValue();
+            int count = list.size() / size;
+            for (int i = 0; i < count; i++) {
+                List<Integer> temp = new ArrayList<>();
+                for (int j = 0; j < size; j++) {
+                    temp.add(list.get(i * size + j));
+                }
+                res.add(temp);
+            }
+        }
+        return res;
+    }
+
+    // 975. Odd Even Jump
+    public static int oddEvenJumps(int[] A) {
+        int n = A.length;
+        if (n <= 1) {
+            return n;
+        }
+        boolean[] odd = new boolean[n];
+        boolean[] even = new boolean[n];
+        odd[n - 1] = even[n - 1] = true;
+        TreeMap<Integer, Integer> map = new TreeMap<>();
+        map.put(A[n - 1], n - 1);
+        for (int i = n - 2; i >= 0; i--) {
+            if (map.containsKey(A[i])) {
+                odd[i] = even[map.get(A[i])];
+                even[i] = odd[map.get(A[i])];
+            } else {
+                Integer lower = map.lowerKey(A[i]);
+                Integer higher = map.higherKey(A[i]);
+                if (lower != null) {
+                    even[i] = odd[map.get(lower)];
+                }
+                if (higher != null) {
+                    odd[i] = even[map.get(higher)];
+                }
+            }
+            map.put(A[i], i);
+        }
+        int res = 0;
+        for (int i = 0; i < n; i++) {
+            if (odd[i]) {
+                res++;
+            }
+        }
+        return res;
     }
 
     // 80. Remove Duplicates from Sorted Array II
