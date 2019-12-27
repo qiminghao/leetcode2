@@ -1,6 +1,8 @@
 import array.ThreeSum;
 import util.CommonUtil;
+import util.Pair;
 
+import javax.management.j2ee.statistics.JCAStats;
 import javax.swing.*;
 import java.lang.reflect.Array;
 import java.util.*;
@@ -633,10 +635,887 @@ public class Main {
 //        System.out.println(fractionAddition("-1/2+1/2+1/3"));
 //        System.out.println(fractionAddition("5/3+1/3"));
 
-        System.out.println(brokenCalc(2, 3));
-        System.out.println(brokenCalc(5, 8));
-        System.out.println(brokenCalc(3, 10));
-        System.out.println(brokenCalc(1024, 1));
+//        System.out.println(brokenCalc(2, 3));
+//        System.out.println(brokenCalc(5, 8));
+//        System.out.println(brokenCalc(3, 10));
+//        System.out.println(brokenCalc(1024, 1));
+
+//        System.out.println(allPathsSourceTarget(new int[][] {{1, 2}, {3}, {3}, {}}));
+
+//        System.out.println(minRemoveToMakeValid("lee(t(c)o)de)"));
+//        System.out.println(minRemoveToMakeValid("a)b(c)d"));
+//        System.out.println(minRemoveToMakeValid("))(("));
+
+//        System.out.println(ladderLength("hit", "cog", Arrays.asList("hot", "dot", "dog", "lot", "log")));
+
+//        List<List<Integer>> nums = new ArrayList<>();
+//        nums.add(Arrays.asList(4, 10, 15, 24, 26));
+//        nums.add(Arrays.asList(0, 9, 12, 20));
+//        nums.add(Arrays.asList(5, 18, 22, 30));
+//        System.out.println(Arrays.toString(smallestRange(nums)));
+//        nums.clear();
+//        nums.add(Arrays.asList(1, 3, 5, 7, 9, 10));
+//        nums.add(Arrays.asList(2, 4, 6, 8, 10));
+//        System.out.println(Arrays.toString(smallestRange(nums)));
+
+//        System.out.println(minWindow("ADOBECODEBANC", "ABC"));
+//        System.out.println(minWindow("a", "aa"));
+
+//        System.out.println(Arrays.toString(maxSlidingWindow(new int[] {1, 3, -1, -3, 5, 3, 6, 7}, 3)));
+//        System.out.println(Arrays.toString(maxSlidingWindow(new int[] {1, 3, 1, 2, 0, 5}, 3)));
+
+//        System.out.println(findSubstring("barfoothefoobarman", new String[] {"foo", "bar"}));
+
+//        System.out.println(compress(new char[] {'a', 'a', 'b', 'b', 'c', 'c', 'c'}));
+//        System.out.println(compress(new char[] {'a'}));
+//        System.out.println(compress(new char[] {'a', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'}));
+
+//        System.out.println(alphabetBoardPath("leet"));
+//        System.out.println(alphabetBoardPath("zdz"));
+
+//        System.out.println(largestRectangleArea(new int[] {2, 1, 5, 6, 2, 3}));
+
+//        System.out.println(combinationSum3(3, 7));
+//        System.out.println(combinationSum3(3, 9));
+    }
+
+    // 719. Find K-th Smallest Pair Distance
+    public static int smallestDistancePair(int[] nums, int k) {
+//        // Time Limit Exceeded
+//        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
+//        for (int i = nums.length - 1; i >= 0; i--) {
+//            for (int j = i - 1; j >= 0; j--) {
+//                int dis = Math.abs(nums[i] - nums[j]);
+//                if (maxHeap.size() < k) {
+//                    maxHeap.add(dis);
+//                } else if (dis < maxHeap.peek()) {
+//                    maxHeap.remove();
+//                    maxHeap.add(dis);
+//                }
+//            }
+//        }
+//        return maxHeap.peek();
+
+        Arrays.sort(nums);
+        int maxDis = nums[nums.length - 1] - nums[0];
+        int[] count = new int[maxDis + 1];
+        for (int i = nums.length - 1; i >= 0; i--) {
+            for (int j = i - 1; j >= 0; j--) {
+                count[nums[i] - nums[j]]++;
+            }
+        }
+        int c = 0;
+        for (int i = 0; i <= maxDis; i++) {
+            if (c + count[i] >= k) {
+                return i;
+            }
+            c += count[i];
+        }
+        return 0;
+    }
+
+    // 216. Combination Sum III
+    public static List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> res = new ArrayList<>();
+        combinationSum3Helper(k, n, 1, res, new Stack<>());
+        return res;
+    }
+
+    public static void combinationSum3Helper(int k, int n, int begin, List<List<Integer>> res, Stack<Integer> list) {
+        if (k < 0) {
+            return;
+        }
+        if (k == 0 && n == 0) {
+            List<Integer> temp = new ArrayList<>(list);
+            res.add(temp);
+            return;
+        }
+        for (int i = begin; i <= 10 - k; i++) {
+            list.push(i);
+            combinationSum3Helper(k - 1, n - i, i + 1, res, list);
+            list.pop();
+        }
+    }
+
+    // 1266. Minimum Time Visiting All Points
+    public static int minTimeToVisitAllPoints(int[][] points) {
+        int preX = points[0][0], preY = points[0][1];
+        int res = 0;
+        for (int i = 1; i < points.length; i++) {
+            int curX = points[i][0], curY = points[i][1];
+            res += Math.max(Math.abs(curX - preX), Math.abs(curY - preY));
+            preX = curX;
+            preY = curY;
+        }
+        return res;
+    }
+
+    // 670. Maximum Swap
+    public static int maximumSwap(int num) {
+        char[] A = Integer.toString(num).toCharArray();
+        int[] last = new int[10];
+        for (int i = 0; i < A.length; i++) {
+            last[A[i] - '0'] = i;
+        }
+
+        for (int i = 0; i < A.length; i++) {
+            for (int d = 9; d > A[i] - '0'; d--) {
+                if (last[d] > i) {
+                    char tmp = A[i];
+                    A[i] = A[last[d]];
+                    A[last[d]] = tmp;
+                    return Integer.valueOf(new String(A));
+                }
+            }
+        }
+        return num;
+    }
+
+    // 84. Largest Rectangle in Histogram
+    public static int largestRectangleArea(int[] heights) {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(-1);
+        int res = 0;
+        for (int i = 0; i < heights.length; i++) {
+            while (stack.peek() != -1 && heights[stack.peek()] >= heights[i]) {
+                res = Math.max(res, heights[stack.pop()] * (i - stack.peek() - 1));
+            }
+            stack.push(i);
+        }
+        while (stack.peek() != -1) {
+            res = Math.max(res, heights[stack.pop()] * (heights.length - stack.peek() - 1));
+        }
+        return res;
+    }
+
+    // 962. Maximum Width Ramp
+    public static int maxWidthRamp(int[] A) {
+        int N = A.length;
+        Integer[] B = new Integer[N];
+        for (int i = 0; i < N; ++i) {
+            B[i] = i;
+        }
+
+        Arrays.sort(B, (i, j) -> ((Integer) A[i]).compareTo(A[j]));
+
+        int ans = 0;
+        int m = N;
+        for (int i : B) {
+            ans = Math.max(ans, i - m);
+            m = Math.min(m, i);
+        }
+
+        return ans;
+    }
+
+    // 90. Subsets II
+    public static List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        res.add(Collections.EMPTY_LIST);
+        if (nums == null || nums.length == 0) {
+            return res;
+        }
+        Arrays.sort(nums);
+        for (int num : nums) {
+            int size = res.size();
+            for (int i = 0; i < size; i++) {
+                List<Integer> tmpList = new ArrayList<>(res.get(i));
+                tmpList.add(num);
+                res.add(tmpList);
+            }
+        }
+        return res.stream().distinct().collect(Collectors.toList());
+    }
+
+    // 954. Array of Doubled Pairs
+    public static boolean canReorderDoubled(int[] A) {
+        TreeMap<Integer, Integer> posMap = new TreeMap<>();
+        TreeMap<Integer, Integer> negMap = new TreeMap<>();
+        int zeroCount = 0;
+        for (int a : A) {
+            if (a > 0) {
+                posMap.put(a, posMap.getOrDefault(a, 0) + 1);
+            } else if (a < 0) {
+                negMap.put(-a, negMap.getOrDefault(-a, 0) + 1);
+            } else {
+                zeroCount++;
+            }
+        }
+        if ((zeroCount & 1) == 1) {
+            return false;
+        }
+        int size = posMap.size();
+        for (int i = 0; i < size; i++) {
+            Map.Entry<Integer, Integer> entry = posMap.firstEntry();
+            int key = entry.getKey();
+            int value = entry.getValue();
+            posMap.remove(key);
+            Integer doubled = posMap.get(2 * key);
+            if (doubled == null || doubled.intValue() < value) {
+                return false;
+            } else if (doubled > value) {
+                posMap.put(2 * key, doubled - value);
+            } else if (doubled == value) {
+                posMap.remove(2 * key);
+                i++;
+            }
+        }
+        size = negMap.size();
+        for (int i = 0; i < size; i++) {
+            Map.Entry<Integer, Integer> entry = negMap.firstEntry();
+            int key = entry.getKey();
+            int value = entry.getValue();
+            negMap.remove(key);
+            Integer doubled = negMap.get(2 * key);
+            if (doubled == null || doubled.intValue() < value) {
+                return false;
+            } else if (doubled > value) {
+                negMap.put(2 * key, doubled - value);
+            } else if (doubled == value) {
+                negMap.remove(2 * key);
+                i++;
+            }
+        }
+        return true;
+    }
+
+    // 229. Majority Element II
+    public static List<Integer> majorityElementII(int[] nums) {
+        List<Integer> res = new ArrayList<>();
+        if (nums == null || nums.length == 0) {
+            return res;
+        }
+        int majorityA = nums[0], majorityB = nums[0];
+        int countA = 0, countB = 0;
+        for (int num : nums) {
+            if (num == majorityA) {
+                countA++;
+                continue;
+            }
+            if (num == majorityB) {
+                countB++;
+                continue;
+            }
+            if (countA == 0) {
+                majorityA = num;
+                countA++;
+                continue;
+            }
+            if (countB == 0) {
+                majorityB = num;
+                countB++;
+                continue;
+            }
+            countA--;
+            countB--;
+        }
+        countA = countB = 0;
+        for (int num : nums) {
+            if (num == majorityA) {
+                countA++;
+            } else if (num == majorityB) {
+                countB++;
+            }
+        }
+        if (countA > nums.length / 3) {
+            res.add(majorityA);
+        }
+        if (countB > nums.length / 3) {
+            res.add(majorityB);
+        }
+        return res;
+    }
+
+    // 摩尔投票法模板方法 n/k众数
+    // Majority Element
+    public static List<Integer> mooreVoting(int[] nums, int k) {
+        List<Integer> res = new ArrayList<>();
+        if (nums == null || nums.length == 0) {
+            return res;
+        }
+        int[] candidates = new int[k - 1];
+        int[] votes = new int[k - 1];
+        Arrays.fill(candidates, nums[0]);
+        for (int num : nums) {
+            boolean voted = false;
+            for (int i = 0; i < k - 1; i++) {
+                if (candidates[i] == num) {
+                    votes[i]++;
+                    voted = true;
+                    break;
+                }
+            }
+            if (voted) {
+                continue;
+            }
+            boolean zero = false;
+            for (int i = 0; i < k - 1; i++) {
+                if (votes[i] == 0) {
+                    candidates[i] = num;
+                    votes[i]++;
+                    zero = true;
+                    break;
+                }
+            }
+            if (zero) {
+                continue;
+            }
+            for (int i = 0; i < k - 1; i++) {
+                votes[i]--;
+            }
+        }
+        Arrays.fill(votes, 0);
+        for (int num : nums) {
+            for (int i = 0; i < k - 1; i++) {
+                if (candidates[i] == num) {
+                    votes[i]++;
+                    break;
+                }
+            }
+        }
+        for (int i = 0; i < k - 1; i++) {
+            if (votes[i] > nums.length / k) {
+                res.add(candidates[i]);
+            }
+        }
+        return res;
+    }
+
+    // 825. Friends Of Appropriate Ages
+    public static int numFriendRequests(int[] ages) {
+        int[] count = new int[121];
+        for (int age : ages) {
+            count[age]++;
+        }
+        int res = 0;
+        for (int ageA = 1; ageA <= 120; ageA++) {
+            for (int ageB = 1; ageB <= ageA; ageB++) {
+                if ((ageA < 100 && 100 < ageB) || ageA * 0.5 + 7 >= ageB) {
+                    continue;
+                }
+                res += count[ageA] * count[ageB];
+                if (ageA == ageB) {
+                    res -= count[ageA];
+                }
+            }
+        }
+        return res;
+    }
+
+    // 120. Triangle
+    public static int minimumTotal(List<List<Integer>> triangle) {
+        int size = triangle.size();
+        for (int i = 1; i < size; i++) {
+            List<Integer> list = triangle.get(i);
+            List<Integer> preList = triangle.get(i - 1);
+            int tmpSize = list.size();
+            list.set(0, preList.get(0) + list.get(0));
+            for (int j = 1; j < tmpSize - 1; j++) {
+                list.set(j, Math.min(preList.get(j - 1), preList.get(j)) + list.get(j));
+            }
+            list.set(tmpSize - 1, preList.get(tmpSize - 2) + list.get(tmpSize - 1));
+        }
+        return triangle.get(size - 1).stream().min(Comparator.comparingInt(Integer::intValue)).get();
+    }
+
+    // 73. Set Matrix Zeroes
+    public static void setZeroes(int[][] matrix) {
+        Boolean isCol = false;
+        int R = matrix.length;
+        int C = matrix[0].length;
+
+        for (int i = 0; i < R; i++) {
+
+            // Since first cell for both first row and first column is the same i.e. matrix[0][0]
+            // We can use an additional variable for either the first row/column.
+            // For this solution we are using an additional variable for the first column
+            // and using matrix[0][0] for the first row.
+            if (matrix[i][0] == 0) {
+                isCol = true;
+            }
+
+            for (int j = 1; j < C; j++) {
+                // If an element is zero, we set the first element of the corresponding row and column to 0
+                if (matrix[i][j] == 0) {
+                    matrix[0][j] = 0;
+                    matrix[i][0] = 0;
+                }
+            }
+        }
+
+        // Iterate over the array once again and using the first row and first column, update the elements.
+        for (int i = 1; i < R; i++) {
+            for (int j = 1; j < C; j++) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+
+        // See if the first row needs to be set to zero as well
+        if (matrix[0][0] == 0) {
+            for (int j = 0; j < C; j++) {
+                matrix[0][j] = 0;
+            }
+        }
+
+        // See if the first column needs to be set to zero as well
+        if (isCol) {
+            for (int i = 0; i < R; i++) {
+                matrix[i][0] = 0;
+            }
+        }
+    }
+
+    // 105. Construct Binary Tree from Preorder and Inorder Traversal
+    public static TreeNode buildTree(int[] preorder, int[] inorder) {
+        return buildTreeHelper(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
+    }
+
+    private static TreeNode buildTreeHelper(int[] pre, int preL, int preR, int[] in, int inL, int inR) {
+        if (preL > preR) {
+            return null;
+        }
+        TreeNode root = new TreeNode(pre[preL]);
+        int k = 0;
+        for (int i = inL; i <= inR; i++) {
+            if (pre[preL] == in[i]) {
+                k = i;
+                break;
+            }
+        }
+        root.left = buildTreeHelper(pre, preL + 1, preR - inR + k, in, inL, k - 1);
+        root.right = buildTreeHelper(pre, preR - inR + k + 1, preR, in, k + 1, inR);
+        return root;
+    }
+
+    // 695. Max Area of Island
+    public static int maxAreaOfIsland(int[][] grid) {
+        if (grid == null || grid.length == 0 || grid[0].length == 0) {
+            return 0;
+        }
+        int m = grid.length, n = grid[0].length;
+        int res = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 1) {
+                    int count = 0;
+                    Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
+                    queue.add(new Pair<>(i, j));
+                    grid[i][j] = 0;
+                    while (!queue.isEmpty()) {
+                        int size = queue.size();
+                        count += size;
+                        for (int k = 0; k < size; k++) {
+                            Pair<Integer, Integer> cur = queue.remove();
+                            int cur_i = cur.getElement0(), cur_j = cur.getElement1();
+                            if (cur_i - 1 >= 0 && grid[cur_i - 1][cur_j] == 1) {
+                                queue.add(new Pair<>(cur_i - 1, cur_j));
+                                grid[cur_i - 1][cur_j] = 0;
+                            }
+                            if (cur_i + 1 < m && grid[cur_i + 1][cur_j] == 1) {
+                                queue.add(new Pair<>(cur_i + 1, cur_j));
+                                grid[cur_i + 1][cur_j] = 0;
+                            }
+                            if (cur_j - 1 >= 0 && grid[cur_i][cur_j - 1] == 1) {
+                                queue.add(new Pair<>(cur_i, cur_j - 1));
+                                grid[cur_i][cur_j - 1] = 0;
+                            }
+                            if (cur_j + 1 < n && grid[cur_i][cur_j + 1] == 1) {
+                                queue.add(new Pair<>(cur_i, cur_j + 1));
+                                grid[cur_i][cur_j + 1] = 0;
+                            }
+                        }
+                    }
+                    res = Math.max(res, count);
+                }
+            }
+        }
+        return res;
+    }
+
+    // 768. Max Chunks To Make Sorted II
+    public static int maxChunksToSortedII(int[] arr) {
+        Stack<Integer> stack = new Stack<>();
+        for (int x : arr) {
+            if (stack.isEmpty() || x >= stack.peek()) {
+                stack.push(x);
+            } else {
+                int top = stack.pop();
+                while (!stack.isEmpty() && x < stack.peek()) {
+                    stack.pop();
+                }
+                stack.push(top);
+            }
+        }
+        return stack.size();
+    }
+
+    // 1144. Decrease Elements To Make Array Zigzag
+    public static int movesToMakeZigzag(int[] nums) {
+        int sum1 = 0;
+        for (int i = 0; i < nums.length; i += 2) {
+            if (i == 0) {
+                sum1 += Math.max(0, nums[i] - nums[i + 1] + 1);
+            } else if (i == nums.length - 1) {
+                sum1 += Math.max(0, nums[i] - nums[i - 1] + 1);
+            } else {
+                sum1 += Math.max(0, nums[i] - Math.min(nums[i - 1], nums[i + 1]) + 1);
+            }
+        }
+        int sum2 = 0;
+        for (int i = 1; i < nums.length; i += 2) {
+            if (i == nums.length - 1) {
+                sum2 += Math.max(0, nums[i] - nums[i - 1] + 1);
+            } else {
+                sum2 += Math.max(0, nums[i] - Math.min(nums[i - 1], nums[i + 1]) + 1);
+            }
+        }
+        return Math.min(sum1, sum2);
+    }
+
+    // 1138. Alphabet Board Path
+    public static String alphabetBoardPath(String target) {
+        int x = 0, y = 0;
+        StringBuilder sb = new StringBuilder();
+        for (char ch : target.toCharArray()) {
+            int x1 = (ch - 'a') % 5, y1 = (ch - 'a') / 5;
+            sb.append(String.join("", Collections.nCopies(Math.max(0, y - y1), "U")) +
+                    String.join("", Collections.nCopies(Math.max(0, x1 - x), "R")) +
+                    String.join("", Collections.nCopies(Math.max(0, x - x1), "L")) +
+                    String.join("", Collections.nCopies(Math.max(0, y1 - y), "D")) + "!");
+            x = x1;
+            y = y1;
+        }
+        return sb.toString();
+    }
+
+    // 443. String Compression
+    public static int compress(char[] chars) {
+        List<Character> res = new ArrayList<>();
+        int n = chars.length, start = 0, end = 0, index = 0;
+        while (end < n) {
+            end = start + 1;
+            while (end < n && chars[end] == chars[start]) {
+                end++;
+            }
+            chars[index++] = chars[start];
+            int count = end - start;
+            if (count != 1) {
+                for (char c : String.valueOf(count).toCharArray()) {
+                    chars[index++] = c;
+                }
+            }
+            start = end;
+        }
+        return index;
+    }
+
+    // 30. Substring with Concatenation of All Words
+    public static List<Integer> findSubstring(String s, String[] words) {
+        List<Integer> res = new ArrayList<Integer>();
+        int wordNum = words.length;
+        if (wordNum == 0) {
+            return res;
+        }
+        int wordLen = words[0].length();
+        HashMap<String, Integer> allWords = new HashMap<String, Integer>();
+        for (String w : words) {
+            int value = allWords.getOrDefault(w, 0);
+            allWords.put(w, value + 1);
+        }
+        //将所有移动分成 wordLen 类情况
+        for (int j = 0; j < wordLen; j++) {
+            HashMap<String, Integer> hasWords = new HashMap<String, Integer>();
+            int num = 0; //记录当前 HashMap2（这里的 hasWords 变量）中有多少个单词
+            //每次移动一个单词长度
+            for (int i = j; i < s.length() - wordNum * wordLen + 1; i = i + wordLen) {
+                boolean hasRemoved = false; //防止情况三移除后，情况一继续移除
+                while (num < wordNum) {
+                    String word = s.substring(i + num * wordLen, i + (num + 1) * wordLen);
+                    if (allWords.containsKey(word)) {
+                        int value = hasWords.getOrDefault(word, 0);
+                        hasWords.put(word, value + 1);
+                        //出现情况三，遇到了符合的单词，但是次数超了
+                        if (hasWords.get(word) > allWords.get(word)) {
+                            // hasWords.put(word, value);
+                            hasRemoved = true;
+                            int removeNum = 0;
+                            //一直移除单词，直到次数符合了
+                            while (hasWords.get(word) > allWords.get(word)) {
+                                String firstWord = s.substring(i + removeNum * wordLen, i + (removeNum + 1) * wordLen);
+                                int v = hasWords.get(firstWord);
+                                hasWords.put(firstWord, v - 1);
+                                removeNum++;
+                            }
+                            num = num - removeNum + 1; //加 1 是因为我们把当前单词加入到了 HashMap 2 中
+                            i = i + (removeNum - 1) * wordLen; //这里依旧是考虑到了最外层的 for 循环，看情况二的解释
+                            break;
+                        }
+                        //出现情况二，遇到了不匹配的单词，直接将 i 移动到该单词的后边（但其实这里
+                        //只是移动到了出现问题单词的地方，因为最外层有 for 循环， i 还会移动一个单词
+                        //然后刚好就移动到了单词后边）
+                    } else {
+                        hasWords.clear();
+                        i = i + num * wordLen;
+                        num = 0;
+                        break;
+                    }
+                    num++;
+                }
+                if (num == wordNum) {
+                    res.add(i);
+                }
+                //出现情况一，子串完全匹配，我们将上一个子串的第一个单词从 HashMap2 中移除
+                if (num > 0 && !hasRemoved) {
+                    String firstWord = s.substring(i, i + wordLen);
+                    int v = hasWords.get(firstWord);
+                    hasWords.put(firstWord, v - 1);
+                    num = num - 1;
+                }
+
+            }
+        }
+        return res;
+    }
+
+    // 239. Sliding Window Maximum
+    public static int[] maxSlidingWindow(int[] nums, int k) {
+        if (nums == null || nums.length == 0) {
+            return new int[0];
+        }
+        if (k == 1) {
+            return nums;
+        }
+        int[] res = new int[nums.length - k + 1];
+        int index = 0;
+        Deque<Integer> deque = new LinkedList<>();
+        deque.add(0);
+        for (int i = 1; i < k; i++) {
+            while (!deque.isEmpty() && nums[i] >= nums[deque.getLast()]) {
+                deque.removeLast();
+            }
+            deque.addLast(i);
+        }
+        res[index++] = nums[deque.getFirst()];
+        for (int i = k; i < nums.length; i++) {
+            while (!deque.isEmpty() && deque.getFirst() <= i - k) {
+                deque.removeFirst();
+            }
+            while (!deque.isEmpty() && nums[i] >= nums[deque.getLast()]) {
+                deque.removeLast();
+            }
+            deque.addLast(i);
+            res[index++] = nums[deque.getFirst()];
+        }
+        return res;
+    }
+
+    // 76. Minimum Window Substring
+    public static String minWindow(String s, String t) {
+        if (s.length() == 0 || t.length() == 0) {
+            return "";
+        }
+        Map<Character, Integer> countT = new HashMap<>();
+        for (int i = 0; i < t.length(); i++) {
+            countT.put(t.charAt(i), countT.getOrDefault(t.charAt(i), 0) + 1);
+        }
+        Map<Character, Integer> windowCount = new HashMap<>();
+        int l = 0, r = 0, count = 0, lenS = s.length();
+        int start = -1, end = lenS + 1;
+        while (r < lenS) {
+            while (count < countT.size() && r < lenS) {
+                char c = s.charAt(r);
+                windowCount.put(c, windowCount.getOrDefault(c, 0) + 1);
+                if (countT.containsKey(c) && windowCount.get(c).equals(countT.get(c))) {
+                    count++;
+                }
+                r++;
+            }
+            while (count == countT.size() && l < r) {
+                char c = s.charAt(l);
+                windowCount.put(c, windowCount.getOrDefault(c, 0) - 1);
+                if (countT.containsKey(c) && windowCount.get(c) == countT.get(c) - 1) {
+                    count--;
+                    if (r - l < end - start) {
+                        start = l;
+                        end = r;
+                    }
+                }
+                l++;
+            }
+        }
+        return (start >= 0 && end <= lenS) ? s.substring(start, end) : "";
+    }
+
+    // 632. Smallest Range Covering Elements from K Lists
+    public static int[] smallestRange(List<List<Integer>> nums) {
+        final int k = nums.size();
+        List<Node> all = new ArrayList<>();
+        for (int i = 0; i < k; i++) {
+            for (int num : nums.get(i)) {
+                all.add(new Node(i, num));
+            }
+        }
+        all.sort((o1, o2) -> o1.value - o2.value);
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(all.get(0).index, 1);
+        final int size = all.size();
+        int l = 0, r = 1, lres = all.get(0).value, rres = all.get(size - 1).value;
+        while (r < size) {
+            while (map.size() < k && r < size) {
+                int key = all.get(r).index;
+                map.put(key, map.getOrDefault(key, 0) + 1);
+                r++;
+            }
+            while (map.size() == k && l < r) {
+                int key = all.get(l).index;
+                if (map.get(key) == 1) {
+                    map.remove(key);
+                    if (all.get(r - 1).value - all.get(l).value < rres - lres) {
+                        rres = all.get(r - 1).value;
+                        lres = all.get(l).value;
+                    }
+                } else {
+                    map.put(key, map.get(key) - 1);
+                }
+                l++;
+            }
+        }
+        return new int[] {lres, rres};
+    }
+
+    private static class Node {
+        int index;
+        int value;
+
+        public Node(int index, int value) {
+            this.index = index;
+            this.value = value;
+        }
+    }
+
+    // 127. Word Ladder
+    public static int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        if (!wordList.contains(endWord)) {
+            return 0;
+        }
+        Set<String> set = new HashSet<>(wordList);
+        set.add(endWord);
+        Queue<String> queue = new LinkedList<>();
+        queue.add(beginWord);
+        int res = 1;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                String cur = queue.remove();
+                if (cur.equals(endWord)) {
+                    return res;
+                }
+                wordMatch(cur, set, queue);
+            }
+            res++;
+        }
+        return 0;
+    }
+
+    private static void wordMatch(String word, Set<String> set, Queue<String> queue) {
+        for (int i = 0; i < word.length(); i++) {
+            char[] w = word.toCharArray();
+            for (int j = 0; j < 26; j++) {
+                char c = (char) ('a' + j);
+                if (w[i] == c) {
+                    continue;
+                }
+                w[i] = c;
+                String s = String.valueOf(w);
+                if (set.contains(s)) {
+                    set.remove(s);
+                    queue.offer(s);
+                }
+            }
+        }
+    }
+
+    // 1249. Minimum Remove to Make Valid Parentheses
+    public static String minRemoveToMakeValid(String s) {
+        int n = s.length();
+        boolean[] invalid = new boolean[n];
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < n; i++) {
+            if (s.charAt(i) == '(') {
+                invalid[i] = true;
+                stack.push(i);
+            } else if (s.charAt(i) == ')') {
+                if (stack.isEmpty()) {
+                    invalid[i] = true;
+                } else {
+                    invalid[stack.pop()] = false;
+                }
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            if (!invalid[i]) {
+                sb.append(s.charAt(i));
+            }
+        }
+        return sb.toString();
+    }
+
+    // 797. All Paths From Source to Target
+    public static List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
+        int n = graph.length;
+        dfs(graph, n, path, 0, res, new boolean[n]);
+        return res;
+    }
+
+    private static void dfs(int[][] graph, int n, List<Integer> path, int pos, List<List<Integer>> res, boolean[] visit) {
+        path.add(pos);
+        visit[pos] = true;
+        if (pos == n - 1) {
+            res.add(new ArrayList<>(path));
+        } else {
+            for (int next : graph[pos]) {
+                if (!visit[next]) {
+                    dfs(graph, n, path, next, res, visit);
+                }
+            }
+        }
+        path.remove(path.size() - 1);
+        visit[pos] = false;
+    }
+
+    // 79. Word Search
+    public static boolean exist(char[][] board, String word) {
+        int m = board.length, n = board[0].length;
+        char[] w = word.toCharArray();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (exist(board, i, j, w, 0)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean exist(char[][] board, int i, int j, char[] word, int k) {
+        if (k == word.length) {
+            return true;
+        }
+        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] != word[k]) {
+            return false;
+        }
+        board[i][j] ^= 256;
+        boolean exist = exist(board, i - 1, j, word, k + 1)
+                || exist(board, i + 1, j, word, k + 1)
+                || exist(board, i, j - 1, word, k + 1)
+                || exist(board, i, j + 1, word, k + 1);
+        board[i][j] ^= 256;
+        return exist;
     }
 
     // 991. Broken Calculator
@@ -3067,7 +3946,7 @@ public class Main {
         return helper(root.left, k, set) || helper(root.right, k, set);
     }
 
-    static class TreeNode {
+    private static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
