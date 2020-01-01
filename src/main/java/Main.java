@@ -677,6 +677,176 @@ public class Main {
 
 //        System.out.println(combinationSum3(3, 7));
 //        System.out.println(combinationSum3(3, 9));
+
+//        System.out.println(Arrays.toString(advantageCount(new int[] {2, 7, 11, 15}, new int[] {1, 10, 4, 11})));
+
+//        System.out.println(maxSubarraySumCircular(new int[] {1, -2, 3, -2}));
+//        System.out.println(maxSubarraySumCircular(new int[] {5, -3, 5}));
+//        System.out.println(maxSubarraySumCircular(new int[] {3, -1, 2, -1}));
+//        System.out.println(maxSubarraySumCircular(new int[] {3, -2, 2, -3}));
+//        System.out.println(maxSubarraySumCircular(new int[] {-2, -3, -1}));
+
+//        System.out.println(findPeakElement(new int[] {1, 2, 3, 1}));
+//        System.out.println(findPeakElement(new int[] {1, 2, 1, 3, 5, 6, 4}));
+
+//        System.out.println(minDominoRotations(new int[] {2, 1, 2, 4, 2, 2}, new int[] {5, 2, 6, 2, 3, 2}));
+//        System.out.println(minDominoRotations(new int[] {3, 5, 1, 2, 3}, new int[] {3, 6, 3, 3, 4}));
+//        System.out.println(minDominoRotations(new int[] {3, 5, 1, 2, 3}, new int[] {3, 3, 3, 3, 3}));
+
+//        System.out.println(maxTurbulenceSize(new int[] {9, 4, 2, 10, 7, 8, 8, 1, 9}));
+    }
+
+    // 978. Longest Turbulent Subarray
+    public static int maxTurbulenceSize(int[] A) {
+        int n = A.length;
+        int res = 1;
+        int anchor = 0;
+        int i = 1;
+        while (i < n) {
+            while (i < n - 1 && Integer.compare(A[i - 1], A[i]) * Integer.compare(A[i], A[i + 1]) == -1) {
+                i++;
+            }
+            if (A[i] != A[i - 1]) {
+                res = Math.max(res, i - anchor + 1);
+            }
+            anchor = i;
+            i = anchor + 1;
+        }
+        return res;
+    }
+
+    // 945. Minimum Increment to Make Array Unique
+    public static int minIncrementForUnique(int[] A) {
+        Arrays.sort(A);
+        int res = 0;
+        for (int i = 1; i < A.length; i++) {
+            if (A[i] <= A[i - 1]) {
+                res += A[i - 1] + 1 - A[i];
+                A[i] = A[i - 1] + 1;
+            }
+        }
+        return res;
+    }
+
+    // 1007. Minimum Domino Rotations For Equal Row
+    public static int minDominoRotations(int[] A, int[] B) {
+        Set<Integer>[] a = new Set[7];
+        Set<Integer>[] b = new Set[7];
+        for (int i = 1; i <= 6; i++) {
+            a[i] = new HashSet<>();
+            b[i] = new HashSet<>();
+        }
+        for (int i = 0; i < A.length; i++) {
+            a[A[i]].add(i);
+            b[B[i]].add(i);
+        }
+        int res = 2000001;
+        for (int i = 1; i <= 6; i++) {
+            Set<Integer> temp = new HashSet<>();
+            temp.addAll(a[i]);
+            temp.addAll(b[i]);
+            if (temp.size() == A.length) {
+                res = Math.min(res, Math.min(a[i].size(), b[i].size()) - (a[i].size() + b[i].size() - A.length));
+            }
+        }
+        return res == 2000001 ? -1 : res;
+    }
+
+    // 162. Find Peak Element
+    public static int findPeakElement(int[] nums) {
+        int l = 0, r = nums.length - 1;
+        while (l < r) {
+            int mid = (l + r) / 2;
+            if (nums[mid] > nums[mid + 1]) {
+                r = mid;
+            } else {
+                l = mid + 1;
+            }
+        }
+        return l;
+    }
+
+    // 918. Maximum Sum Circular Subarray
+    public static int maxSubarraySumCircular(int[] A) {
+        int sum = 0;
+        for (int x : A) {
+            sum += x;
+        }
+        int res1 = kanade(A, 0, A.length - 1, 1);
+        int res2 = sum + kanade(A, 0, A.length - 2, -1);
+        int res3 = sum + kanade(A, 1, A.length - 1, -1);
+        return Math.max(res1, Math.max(res2, res3));
+    }
+
+    private static int kanade(int[] nums, int i, int j, int sign) {
+        int cur = Integer.MIN_VALUE, res = Integer.MIN_VALUE;
+        for (int k = i; k <= j; k++) {
+            cur = Math.max(cur, 0) + sign * nums[k];
+            res = Math.max(res, cur);
+        }
+        return res;
+    }
+
+    // 1252. Cells with Odd Values in a Matrix
+    public static int oddCells(int n, int m, int[][] indices) {
+        int[] row = new int[n];
+        int[] col = new int[m];
+        for (int[] index : indices) {
+            row[index[0]]++;
+            col[index[1]]++;
+        }
+        int res = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (((row[i] + col[j]) & 1) == 1) {
+                    res++;
+                }
+            }
+        }
+        return res;
+    }
+
+    // 1277. Count Square Submatrices with All Ones
+    public static int countSquares(int[][] matrix) {
+        int res = 0;
+        int m = matrix.length, n = matrix[0].length;
+        int[][] dp = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == 0 || j == 0) {
+                    dp[i][j] = matrix[i][j];
+                } else if (matrix[i][j] == 0) {
+                    dp[i][j] = 0;
+                } else {
+                    dp[i][j] = Math.min(matrix[i - 1][j], Math.min(matrix[i][j - 1], matrix[i - 1][j - 1])) + 1;
+                }
+                res += dp[i][j];
+            }
+        }
+        return res;
+    }
+
+    // 870. Advantage Shuffle
+    // 田忌赛马
+    public static int[] advantageCount(int[] A, int[] B) {
+        int[] a = A.clone();
+        Arrays.sort(a);
+        int[] b = B.clone();
+        Arrays.sort(b);
+        Map<Integer, LinkedList<Integer>> map = new HashMap<>();
+        for (int i = 0; i < B.length; i++) {
+            map.computeIfAbsent(B[i], k -> new LinkedList<>()).add(i);
+        }
+        int[] res = new int[a.length];
+        int i = 0, j = 0, index = b.length - 1;
+        while (i < a.length) {
+            if (a[i] > b[j]) {
+                res[map.get(b[j++]).remove()] = a[i++];
+            } else {
+                res[map.get(b[index--]).remove()] = a[i++];
+            }
+        }
+        return res;
     }
 
     // 719. Find K-th Smallest Pair Distance
