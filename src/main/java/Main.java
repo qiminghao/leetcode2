@@ -694,6 +694,144 @@ public class Main {
 //        System.out.println(minDominoRotations(new int[] {3, 5, 1, 2, 3}, new int[] {3, 3, 3, 3, 3}));
 
 //        System.out.println(maxTurbulenceSize(new int[] {9, 4, 2, 10, 7, 8, 8, 1, 9}));
+
+//        System.out.println(shortestCompletingWord("1s3 PSt", new String[] {"step", "steps", "stripe", "stepple"}));
+//        System.out.println(shortestCompletingWord("1s3 456", new String[] {"looks", "pest", "stew", "show"}));
+
+//        System.out.println(partitionDisjoint(new int[] {5, 0, 3, 8, 6}));
+    }
+
+    // 54. Spiral Matrix
+    public static List<Integer> spiralOrder(int[][] matrix) {
+        List ans = new ArrayList();
+        if (matrix.length == 0)
+            return ans;
+        int r1 = 0, r2 = matrix.length - 1;
+        int c1 = 0, c2 = matrix[0].length - 1;
+        while (r1 <= r2 && c1 <= c2) {
+            for (int c = c1; c <= c2; c++) ans.add(matrix[r1][c]);
+            for (int r = r1 + 1; r <= r2; r++) ans.add(matrix[r][c2]);
+            if (r1 < r2 && c1 < c2) {
+                for (int c = c2 - 1; c > c1; c--) ans.add(matrix[r2][c]);
+                for (int r = r2; r > r1; r--) ans.add(matrix[r][c1]);
+            }
+            r1++;
+            r2--;
+            c1++;
+            c2--;
+        }
+        return ans;
+    }
+
+    // 1299. Replace Elements with Greatest Element on Right Side
+    public static int[] replaceElements(int[] arr) {
+        int n = arr.length, max = arr[n - 1];
+        arr[n - 1] = -1;
+        for (int i = n - 2; i >= 0; i--) {
+            int cur = arr[i];
+            arr[i] = Math.max(max, arr[i + 1]);
+            max = cur;
+        }
+        return arr;
+    }
+
+    // 1304. Find N Unique Integers Sum up to Zero
+    public static int[] sumZero(int n) {
+        int[] res = new int[n];
+        res[0] = -n / 2;
+        if ((n & 1) == 1) {
+            for (int i = 1; i < n; i++) {
+                res[i] = res[i - 1] + 1;
+            }
+        } else {
+            for (int i = 1; i < n; i++) {
+                if (res[i - 1] == -1) {
+                    res[i] = 1;
+                } else {
+                    res[i] = res[i - 1] + 1;
+                }
+            }
+        }
+        return res;
+    }
+
+    // 915. Partition Array into Disjoint Intervals
+    public static int partitionDisjoint(int[] A) {
+        int n = A.length;
+        int[] maxLeft = new int[n];
+        int[] minRight = new int[n];
+        maxLeft[0] = A[0];
+        minRight[n - 1] = A[n - 1];
+        for (int i = 1; i < n; i++) {
+            maxLeft[i] = Math.max(maxLeft[i - 1], A[i]);
+        }
+        for (int i = n - 2; i >= 0; i--) {
+            minRight[i] = Math.min(minRight[i + 1], A[i]);
+        }
+        for (int i = 1; i < n; i++) {
+            if (maxLeft[i - 1] <= minRight[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    // 891. Sum of Subsequence Widths
+    public static int sumSubseqWidths(int[] A) {
+        int MOD = 1000000007;
+        long[] pow = new long[A.length];
+        pow[0] = 1;
+        for (int i = 1; i < A.length; i++) {
+            pow[i] = pow[i - 1] * 2 % MOD;
+        }
+        long res = 0;
+        Arrays.sort(A);
+        for (int i = 0; i < A.length; i++) {
+            res = (res + (pow[i] - pow[A.length - 1 - i]) * A[i]) % MOD;
+        }
+        return (int) res;
+    }
+
+    // 748. Shortest Completing Word
+    public static String shortestCompletingWord(String licensePlate, String[] words) {
+        Map<Character, Integer> target = countWord(licensePlate);
+        int minLen = Integer.MAX_VALUE;
+        String res = null;
+        for (String word : words) {
+            Map<Character, Integer> cur = countWord(word);
+            if (isValid(target, cur) && word.length() < minLen) {
+                res = word;
+                minLen = word.length();
+            }
+        }
+        return res;
+    }
+
+    private static boolean isValid(Map<Character, Integer> target, Map<Character, Integer> cur) {
+        for (Map.Entry<Character, Integer> entry : target.entrySet()) {
+            Character key = entry.getKey();
+            if (!cur.containsKey(key)) {
+                return false;
+            }
+            if (target.get(key) > cur.get(key)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static Map<Character, Integer> countWord(String word) {
+        Map<Character, Integer> res = new HashMap<>();
+        for (int i = word.length() - 1; i >= 0; i--) {
+            char c = word.charAt(i);
+            if (Character.isUpperCase(c)) {
+                c = (char) (c - 'A' + 'a');
+            }
+            if (Character.isLowerCase(c)) {
+                res.put(c, res.getOrDefault(c, 0) + 1);
+            }
+        }
+        return res;
     }
 
     // 978. Longest Turbulent Subarray
