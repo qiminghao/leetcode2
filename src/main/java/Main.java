@@ -809,7 +809,7 @@ public class Main {
         return false;
     }
 
-    // 42. Trapping Rain Water
+    // 795. Number of Subarrays with Bounded Maximum
     public static int numSubarrayBoundedMax(int[] A, int L, int R) {
         int count1 = 0, count2 = 0, cur1 = 0, cur2 = 0;
         for (int x : A) {
