@@ -699,21 +699,128 @@ public class Main {
 //        System.out.println(shortestCompletingWord("1s3 456", new String[] {"looks", "pest", "stew", "show"}));
 
 //        System.out.println(partitionDisjoint(new int[] {5, 0, 3, 8, 6}));
+
+//        System.out.println(numSubarrayBoundedMax(new int[] {2, 1, 4, 3}, 2, 3));
+//        System.out.println(numSubarrayBoundedMax(new int[] {2, 9, 2, 5, 6}, 2, 8));
+
+//        System.out.println(numSubarrayProductLessThanK(new int[] {10, 5, 2, 6}, 100));
+//        System.out.println(numSubarrayProductLessThanK(new int[] {1, 1, 1}, 1));
+    }
+
+    // 713. Subarray Product Less Than K
+    public static int numSubarrayProductLessThanK(int[] nums, int k) {
+        if (k == 0) {
+            return 0;
+        }
+        int l = 0, r = 1, prod = nums[0], n = nums.length, res = 0;
+        while (r < n) {
+            if (prod < k) {
+                res += r - l;
+                prod *= nums[r++];
+            } else {
+                while (l < r && prod >= k) {
+                    prod /= nums[l++];
+                }
+                if (l == r) {
+                    prod *= nums[r++];
+                }
+            }
+        }
+        while (l < n && prod >= k) {
+            prod /= nums[l++];
+        }
+        return res + r - l;
+    }
+
+    // 1300. Sum of Mutated Array Closest to Target
+    public static int findBestValue(int[] arr, int target) {
+        int l = 0, r = 100000;
+        while (l < r) {
+            int mid = (l + r) / 2;
+            int b = sum(arr, mid);
+            if (b < target) {
+                l = mid + 1;
+            } else {
+                r = mid;
+            }
+        }
+        int sum1 = sum(arr, l - 1);
+        int sum2 = sum(arr, l);
+        if (sum2 - target < target - sum1) {
+            return l;
+        }
+        return l - 1;
+    }
+
+    private static int sum(int[] arr, int val) {
+        int res = 0;
+        for (int x : arr) {
+            res += Math.min(x, val);
+        }
+        return res;
+    }
+
+    // 81. Search in Rotated Sorted Array II
+    public static boolean searchII(int[] nums, int target) {
+        int l = 0, r = nums.length - 1;
+        while (l <= r) {
+            int mid = (l + r) / 2;
+            if (nums[mid] == target) {
+                return true;
+            }
+            if (nums[l] == nums[mid]) {
+                l++;
+            } else if (nums[l] < nums[mid]) {
+                if (nums[l] <= target && target < nums[mid]) {
+                    r = mid - 1;
+                } else {
+                    l = mid + 1;
+                }
+            } else {
+                if (nums[mid] < target && target <= nums[r]) {
+                    l = mid + 1;
+                } else {
+                    r = mid - 1;
+                }
+            }
+        }
+        return false;
+    }
+
+    // 42. Trapping Rain Water
+    public static int numSubarrayBoundedMax(int[] A, int L, int R) {
+        int count1 = 0, count2 = 0, cur1 = 0, cur2 = 0;
+        for (int x : A) {
+            cur1 = x < L ? cur1 + 1 : 0;
+            cur2 = x <= R ? cur2 + 1 : 0;
+            count1 += cur1;
+            count2 += cur2;
+        }
+        return count2 - count1;
     }
 
     // 54. Spiral Matrix
     public static List<Integer> spiralOrder(int[][] matrix) {
         List ans = new ArrayList();
-        if (matrix.length == 0)
+        if (matrix.length == 0) {
             return ans;
+        }
         int r1 = 0, r2 = matrix.length - 1;
         int c1 = 0, c2 = matrix[0].length - 1;
         while (r1 <= r2 && c1 <= c2) {
-            for (int c = c1; c <= c2; c++) ans.add(matrix[r1][c]);
-            for (int r = r1 + 1; r <= r2; r++) ans.add(matrix[r][c2]);
+            for (int c = c1; c <= c2; c++) {
+                ans.add(matrix[r1][c]);
+            }
+            for (int r = r1 + 1; r <= r2; r++) {
+                ans.add(matrix[r][c2]);
+            }
             if (r1 < r2 && c1 < c2) {
-                for (int c = c2 - 1; c > c1; c--) ans.add(matrix[r2][c]);
-                for (int r = r2; r > r1; r--) ans.add(matrix[r][c1]);
+                for (int c = c2 - 1; c > c1; c--) {
+                    ans.add(matrix[r2][c]);
+                }
+                for (int r = r2; r > r1; r--) {
+                    ans.add(matrix[r][c1]);
+                }
             }
             r1++;
             r2--;
