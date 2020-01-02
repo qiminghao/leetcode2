@@ -705,6 +705,28 @@ public class Main {
 
 //        System.out.println(numSubarrayProductLessThanK(new int[] {10, 5, 2, 6}, 100));
 //        System.out.println(numSubarrayProductLessThanK(new int[] {1, 1, 1}, 1));
+
+//        System.out.println(longestConsecutive(new int[] {100, 4, 200, 1, 3, 2}));
+    }
+
+    // 128. Longest Consecutive Sequence
+    public static int longestConsecutive(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for (int x : nums) {
+            set.add(x);
+        }
+        int res = 0;
+        for (int num : set) {
+            if (!set.contains(num - 1)) {
+                int count = 1;
+                while (set.contains(num + 1)) {
+                    count++;
+                    num++;
+                }
+                res = Math.max(res, count);
+            }
+        }
+        return res;
     }
 
     // 713. Subarray Product Less Than K
