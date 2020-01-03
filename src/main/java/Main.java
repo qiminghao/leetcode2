@@ -310,9 +310,9 @@ public class Main {
 //        System.out.println(numComponents(createLinkedList(new int[]{0, 1, 2, 3}), new int[]{0, 1, 3}));
 //        System.out.println(numComponents(createLinkedList(new int[]{0, 1, 2, 3, 4}), new int[]{0, 3, 1, 4}));
 
-        System.out.println(Arrays.toString(nextLargerNodes(createLinkedList(new int[] {2, 1, 5}))));
-        System.out.println(Arrays.toString(nextLargerNodes(createLinkedList(new int[] {2, 7, 4, 3, 5}))));
-        System.out.println(Arrays.toString(nextLargerNodes(createLinkedList(new int[] {1, 7, 5, 1, 9, 2, 5, 1}))));
+//        System.out.println(Arrays.toString(nextLargerNodes(createLinkedList(new int[] {2, 1, 5}))));
+//        System.out.println(Arrays.toString(nextLargerNodes(createLinkedList(new int[] {2, 7, 4, 3, 5}))));
+//        System.out.println(Arrays.toString(nextLargerNodes(createLinkedList(new int[] {1, 7, 5, 1, 9, 2, 5, 1}))));
 
 //        System.out.println(partition(createLinkedList(new int[]{1, 4, 3, 2, 5, 2}),3));
 
@@ -711,7 +711,7 @@ public class Main {
 
     // 1019. Next Greater Node In Linked List
     // 单调栈
-    public static int[] nextLargerNodes2(ListNode head) {
+    public static int[] nextLargerNodes(ListNode head) {
         Stack<Node1> stack = new Stack<>();
         List<Integer> res = new ArrayList<>();
         int i = 0;
@@ -4897,26 +4897,6 @@ public class Main {
         tail1.next = head2.next;
         tail2.next = null;
         return head1.next;
-    }
-
-    // 1019. Next Greater Node In Linked List
-    public static int[] nextLargerNodes(ListNode head) {
-        Stack<Integer> stack = new Stack<>();
-        ListNode cur = head;
-        while (cur != null) {
-            stack.push(cur.val);
-            cur = cur.next;
-        }
-        int[] res = new int[stack.size()];
-        int index = res.length - 1;
-        TreeSet<Integer> set = new TreeSet<>();
-        while (!stack.isEmpty()) {
-            int num = stack.pop();
-            Integer ceil = set.ceiling(num);
-            res[index--] = ceil == null ? 0 : ceil;
-            set.add(num);
-        }
-        return res;
     }
 
     // 817. Linked List Components
