@@ -709,6 +709,15 @@ public class Main {
 //        System.out.println(longestConsecutive(new int[] {100, 4, 200, 1, 3, 2}));
     }
 
+    // 96. Unique Binary Search Trees
+    public static int numTrees(int n) {
+        long cur = 1;
+        for (int i = 1; i < n; i++) {
+            cur = cur * 2 * (2 * i + 1) / (i + 2);
+        }
+        return (int) cur;
+    }
+
     // 39. Combination Sum
     public static List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> res = new ArrayList<>();
