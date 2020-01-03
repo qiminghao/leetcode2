@@ -709,6 +709,24 @@ public class Main {
 //        System.out.println(longestConsecutive(new int[] {100, 4, 200, 1, 3, 2}));
     }
 
+    // 1019. Next Greater Node In Linked List
+    // 单调栈
+    public static int[] nextLargerNodes2(ListNode head) {
+        Stack<Node1> stack = new Stack<>();
+        List<Integer> res = new ArrayList<>();
+        int i = 0;
+        while (head != null) {
+            res.add(0);
+            while (!stack.isEmpty() && stack.peek().value < head.val) {
+                res.set(stack.pop().index, head.val);
+            }
+            stack.push(new Node1(i, head.val));
+            head = head.next;
+            i++;
+        }
+        return res.stream().mapToInt(Integer::intValue).toArray();
+    }
+
     // 430. Flatten a Multilevel Doubly Linked List
     public static Node flatten(Node head) {
         Node cur = head;
@@ -4882,7 +4900,6 @@ public class Main {
     }
 
     // 1019. Next Greater Node In Linked List
-    // 单调栈
     public static int[] nextLargerNodes(ListNode head) {
         Stack<Integer> stack = new Stack<>();
         ListNode cur = head;
