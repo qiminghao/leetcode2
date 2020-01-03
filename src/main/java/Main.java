@@ -709,6 +709,16 @@ public class Main {
 //        System.out.println(longestConsecutive(new int[] {100, 4, 200, 1, 3, 2}));
     }
 
+    // 1290. Convert Binary Number in a Linked List to Integer
+    public static int getDecimalValue(ListNode head) {
+        int res = 0;
+        while (head != null) {
+            res = res * 2 + head.val;
+            head = head.next;
+        }
+        return res;
+    }
+
     // 1019. Next Greater Node In Linked List
     // 单调栈
     public static int[] nextLargerNodes(ListNode head) {
