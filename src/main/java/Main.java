@@ -709,6 +709,17 @@ public class Main {
 //        System.out.println(longestConsecutive(new int[] {100, 4, 200, 1, 3, 2}));
     }
 
+    // 198. House Robber
+    public static int rob(int[] nums) {
+        int pre = 0, cur = 0;
+        for (int x : nums) {
+            int temp = cur;
+            cur = Math.max(pre + x, cur);
+            pre = temp;
+        }
+        return cur;
+    }
+
     // 102. Binary Tree Level Order Traversal
     public static List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
@@ -866,7 +877,9 @@ public class Main {
         public Node prev;
         public Node next;
         public Node child;
-    };
+    }
+
+    ;
 
     // 25. Reverse Nodes in k-Group
     public static ListNode reverseKGroup(ListNode head, int k) {
