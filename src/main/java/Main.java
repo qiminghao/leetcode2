@@ -482,9 +482,9 @@ public class Main {
 //        System.out.println(getPermutation(3, 8));
 //        System.out.println(getPermutation(4, 9));
 
-        System.out.println(printLinkedList(reverseKGroup(createLinkedList(new int[] {1, 2, 3, 4, 5}), 2)));
-        System.out.println(printLinkedList(reverseKGroup(createLinkedList(new int[] {1, 2, 3, 4, 5, 6, 7, 8}), 3)));
-        System.out.println(printLinkedList(reverseKGroup(createLinkedList(new int[] {1, 2, 3, 4, 5}), 3)));
+//        System.out.println(printLinkedList(reverseKGroup(createLinkedList(new int[] {1, 2, 3, 4, 5}), 2)));
+//        System.out.println(printLinkedList(reverseKGroup(createLinkedList(new int[] {1, 2, 3, 4, 5, 6, 7, 8}), 3)));
+//        System.out.println(printLinkedList(reverseKGroup(createLinkedList(new int[] {1, 2, 3, 4, 5}), 3)));
 
 //        System.out.println(Arrays.toString(singleNumber(new int[]{1, 2, 1, 3, 2, 5})));
 
@@ -707,6 +707,82 @@ public class Main {
 //        System.out.println(numSubarrayProductLessThanK(new int[] {1, 1, 1}, 1));
 
 //        System.out.println(longestConsecutive(new int[] {100, 4, 200, 1, 3, 2}));
+    }
+
+    // 430. Flatten a Multilevel Doubly Linked List
+    public static Node flatten(Node head) {
+        Node cur = head;
+        while (cur != null) {
+            if (cur.child != null) {
+                Node h = flatten(cur.child);
+                cur.child = null;
+                Node next = cur.next;
+                cur.next = h;
+                h.prev = cur;
+                while (h.next != null) {
+                    h = h.next;
+                }
+                h.next = next;
+                if (next == null) {
+                    return head;
+                }
+                next.prev = h;
+                cur = next;
+            } else {
+                cur = cur.next;
+            }
+        }
+        return head;
+    }
+
+    private class Node {
+        public int val;
+        public Node prev;
+        public Node next;
+        public Node child;
+    };
+
+    // 25. Reverse Nodes in k-Group
+    public static ListNode reverseKGroup(ListNode head, int k) {
+        if (k == 1) {
+            return head;
+        }
+        ListNode pre = null, cur = head, next;
+        while (cur != null) {
+            int i = 1;
+            while (i < k && cur != null) {
+                cur = cur.next;
+                i++;
+            }
+            if (cur == null) {
+                return head;
+            }
+            next = cur.next;
+            ListNode[] nodes;
+            if (pre == null) {
+                nodes = reverse(head, cur);
+                head = nodes[0];
+            } else {
+                nodes = reverse(pre.next, cur);
+                pre.next = nodes[0];
+            }
+            nodes[1].next = next;
+            pre = nodes[1];
+            cur = next;
+        }
+        return head;
+    }
+
+    private static ListNode[] reverse(ListNode head, ListNode tail) {
+        ListNode pre = null, cur = head, next = cur.next;
+        while (cur != tail) {
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+            next = next.next;
+        }
+        cur.next = pre;
+        return new ListNode[] {tail, head};
     }
 
     // 128. Longest Consecutive Sequence
@@ -1788,10 +1864,10 @@ public class Main {
     // 632. Smallest Range Covering Elements from K Lists
     public static int[] smallestRange(List<List<Integer>> nums) {
         final int k = nums.size();
-        List<Node> all = new ArrayList<>();
+        List<Node1> all = new ArrayList<>();
         for (int i = 0; i < k; i++) {
             for (int num : nums.get(i)) {
-                all.add(new Node(i, num));
+                all.add(new Node1(i, num));
             }
         }
         all.sort((o1, o2) -> o1.value - o2.value);
@@ -1822,11 +1898,11 @@ public class Main {
         return new int[] {lres, rres};
     }
 
-    private static class Node {
+    private static class Node1 {
         int index;
         int value;
 
-        public Node(int index, int value) {
+        public Node1(int index, int value) {
             this.index = index;
             this.value = value;
         }
@@ -3575,14 +3651,6 @@ public class Main {
             }
         }
         return new int[] {num1, num2};
-    }
-
-    // 25. Reverse Nodes in k-Group
-    public static ListNode reverseKGroup(ListNode head, int k) {
-        ListNode node = new ListNode(0);
-        node.next = head;
-        head = node;
-        return head;
     }
 
     // 60. Permutation Sequence
