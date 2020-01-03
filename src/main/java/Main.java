@@ -709,6 +709,25 @@ public class Main {
 //        System.out.println(longestConsecutive(new int[] {100, 4, 200, 1, 3, 2}));
     }
 
+    // 22. Generate Parentheses
+    public static List<String> generateParenthesis(int n) {
+        List<String> res = new ArrayList<>();
+        generateParenthesisHelper(n, n, "", res);
+        return res;
+    }
+
+    private static void generateParenthesisHelper(int l, int r, String s, List<String> res) {
+        if (l < 0 || r < 0 || l > r) {
+            return;
+        }
+        if (l == 0 && r == 0) {
+            res.add(s);
+            return;
+        }
+        generateParenthesisHelper(l - 1, r, s + "(", res);
+        generateParenthesisHelper(l, r - 1, s + ")", res);
+    }
+
     // 1290. Convert Binary Number in a Linked List to Integer
     public static int getDecimalValue(ListNode head) {
         int res = 0;
