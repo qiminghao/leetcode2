@@ -709,6 +709,47 @@ public class Main {
 //        System.out.println(longestConsecutive(new int[] {100, 4, 200, 1, 3, 2}));
     }
 
+    // 200. Number of Islands
+    public static int numIslands(char[][] grid) {
+        int res = 0;
+        if (grid == null || grid.length == 0 || grid[0].length == 0) {
+            return res;
+        }
+        int m = grid.length, n = grid[0].length;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1') {
+                    Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
+                    queue.add(new Pair<>(i, j));
+                    grid[i][j] = '0';
+                    while (!queue.isEmpty()) {
+                        Pair<Integer, Integer> cur = queue.remove();
+                        int cur_i = cur.getElement0();
+                        int cur_j = cur.getElement1();
+                        if (cur_i + 1 < m && grid[cur_i + 1][cur_j] == '1') {
+                            queue.add(new Pair<>(cur_i + 1, cur_j));
+                            grid[cur_i + 1][cur_j] = '0';
+                        }
+                        if (cur_i - 1 >= 0 && grid[cur_i - 1][cur_j] == '1') {
+                            queue.add(new Pair<>(cur_i - 1, cur_j));
+                            grid[cur_i - 1][cur_j] = '0';
+                        }
+                        if (cur_j + 1 < n && grid[cur_i][cur_j + 1] == '1') {
+                            queue.add(new Pair<>(cur_i, cur_j + 1));
+                            grid[cur_i ][cur_j + 1] = '0';
+                        }
+                        if (cur_j - 1 >= 0 && grid[cur_i][cur_j - 1] == '1') {
+                            queue.add(new Pair<>(cur_i, cur_j - 1));
+                            grid[cur_i ][cur_j - 1] = '0';
+                        }
+                    }
+                    res++;
+                }
+            }
+        }
+        return res;
+    }
+
     // 198. House Robber
     public static int rob(int[] nums) {
         int pre = 0, cur = 0;
