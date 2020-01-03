@@ -709,6 +709,27 @@ public class Main {
 //        System.out.println(longestConsecutive(new int[] {100, 4, 200, 1, 3, 2}));
     }
 
+    // 98. Validate Binary Search Tree
+    public static boolean isValidBST(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        isValidBSTHelper(root, list);
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i) <= list.get(i - 1)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static void isValidBSTHelper(TreeNode root, List<Integer> list) {
+        if (root == null) {
+            return;
+        }
+        isValidBSTHelper(root.left, list);
+        list.add(root.val);
+        isValidBSTHelper(root.right, list);
+    }
+
     // 96. Unique Binary Search Trees
     public static int numTrees(int n) {
         long cur = 1;
