@@ -709,6 +709,29 @@ public class Main {
 //        System.out.println(longestConsecutive(new int[] {100, 4, 200, 1, 3, 2}));
     }
 
+    // 39. Combination Sum
+    public static List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        combinationSumHelper(candidates, target, 0, list, res);
+        return res;
+    }
+
+    private static void combinationSumHelper(int[] candidates, int target, int last, List<Integer> list, List<List<Integer>> res) {
+        if (target < 0) {
+            return;
+        }
+        if (target == 0) {
+            res.add(new ArrayList<>(list));
+            return;
+        }
+        for (int i = last; i < candidates.length; i++) {
+            list.add(candidates[i]);
+            combinationSumHelper(candidates, target - candidates[i], i, list, res);
+            list.remove(list.size() - 1);
+        }
+    }
+
     // 22. Generate Parentheses
     public static List<String> generateParenthesis(int n) {
         List<String> res = new ArrayList<>();
