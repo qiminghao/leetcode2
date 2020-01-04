@@ -283,12 +283,12 @@ public class Main {
 //        Solution obj = new Solution();
 //        System.out.println(obj.nthUglyNumber(1000000000, 2, 217983653, 336916467));
 
-        System.out.println(maximalSquare(new char[][] {
-                {'1', '0', '1', '0', '0'},
-                {'1', '0', '1', '1', '1'},
-                {'1', '1', '1', '1', '1'},
-                {'1', '0', '0', '1', '0'}
-        }));
+//        System.out.println(maximalSquare(new char[][] {
+//                {'1', '0', '1', '0', '0'},
+//                {'1', '0', '1', '1', '1'},
+//                {'1', '1', '1', '1', '1'},
+//                {'1', '0', '0', '1', '0'}
+//        }));
 
 //        System.out.println(minEatingSpeed(IntStream.of(3, 6, 7, 11).toArray(), 8));
 //        System.out.println(minEatingSpeed(IntStream.of(30, 11, 23, 4, 20).toArray(), 5));
@@ -709,6 +709,31 @@ public class Main {
 //        System.out.println(longestConsecutive(new int[] {100, 4, 200, 1, 3, 2}));
     }
 
+    // 221. Maximal Square
+    public static int maximalSquare(char[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return 0;
+        }
+        int m = matrix.length, n = matrix[0].length;
+        int res = 0;
+        int[][] dp = new int[m][n];
+        for (int i = 0; i < n; i++) {
+            dp[0][i] = matrix[0][i] - '0';
+            res = Math.max(res, dp[0][i]);
+        }
+        for (int i = 0; i < m; i++) {
+            dp[i][0] = matrix[i][0] - '0';
+            res = Math.max(res, dp[i][0]);
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[i][j] = matrix[i][j] == '0' ? 0 : Math.min(Math.min(dp[i - 1][j], dp[i][j - 1]), dp[i - 1][j - 1]) + 1;
+                res = Math.max(res, dp[i][j]);
+            }
+        }
+        return res * res;
+    }
+
     // 987. Vertical Order Traversal of a Binary Tree
     public List<List<Integer>> verticalTraversal(TreeNode root) {
         List<Node2> list = new ArrayList<>();
@@ -741,6 +766,7 @@ public class Main {
         int index;
         int layer;
         int val;
+
         public Node2(int index, int layer, int val) {
             this.index = index;
             this.layer = layer;
@@ -799,11 +825,11 @@ public class Main {
                         }
                         if (cur_j + 1 < n && grid[cur_i][cur_j + 1] == '1') {
                             queue.add(new Pair<>(cur_i, cur_j + 1));
-                            grid[cur_i ][cur_j + 1] = '0';
+                            grid[cur_i][cur_j + 1] = '0';
                         }
                         if (cur_j - 1 >= 0 && grid[cur_i][cur_j - 1] == '1') {
                             queue.add(new Pair<>(cur_i, cur_j - 1));
-                            grid[cur_i ][cur_j - 1] = '0';
+                            grid[cur_i][cur_j - 1] = '0';
                         }
                     }
                     res++;
@@ -5335,11 +5361,6 @@ public class Main {
             }
         }
         return l;
-    }
-
-    // 221. Maximal Square
-    public static int maximalSquare(char[][] matrix) {
-        return -1;
     }
 
     // 258. Add Digits
