@@ -707,6 +707,24 @@ public class Main {
 //        System.out.println(numSubarrayProductLessThanK(new int[] {1, 1, 1}, 1));
 
 //        System.out.println(longestConsecutive(new int[] {100, 4, 200, 1, 3, 2}));
+
+//        System.out.println(wordBreak("leetcode", Arrays.asList("leet", "code")));
+    }
+
+    // 139. Word Break
+    public static boolean wordBreak(String s, List<String> wordDict) {
+        Set<String> dict = wordDict.stream().collect(Collectors.toSet());
+        int n = s.length();
+        boolean[] dp = new boolean[n + 1];
+        dp[0] = true;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j <= n; j++) {
+                if (dp[i] && dict.contains(s.substring(i, j))) {
+                    dp[j] = true;
+                }
+            }
+        }
+        return dp[n];
     }
 
     // 221. Maximal Square
