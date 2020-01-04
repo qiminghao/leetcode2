@@ -709,6 +709,18 @@ public class Main {
 //        System.out.println(longestConsecutive(new int[] {100, 4, 200, 1, 3, 2}));
     }
 
+    // 226. Invert Binary Tree
+    public static TreeNode invertTree(TreeNode root) {
+        if (root == null) {
+            return root;
+        }
+        TreeNode left = invertTree(root.left);
+        TreeNode right = invertTree(root.right);
+        root.left = right;
+        root.right = left;
+        return root;
+    }
+
     // 200. Number of Islands
     public static int numIslands(char[][] grid) {
         int res = 0;
