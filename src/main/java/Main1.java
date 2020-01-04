@@ -1,3 +1,6 @@
+import com.sun.source.tree.Tree;
+
+import util.Trie;
 import java.util.*;
 
 public class Main1 {
@@ -12,9 +15,13 @@ public class Main1 {
         System.out.println(Arrays.toString("-1/2+1/2-1/3".split("[+-]")));
         System.out.println(gcd(3, 5));
 
-        char c = 'a';
-        c ^= 256;
-        System.out.println(c == 'a');
+        Trie trie = new Trie();
+        trie.insert("apple");
+        trie.search("apple");   // returns true
+        trie.search("app");     // returns false
+        trie.startsWith("app"); // returns true
+        trie.insert("app");
+        trie.search("app");     // returns true
     }
 
     public static int gcd(int m, int n) {
