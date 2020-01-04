@@ -1,5 +1,6 @@
 import com.sun.source.tree.Tree;
 
+import util.Codec;
 import util.Trie;
 import java.util.*;
 
@@ -22,6 +23,9 @@ public class Main1 {
         trie.startsWith("app"); // returns true
         trie.insert("app");
         trie.search("app");     // returns true
+
+        Codec obj = new Codec();
+        obj.deserialize("1,2,3,#,#,4,5");
     }
 
     public static int gcd(int m, int n) {
