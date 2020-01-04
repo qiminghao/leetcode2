@@ -709,6 +709,57 @@ public class Main {
 //        System.out.println(longestConsecutive(new int[] {100, 4, 200, 1, 3, 2}));
     }
 
+    // 987. Vertical Order Traversal of a Binary Tree
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        List<Node2> list = new ArrayList<>();
+        int[] bound = new int[2];
+        verticalTraversalHelper(root, list, bound, 0, 0);
+        list.sort(Comparator.comparingInt(Node2::getLayer).thenComparingInt(Node2::getIndex).thenComparingInt(Node2::getVal));
+        int size = bound[1] - bound[0] + 1;
+        List<List<Integer>> res = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            res.add(new ArrayList<>());
+        }
+        for (Node2 node : list) {
+            res.get(node.index - bound[0]).add(node.val);
+        }
+        return res;
+    }
+
+    private void verticalTraversalHelper(TreeNode root, List<Node2> list, int[] bound, int index, int layer) {
+        if (root == null) {
+            return;
+        }
+        bound[0] = Math.min(bound[0], index);
+        bound[1] = Math.max(bound[1], index);
+        list.add(new Node2(index, layer, root.val));
+        verticalTraversalHelper(root.left, list, bound, index - 1, layer + 1);
+        verticalTraversalHelper(root.right, list, bound, index + 1, layer + 1);
+    }
+
+    private static class Node2 {
+        int index;
+        int layer;
+        int val;
+        public Node2(int index, int layer, int val) {
+            this.index = index;
+            this.layer = layer;
+            this.val = val;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+
+        public int getLayer() {
+            return layer;
+        }
+
+        public int getVal() {
+            return val;
+        }
+    }
+
     // 226. Invert Binary Tree
     public static TreeNode invertTree(TreeNode root) {
         if (root == null) {
