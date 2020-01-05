@@ -715,7 +715,7 @@ public class Main {
 //        System.out.println(findTargetSumWays2(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 1}, 1));
 
 //        System.out.println(findAnagrams("cbaebabacd", "abc"));
-        System.out.println(findAnagrams("abaacbabc", "abc"));
+//        System.out.println(findAnagrams("abaacbabc", "abc"));
     }
 
     // 438. Find All Anagrams in a String
