@@ -8,11 +8,8 @@ package util;
  * @createTime 2020/1/5 3:06 上午
  */
 
-import com.sun.jdi.ArrayReference;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 /**
