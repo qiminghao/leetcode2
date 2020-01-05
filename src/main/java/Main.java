@@ -713,6 +713,57 @@ public class Main {
 
 //        System.out.println(findTargetSumWays(new int[] {1, 1, 1, 1, 1}, 3));
 //        System.out.println(findTargetSumWays2(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 1}, 1));
+
+//        System.out.println(findAnagrams("cbaebabacd", "abc"));
+        System.out.println(findAnagrams("abaacbabc", "abc"));
+    }
+
+    // 438. Find All Anagrams in a String
+    public static List<Integer> findAnagrams(String s, String p) {
+        List<Integer> res = new ArrayList<>();
+        int lenS = s.length(), lenP = p.length();
+        if (lenP > lenS) {
+            return res;
+        }
+        int[] count = new int[26];
+        for (char c : p.toCharArray()) {
+            count[c - 'a']++;
+        }
+        int unique = (int) Arrays.stream(count).filter(k -> k > 0).count();
+        int fit = 0;
+        int[] slide = new int[26];
+        for (int i = 0; i < lenP; i++) {
+            int index = s.charAt(i) - 'a';
+            slide[index]++;
+            if (slide[index] == count[index]) {
+                fit++;
+            } else if (slide[index] == count[index] + 1) {
+                fit--;
+            }
+        }
+        if (fit == unique) {
+            res.add(0);
+        }
+        for (int i = lenP; i < lenS; i++) {
+            int index = s.charAt(i) - 'a';
+            slide[index]++;
+            if (count[index] == slide[index]) {
+                fit++;
+            } else if (slide[index] == count[index] + 1) {
+                fit--;
+            }
+            index = s.charAt(i - lenP) - 'a';
+            slide[index]--;
+            if (count[index] == slide[index]) {
+                fit++;
+            } else if (slide[index] == count[index] - 1) {
+                fit--;
+            }
+            if (fit == unique) {
+                res.add(i - lenP + 1);
+            }
+        }
+        return res;
     }
 
     // 494. Target Sum (solution 2)
