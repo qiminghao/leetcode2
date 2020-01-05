@@ -712,6 +712,43 @@ public class Main {
 //        System.out.println(wordBreak("leetcode", Arrays.asList("leet", "code")));
 
 //        System.out.println(findTargetSumWays(new int[] {1, 1, 1, 1, 1}, 3));
+//        System.out.println(findTargetSumWays2(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 1}, 1));
+    }
+
+    // 494. Target Sum (solution 2)
+    // 相关问题Ksum、Uncertain sum（子集和问题）
+    // https://blog.csdn.net/Deeven123/article/details/82925433
+    public static int findTargetSumWays2(int[] nums, int S) {
+        int sum = Arrays.stream(nums).sum();
+        if (sum < S) {
+            return 0;
+        }
+        if (((sum + S) & 1) == 1) {
+            return 0;
+        }
+        int target = (sum + S) / 2;
+        return uncertainSum(nums, target);
+    }
+
+    // Uncertain sum（子集和问题）
+    private static int uncertainSum(int[] nums, int target) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int n = nums.length;
+        int[][] dp = new int[n + 1][target + 1];
+        for (int i = 0; i <= n; i++) {
+            dp[i][0] = 1;
+        }
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j <= target; j++) {
+                dp[i][j] = dp[i - 1][j];
+                if (j >= nums[i - 1]) {
+                    dp[i][j] = dp[i - 1][j] + dp[i - 1][j - nums[i - 1]];
+                }
+            }
+        }
+        return dp[n][target];
     }
 
     // 494. Target Sum
@@ -6742,6 +6779,7 @@ public class Main {
     }
 
     //122. Best Time to Buy and Sell Stock II
+    // https://www.jianshu.com/p/9fa0faff99da
     public static int maxProfit(int[] prices) {
         if (prices == null || prices.length < 2) {
             return 0;
@@ -6873,6 +6911,7 @@ public class Main {
     }
 
     //121. Best Time to Buy and Sell Stock
+    // https://www.jianshu.com/p/9fa0faff99da
     public static int maxProfit1(int[] prices) {
         int maxProfit = 0;
         int minBuy = Integer.MAX_VALUE;
