@@ -710,6 +710,26 @@ public class Main {
 //        System.out.println(longestConsecutive(new int[] {100, 4, 200, 1, 3, 2}));
 
 //        System.out.println(wordBreak("leetcode", Arrays.asList("leet", "code")));
+
+//        System.out.println(findTargetSumWays(new int[] {1, 1, 1, 1, 1}, 3));
+    }
+
+    // 494. Target Sum
+    public static int findTargetSumWays(int[] nums, int S) {
+        int[] ans = new int[1];
+        findTargetSumWaysHelper(nums, 0, S, ans);
+        return ans[0];
+    }
+
+    private static void findTargetSumWaysHelper(int[] nums, int i, int sum, int[] ans) {
+        if (i == nums.length) {
+            if (sum == 0) {
+                ans[0]++;
+            }
+            return;
+        }
+        findTargetSumWaysHelper(nums, i + 1, sum - nums[i], ans);
+        findTargetSumWaysHelper(nums, i + 1, sum + nums[i], ans);
     }
 
     // 543. Diameter of Binary Tree
