@@ -716,6 +716,43 @@ public class Main {
 
 //        System.out.println(findAnagrams("cbaebabacd", "abc"));
 //        System.out.println(findAnagrams("abaacbabc", "abc"));
+
+//        System.out.println(decodeString("3[a]2[bc]"));
+//        System.out.println(decodeString("3[a2[c]]"));
+//        System.out.println(decodeString("2[abc]3[cd]ef"));
+    }
+
+    // 394. Decode String
+    public static String decodeString(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == ']') {
+                StringBuilder encoded = new StringBuilder();
+                while (stack.peek() != '[') {
+                    encoded.append(stack.pop());
+                }
+                encoded = encoded.reverse();
+                stack.pop();
+                StringBuilder count = new StringBuilder();
+                while (!stack.isEmpty() && Character.isDigit(stack.peek())) {
+                    count.append(stack.pop());
+                }
+                count = count.reverse();
+                for (int j = Integer.valueOf(count.toString()); j > 0; j--) {
+                    for (char cc : encoded.toString().toCharArray()) {
+                        stack.push(cc);
+                    }
+                }
+            } else {
+                stack.push(c);
+            }
+        }
+        StringBuilder res = new StringBuilder();
+        while (!stack.isEmpty()) {
+            res.append(stack.pop());
+        }
+        return res.reverse().toString();
     }
 
     // 438. Find All Anagrams in a String
