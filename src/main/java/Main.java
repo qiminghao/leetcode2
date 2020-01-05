@@ -1,4 +1,5 @@
 import array.ThreeSum;
+import util.Codec;
 import util.CommonUtil;
 import util.Pair;
 
@@ -709,6 +710,23 @@ public class Main {
 //        System.out.println(longestConsecutive(new int[] {100, 4, 200, 1, 3, 2}));
 
 //        System.out.println(wordBreak("leetcode", Arrays.asList("leet", "code")));
+    }
+
+    // 543. Diameter of Binary Tree
+    public static int diameterOfBinaryTree(TreeNode root) {
+        int[] max = new int[1];
+        diameterOfBinaryTreeHelper(root, max);
+        return max[0];
+    }
+
+    private static int diameterOfBinaryTreeHelper(TreeNode root, int[] max) {
+        if (root == null) {
+            return 0;
+        }
+        int l = diameterOfBinaryTreeHelper(root.left, max);
+        int r = diameterOfBinaryTreeHelper(root.right, max);
+        max[0] = Math.max(max[0], l + r);
+        return Math.max(l, r) + 1;
     }
 
     // 617. Merge Two Binary Trees
