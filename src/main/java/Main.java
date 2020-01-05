@@ -711,6 +711,20 @@ public class Main {
 //        System.out.println(wordBreak("leetcode", Arrays.asList("leet", "code")));
     }
 
+    // 617. Merge Two Binary Trees
+    public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
+        if (t1 == null) {
+            return t2;
+        }
+        if (t2 == null) {
+            return t1;
+        }
+        t1.val += t2.val;
+        t1.left = mergeTrees(t1.left, t2.left);
+        t1.right = mergeTrees(t1.right, t2.right);
+        return t1;
+    }
+
     // 139. Word Break
     public static boolean wordBreak(String s, List<String> wordDict) {
         Set<String> dict = wordDict.stream().collect(Collectors.toSet());
