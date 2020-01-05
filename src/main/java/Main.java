@@ -727,7 +727,7 @@ public class Main {
             return 0;
         }
         int target = (sum + S) / 2;
-        return uncertainSum(nums, target);
+        return uncertainSum2(nums, target);
     }
 
     // Uncertain sum（子集和问题）
@@ -749,6 +749,24 @@ public class Main {
             }
         }
         return dp[n][target];
+    }
+
+    // Uncertain sum（子集和问题）
+    private static int uncertainSum2(int[] nums, int target) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int n = nums.length;
+        int[] dp = new int[target + 1];
+        dp[0] = 1;
+        for (int x : nums) {
+            int i = target;
+            while (i >= x) {
+                dp[i] += dp[i - x];
+                i--;
+            }
+        }
+        return dp[target];
     }
 
     // 494. Target Sum
