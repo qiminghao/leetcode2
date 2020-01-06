@@ -722,6 +722,26 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 337. House Robber III
+    public static int rob(TreeNode root) {
+        return robHelper(root);
+    }
+
+    private static int robHelper(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int rob = root.val;
+        if (root.left != null) {
+            rob += robHelper(root.left.left) + robHelper(root.left.right);
+        }
+        if (root.right != null) {
+            rob += robHelper(root.right.left) + robHelper(root.right.right);
+        }
+        int notRob = robHelper(root.left) + robHelper(root.right);
+        return Math.max(rob, notRob);
+    }
+
     // 322. Coin Change
     public static int coinChange(int[] coins, int amount) {
         int[] dp = new int[amount + 1];
