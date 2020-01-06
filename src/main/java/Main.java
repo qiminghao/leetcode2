@@ -723,6 +723,28 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 106. Construct Binary Tree from Inorder and Postorder Traversal
+    public TreeNode buildTree1(int[] inorder, int[] postorder) {
+        return buildTreeHelper1(inorder, 0, inorder.length - 1, postorder, 0, postorder.length - 1);
+    }
+
+    private TreeNode buildTreeHelper1(int[] in, int inL, int inR, int[] post, int postL, int postR) {
+        if (inL > inR) {
+            return null;
+        }
+        TreeNode root = new TreeNode(post[postR]);
+        int k = 0;
+        for (int i = inL; i <= inR; i++) {
+            if (in[i] == post[postR]) {
+                k = i;
+                break;
+            }
+        }
+        root.left = buildTreeHelper(in, inL, k - 1, post, postL, k - 1 - inL + postL);
+        root.left = buildTreeHelper(in, k + 1, inR, post, k - inR + postR, postR - 1);
+        return root;
+    }
+
     // 637. Average of Levels in Binary Tree
     public static List<Double> averageOfLevels(TreeNode root) {
         List<Double> res = new ArrayList<>();
