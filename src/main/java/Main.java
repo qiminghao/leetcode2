@@ -723,6 +723,38 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 103. Binary Tree Zigzag Level Order Traversal
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        boolean flag = true;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            LinkedList<Integer> layer = new LinkedList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode cur = queue.remove();
+                if (flag) {
+                    layer.addLast(cur.val);
+                } else {
+                    layer.addFirst(cur.val);
+                }
+                if (cur.left != null) {
+                    queue.add(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.add(cur.right);
+                }
+            }
+            flag = !flag;
+            res.add(layer);
+        }
+        return res;
+    }
+
     // 337. House Robber III
     public static int rob(TreeNode root) {
 //        return robHelper(root);
