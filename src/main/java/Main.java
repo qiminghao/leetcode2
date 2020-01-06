@@ -723,8 +723,34 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 107. Binary Tree Level Order Traversal II
+    public static List<List<Integer>> levelOrderBottom(TreeNode root) {
+        LinkedList<List<Integer>> res = new LinkedList<>();
+        if (root == null) {
+            return res;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            int size= queue.size();
+            List<Integer> layer = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode cur = queue.remove();
+                layer.add(cur.val);
+                if (cur.left != null) {
+                    queue.add(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.add(cur.right);
+                }
+            }
+            res.addFirst(layer);
+        }
+        return res;
+    }
+
     // 103. Binary Tree Zigzag Level Order Traversal
-    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+    public static List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
         if (root == null) {
             return res;
