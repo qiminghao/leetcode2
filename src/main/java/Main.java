@@ -723,6 +723,29 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 637. Average of Levels in Binary Tree
+    public static List<Double> averageOfLevels(TreeNode root) {
+        List<Double> res = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            double sum = 0;
+            for (int i = 0; i < size; i++) {
+                TreeNode cur = queue.remove();
+                sum += cur.val;
+                if (cur.left != null) {
+                    queue.add(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.add(cur.right);
+                }
+            }
+            res.add(sum / size);
+        }
+        return res;
+    }
+
     // 107. Binary Tree Level Order Traversal II
     public static List<List<Integer>> levelOrderBottom(TreeNode root) {
         LinkedList<List<Integer>> res = new LinkedList<>();
@@ -732,7 +755,7 @@ public class Main {
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
         while (!queue.isEmpty()) {
-            int size= queue.size();
+            int size = queue.size();
             List<Integer> layer = new ArrayList<>();
             for (int i = 0; i < size; i++) {
                 TreeNode cur = queue.remove();
