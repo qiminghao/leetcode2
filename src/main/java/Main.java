@@ -723,6 +723,26 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 508. Most Frequent Subtree Sum
+    public static int[] findFrequentTreeSum(TreeNode root) {
+       Map<Integer, Integer> map = new HashMap<>();
+       int[] maxT = new int[1];
+       findFrequentTreeSumHelper(root, map, maxT);
+       return  map.entrySet().stream().filter(o -> o.getValue().intValue() == maxT[0]).mapToInt(Map.Entry::getKey).toArray();
+    }
+
+    private static int findFrequentTreeSumHelper(TreeNode root, Map<Integer, Integer> map, int[] maxT) {
+        if (root == null) {
+            return 0;
+        }
+        int left = findFrequentTreeSumHelper(root.left, map, maxT);
+        int right = findFrequentTreeSumHelper(root.right, map, maxT);
+        int result = left + right + root.val;
+        map.put(result, map.getOrDefault(result, 0) + 1);
+        maxT[0] = Math.max(maxT[0], map.get(result));
+        return result;
+    }
+
     // 106. Construct Binary Tree from Inorder and Postorder Traversal
     public TreeNode buildTree1(int[] inorder, int[] postorder) {
         return buildTreeHelper1(inorder, 0, inorder.length - 1, postorder, 0, postorder.length - 1);
