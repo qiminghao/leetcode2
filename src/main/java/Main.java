@@ -1,4 +1,5 @@
 import array.ThreeSum;
+import com.sun.source.tree.Tree;
 import util.Codec;
 import util.CommonUtil;
 import util.Pair;
@@ -724,7 +725,22 @@ public class Main {
 
     // 337. House Robber III
     public static int rob(TreeNode root) {
-        return robHelper(root);
+//        return robHelper(root);
+
+        int[] res = robHelper2(root);
+        return Math.max(res[0], res[1]);
+    }
+
+    // 效率很好
+    private static int[] robHelper2(TreeNode root) {
+        if (root == null) {
+            return new int[] {0, 0};
+        }
+        int[] left = robHelper2(root.left);
+        int[] right = robHelper2(root.right);
+        int rob = root.val + left[0] + right[0];
+        int notRob = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
+        return new int[] {notRob, rob};
     }
 
     private static int robHelper(TreeNode root) {
