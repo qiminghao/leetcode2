@@ -722,6 +722,20 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 322. Coin Change
+    public static int coinChange(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        for (int i = 1; i <= amount; i++) {
+            dp[i] = amount + 1;
+            for (int x : coins) {
+                if (i - x >= 0) {
+                    dp[i] = Math.min(dp[i], dp[i - x] + 1);
+                }
+            }
+        }
+        return dp[amount] == amount + 1 ? -1 : dp[amount];
+    }
+
     // 394. Decode String
     public static String decodeString(String s) {
         Stack<Character> stack = new Stack<>();
