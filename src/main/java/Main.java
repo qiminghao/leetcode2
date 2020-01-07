@@ -723,6 +723,27 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 1302. Deepest Leaves Sum
+    public int deepestLeavesSum(TreeNode root) {
+        int[] sum = new int[1];
+        deepestLeavesSumHelper(root, 0, new int[1], sum);
+        return sum[0];
+    }
+
+    private void deepestLeavesSumHelper(TreeNode root, int depth, int[] maxDepth, int[] sum) {
+        if (root == null) {
+            return;
+        }
+        if (maxDepth[0] == depth) {
+            sum[0] += root.val;
+        } else if (maxDepth[0] < depth) {
+            maxDepth[0] = depth;
+            sum[0] = root.val;
+        }
+        deepestLeavesSumHelper(root.left, depth + 1, maxDepth, sum);
+        deepestLeavesSumHelper(root.right, depth + 1, maxDepth, sum);
+    }
+
     // 116. Populating Next Right Pointers in Each Node
     public Node connect(Node root) {
         if (root == null) {
