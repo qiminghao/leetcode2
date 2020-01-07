@@ -723,6 +723,54 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 116. Populating Next Right Pointers in Each Node
+    public Node connect(Node root) {
+        if (root == null) {
+            return null;
+        }
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            Node pre = null;
+            for (int i = 0; i < size; i++) {
+                Node cur = queue.remove();
+                if (cur.left != null) {
+                    queue.add(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.add(cur.right);
+                }
+                if (pre != null) {
+                    pre.next = cur;
+                }
+                pre = cur;
+            }
+            pre.next = null;
+        }
+        return root;
+    }
+
+    private static class Node {
+        public int val;
+        public Node left;
+        public Node right;
+        public Node next;
+
+        public Node() {}
+
+        public Node(int _val) {
+            val = _val;
+        }
+
+        public Node(int _val, Node _left, Node _right, Node _next) {
+            val = _val;
+            left = _left;
+            right = _right;
+            next = _next;
+        }
+    }
+
     // 108. Convert Sorted Array to Binary Search Tree
     public static TreeNode sortedArrayToBST(int[] nums) {
         return sortedArrayToBSTHelper(nums, 0, nums.length - 1);
@@ -1379,13 +1427,13 @@ public class Main {
     }
 
     // 430. Flatten a Multilevel Doubly Linked List
-    public static Node flatten(Node head) {
-        Node cur = head;
+    public static Node3 flatten(Node3 head) {
+        Node3 cur = head;
         while (cur != null) {
             if (cur.child != null) {
-                Node h = flatten(cur.child);
+                Node3 h = flatten(cur.child);
                 cur.child = null;
-                Node next = cur.next;
+                Node3 next = cur.next;
                 cur.next = h;
                 h.prev = cur;
                 while (h.next != null) {
@@ -1404,14 +1452,12 @@ public class Main {
         return head;
     }
 
-    private class Node {
+    private class Node3 {
         public int val;
-        public Node prev;
-        public Node next;
-        public Node child;
+        public Node3 prev;
+        public Node3 next;
+        public Node3 child;
     }
-
-    ;
 
     // 25. Reverse Nodes in k-Group
     public static ListNode reverseKGroup(ListNode head, int k) {
