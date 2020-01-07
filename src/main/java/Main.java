@@ -723,6 +723,22 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 108. Convert Sorted Array to Binary Search Tree
+    public static TreeNode sortedArrayToBST(int[] nums) {
+        return sortedArrayToBSTHelper(nums, 0, nums.length - 1);
+    }
+
+    private static TreeNode sortedArrayToBSTHelper(int[] nums, int l, int r) {
+        if (l > r) {
+            return null;
+        }
+        int mid = (l + r) / 2;
+        TreeNode root = new TreeNode(nums[mid]);
+        root.left = sortedArrayToBSTHelper(nums, l, mid - 1);
+        root.right = sortedArrayToBSTHelper(nums, mid + 1, r);
+        return root;
+    }
+
     // 508. Most Frequent Subtree Sum
     public static int[] findFrequentTreeSum(TreeNode root) {
        Map<Integer, Integer> map = new HashMap<>();
