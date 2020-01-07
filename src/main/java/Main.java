@@ -751,6 +751,29 @@ public class Main {
         return root;
     }
 
+    // 117. Populating Next Right Pointers in Each Node II
+    // 116 solution 2
+    public Node connect2(Node root) {
+        Node cur = root;
+        while (cur != null) {
+            Node dummy = new Node();
+            Node tail = dummy;
+            while (cur != null) {
+                if (cur.left != null) {
+                    tail.next = cur.left;
+                    tail = tail.next;
+                }
+                if (cur.right != null) {
+                    tail.next = cur.right;
+                    tail = tail.next;
+                }
+                cur = cur.next;
+            }
+            cur = dummy.next;
+        }
+        return root;
+    }
+
     private static class Node {
         public int val;
         public Node left;
