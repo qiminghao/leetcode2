@@ -723,6 +723,39 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 655. Print Binary Tree
+    public List<List<String>> printTree(TreeNode root) {
+        int h = getHeigth(root);
+        List<List<String>> res = new ArrayList<>(h);
+        int w = (1 << h) - 1;
+        for (int i = 0; i < h; i++) {
+            List<String> temp = new ArrayList<>(w);
+            for (int j = w - 1; j >= 0; j--) {
+                temp.add("");
+            }
+            res.add(temp);
+        }
+        printTreeHelper(root, 0, 0, w - 1, res);
+        return res;
+    }
+
+    private void printTreeHelper(TreeNode root, int layer, int l, int r, List<List<String>> res) {
+        if (root == null) {
+            return;
+        }
+        int mid = (l + r) / 2;
+        res.get(layer).set(mid, String.valueOf(root.val));
+        printTreeHelper(root.left, layer + 1, l, mid - 1, res);
+        printTreeHelper(root.right, layer + 1, mid + 1, r, res);
+    }
+
+    private int getHeigth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        return Math.max(getHeigth(root.left), getHeigth(root.right)) + 1;
+    }
+
     // 1302. Deepest Leaves Sum
     public int deepestLeavesSum(TreeNode root) {
         int[] sum = new int[1];
