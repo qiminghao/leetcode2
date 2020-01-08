@@ -712,6 +712,24 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 811. Subdomain Visit Count
+    public List<String> subdomainVisits(String[] cpdomains) {
+        Map<String, Integer> map = new HashMap<>();
+        for (String cpdomain : cpdomains) {
+            String[] s = cpdomain.split(" ");
+            int times = Integer.valueOf(s[0]);
+            String domain = s[1];
+            map.put(domain, map.getOrDefault(domain, 0) + times);
+            for (int i = 0; i < domain.length(); i++) {
+                if (domain.charAt(i) == '.') {
+                    String key = domain.substring(i + 1);
+                    map.put(key, map.getOrDefault(key, 0) + times);
+                }
+            }
+        }
+        return map.entrySet().stream().map(o -> o.getValue() + " " + o.getKey()).collect(Collectors.toList());
+    }
+
     // 236. Lowest Common Ancestor of a Binary Tree
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         List<TreeNode> path1 = new ArrayList<>();
