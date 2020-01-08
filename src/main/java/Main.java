@@ -712,6 +712,30 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 112. Path Sum
+    public boolean hasPathSum(TreeNode root, int sum) {
+        return hasPathSumHelper(root, sum, false);
+    }
+
+    private boolean hasPathSumHelper(TreeNode root, int sum, boolean flag) {
+        if (flag) {
+            return true;
+        }
+        if (root == null) {
+            return false;
+        }
+        if (root.left == null && root.right == null) {
+            return sum == root.val;
+        }
+        if (root.left != null) {
+            flag = flag | hasPathSumHelper(root.left, sum - root.val, flag);
+        }
+        if (root.right != null) {
+            flag = flag | hasPathSumHelper(root.right, sum - root.val, flag);
+        }
+        return flag;
+    }
+
     // 257. Binary Tree Paths
     public List<String> binaryTreePaths(TreeNode root) {
         List<String> res = new ArrayList<>();
