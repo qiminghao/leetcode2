@@ -712,6 +712,30 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 687. Longest Univalue Path
+    public int longestUnivaluePath(TreeNode root) {
+        int[] ans = new int[1];
+        longestUnivaluePathHelper(root, ans);
+        return ans[0];
+    }
+
+    private int longestUnivaluePathHelper(TreeNode root, int[] ans) {
+        if (root == null) {
+            return 0;
+        }
+        int left = longestUnivaluePathHelper(root.left, ans);
+        int right = longestUnivaluePathHelper(root.right,ans);
+        int arrowLeft = 0, arrowRight = 0;
+        if (root.left != null && root.left.val == root.val) {
+            arrowLeft = left + 1;
+        }
+        if (root.right != null && root.right.val == root.val) {
+            arrowRight = right + 1;
+        }
+        ans[0] = Math.max(ans[0], arrowLeft + arrowRight);
+        return Math.max(arrowLeft, arrowRight);
+    }
+
     // 437. Path Sum III
     public int pathSumIII(TreeNode root, int sum) {
         int[] res = new int[1];
