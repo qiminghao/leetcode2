@@ -712,6 +712,22 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 1009. Complement of Base 10 Integer
+    public int bitwiseComplement(int N) {
+        if (N == 0) {
+            return 1;
+        }
+        int x = 1 << 31;
+        while ((x & N) == 0) {
+            x >>>= 1;
+        }
+        while (x != 0) {
+            N ^= x;
+            x >>>= 1;
+        }
+        return N;
+    }
+
     // 811. Subdomain Visit Count
     public List<String> subdomainVisits(String[] cpdomains) {
         Map<String, Integer> map = new HashMap<>();
