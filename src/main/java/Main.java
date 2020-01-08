@@ -712,6 +712,34 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 113. Path Sum II
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<List<Integer>> res = new ArrayList<>();
+        pathSumHalper(root, sum, new LinkedList<>(), res);
+        return res;
+    }
+
+    private void pathSumHalper(TreeNode root, int sum, LinkedList<Integer> path, List<List<Integer>> res) {
+        if (root == null) {
+            return;
+        }
+        sum -= root.val;
+        path.add(root.val);
+        if (root.left == null && root.right == null) {
+            if (sum == 0) {
+                res.add(new ArrayList<>(path));
+            }
+        }
+        if (root.left != null) {
+            pathSumHalper(root.left, sum, path, res);
+        }
+        if (root.right != null) {
+            pathSumHalper(root.right, sum, path, res);
+        }
+        path.removeLast();
+        sum += root.val;
+    }
+
     // 988. Smallest String Starting From Leaf
     public String smallestFromLeaf(TreeNode root) {
         String[] res = new String[] {"{"};
