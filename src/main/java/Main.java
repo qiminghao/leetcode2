@@ -712,6 +712,42 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 236. Lowest Common Ancestor of a Binary Tree
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        List<TreeNode> path1 = new ArrayList<>();
+        List<TreeNode> path2 = new ArrayList<>();
+        lowestCommonAncestorHelper(root, p, new ArrayList<>(), path1, false);
+        lowestCommonAncestorHelper(root, q, new ArrayList<>(), path2, false);
+        int n = Math.min(path1.size(), path2.size());
+        for (int i = 0; i < n; i++) {
+            if (path1.get(i) != path2.get(i)) {
+                return path1.get(i - 1);
+            }
+        }
+        return path1.size() == n ? path1.get(path1.size() - 1) : path2.get(path2.size() - 1);
+    }
+
+    private void lowestCommonAncestorHelper(TreeNode root, TreeNode target, List<TreeNode> path, List<TreeNode> res, boolean hasFound) {
+        if (hasFound) {
+            return;
+        }
+        if (root == null) {
+            return;
+        }
+        path.add(root);
+        if (root == target) {
+            res.addAll(path);
+            hasFound = true;
+        }
+        if (root.left != null) {
+            lowestCommonAncestorHelper(root.left, target, path, res, hasFound);
+        }
+        if (root.right != null) {
+            lowestCommonAncestorHelper(root.right, target, path, res, hasFound);
+        }
+        path.remove(path.size() - 1);
+    }
+
     // 687. Longest Univalue Path
     public int longestUnivaluePath(TreeNode root) {
         int[] ans = new int[1];
