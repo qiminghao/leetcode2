@@ -712,6 +712,33 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 988. Smallest String Starting From Leaf
+    public String smallestFromLeaf(TreeNode root) {
+        String[] res = new String[] {"{"};
+        smallestFromLeafHelper(root, new StringBuilder(), res);
+        return res[0];
+    }
+
+    private void smallestFromLeafHelper(TreeNode root, StringBuilder str, String[] res) {
+        if (root == null) {
+            return;
+        }
+        str.append((char) ('a' + root.val));
+        if (root.left == null && root.right == null) {
+            String cur = new StringBuilder(str).reverse().toString();
+            if (cur.compareTo(res[0]) < 0) {
+                res[0] = cur;
+            }
+        }
+        if (root.left != null) {
+            smallestFromLeafHelper(root.left, str, res);
+        }
+        if (root.right != null) {
+            smallestFromLeafHelper(root.right, str, res);
+        }
+        str.deleteCharAt(str.length() - 1);
+    }
+
     // 129. Sum Root to Leaf Numbers
     public int sumNumbers(TreeNode root) {
         int[] res = new int[1];
