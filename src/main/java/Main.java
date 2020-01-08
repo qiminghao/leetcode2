@@ -712,6 +712,41 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 437. Path Sum III
+    public int pathSumIII(TreeNode root, int sum) {
+        int[] res = new int[1];
+        pathSumHelper1(root, sum, res);
+        return res[0];
+    }
+
+    // 遍历起点
+    private void pathSumHelper1(TreeNode root, int sum, int[] res) {
+        if (root == null) {
+            return;
+        }
+        pathSumHelper2(root, sum, res);
+        pathSumHelper1(root.left, sum, res);
+        pathSumHelper1(root.right, sum, res);
+    }
+
+    // 遍历终点
+    private void pathSumHelper2(TreeNode root, int sum, int[] res) {
+        if (root == null) {
+            return;
+        }
+        sum -= root.val;
+        if (sum == 0) {
+            res[0]++;
+        }
+        if (root.left != null) {
+            pathSumHelper2(root.left, sum, res);
+        }
+        if (root.right != null) {
+            pathSumHelper2(root.right, sum, res);
+        }
+        sum += root.val;
+    }
+
     // 113. Path Sum II
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
         List<List<Integer>> res = new ArrayList<>();
