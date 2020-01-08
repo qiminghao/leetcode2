@@ -814,7 +814,7 @@ public class Main {
             return;
         }
         sum = sum * 10 + root.val;
-        if (root.left ==null && root.right == null) {
+        if (root.left == null && root.right == null) {
             res[0] += sum;
             return;
         }
@@ -1008,7 +1008,8 @@ public class Main {
         public Node right;
         public Node next;
 
-        public Node() {}
+        public Node() {
+        }
 
         public Node(int _val) {
             val = _val;
@@ -1040,10 +1041,10 @@ public class Main {
 
     // 508. Most Frequent Subtree Sum
     public static int[] findFrequentTreeSum(TreeNode root) {
-       Map<Integer, Integer> map = new HashMap<>();
-       int[] maxT = new int[1];
-       findFrequentTreeSumHelper(root, map, maxT);
-       return  map.entrySet().stream().filter(o -> o.getValue().intValue() == maxT[0]).mapToInt(Map.Entry::getKey).toArray();
+        Map<Integer, Integer> map = new HashMap<>();
+        int[] maxT = new int[1];
+        findFrequentTreeSumHelper(root, map, maxT);
+        return map.entrySet().stream().filter(o -> o.getValue().intValue() == maxT[0]).mapToInt(Map.Entry::getKey).toArray();
     }
 
     private static int findFrequentTreeSumHelper(TreeNode root, Map<Integer, Integer> map, int[] maxT) {
