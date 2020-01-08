@@ -728,10 +728,10 @@ public class Main {
             return sum == root.val;
         }
         if (root.left != null) {
-            flag = flag | hasPathSumHelper(root.left, sum - root.val, flag);
+            flag = hasPathSumHelper(root.left, sum - root.val, flag);
         }
         if (root.right != null) {
-            flag = flag | hasPathSumHelper(root.right, sum - root.val, flag);
+            flag = hasPathSumHelper(root.right, sum - root.val, flag);
         }
         return flag;
     }
