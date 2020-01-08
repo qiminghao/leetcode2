@@ -712,6 +712,31 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 129. Sum Root to Leaf Numbers
+    public int sumNumbers(TreeNode root) {
+        int[] res = new int[1];
+        sumNumbersHelper(root, 0, res);
+        return res[0];
+    }
+
+    private void sumNumbersHelper(TreeNode root, int sum, int[] res) {
+        if (root == null) {
+            return;
+        }
+        sum = sum * 10 + root.val;
+        if (root.left ==null && root.right == null) {
+            res[0] += sum;
+            return;
+        }
+        if (root.left != null) {
+            sumNumbersHelper(root.left, sum, res);
+        }
+        if (root.right != null) {
+            sumNumbersHelper(root.right, sum, res);
+        }
+        sum /= 10;
+    }
+
     // 112. Path Sum
     public boolean hasPathSum(TreeNode root, int sum) {
         return hasPathSumHelper(root, sum, false);
