@@ -712,6 +712,27 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 1026. Maximum Difference Between Node and Ancestor
+    public int maxAncestorDiff(TreeNode root) {
+        int[] res = new int[1];
+        maxAncestorDiffHelper(root, res, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        return res[0];
+    }
+
+    private void maxAncestorDiffHelper(TreeNode root, int[] res, int max, int min) {
+        if (root == null) {
+            return;
+        }
+
+        max = Math.max(max, root.val);
+        min = Math.min(min, root.val);
+        if (root.left == null && root.right == null) {
+            res[0] = Math.max(res[0], max - min);
+        }
+        maxAncestorDiffHelper(root.left, res, max, min);
+        maxAncestorDiffHelper(root.right, res, max, min);
+    }
+
     // 655. Print Binary Tree
     public List<List<String>> printTree(TreeNode root) {
         int h = getHeigth(root);
