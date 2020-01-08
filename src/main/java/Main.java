@@ -712,6 +712,31 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 257. Binary Tree Paths
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> res = new ArrayList<>();
+        LinkedList<String> path = new LinkedList<>();
+        binaryTreePathsHelper(root, path, res);
+        return res;
+    }
+
+    private void binaryTreePathsHelper(TreeNode root, LinkedList<String> path, List<String> res) {
+        if (root == null) {
+            return;
+        }
+        path.addLast(String.valueOf(root.val));
+        if (root.left == null && root.right == null) {
+            res.add(String.join("->", path));
+        }
+        if (root.left != null) {
+            binaryTreePathsHelper(root.left, path, res);
+        }
+        if (root.right != null) {
+            binaryTreePathsHelper(root.right, path, res);
+        }
+        path.removeLast();
+    }
+
     // 1026. Maximum Difference Between Node and Ancestor
     public int maxAncestorDiff(TreeNode root) {
         int[] res = new int[1];
