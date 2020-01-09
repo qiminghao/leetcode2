@@ -712,6 +712,24 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 1006. Clumsy Factorial
+    public int clumsy(int N) {
+        if (N <= 2) {
+            return N;
+        }
+        if (N <= 4) {
+            return N + 3;
+        }
+        int mod = N & 3;
+        if (mod == 0) {
+            return N + 1;
+        }
+        if (mod == 3) {
+            return N - 1;
+        }
+        return N + 2;
+    }
+
     // 145. Binary Tree Postorder Traversal
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> res = new LinkedList<>();
