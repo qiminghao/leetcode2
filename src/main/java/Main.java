@@ -712,6 +712,50 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 329. Longest Increasing Path in a Matrix
+    public int longestIncreasingPath(int[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return 0;
+        }
+        int m = matrix.length, n = matrix[0].length;
+        int[][] dis = new int[m][n];
+        int res = 1;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (dis[i][j] == 0) {
+                    longestIncreasingPathHelper(matrix, dis, i, j);
+                }
+                res = Math.max(res, dis[i][j]);
+            }
+        }
+        return res;
+    }
+
+    private int longestIncreasingPathHelper(int[][] mat, int[][] dis, int i, int j) {
+        if (dis[i][j] != 0) {
+            return dis[i][j];
+        }
+        int res = 1;
+        if (isValid(mat, i - 1, j) && mat[i - 1][j] > mat[i][j]) {
+            res = Math.max(res, 1 + longestIncreasingPathHelper(mat, dis, i - 1, j));
+        }
+        if (isValid(mat, i + 1, j) && mat[i + 1][j] > mat[i][j]) {
+            res = Math.max(res, 1 + longestIncreasingPathHelper(mat, dis, i + 1, j));
+        }
+        if (isValid(mat, i, j - 1) && mat[i][j - 1] > mat[i][j]) {
+            res = Math.max(res, 1 + longestIncreasingPathHelper(mat, dis, i, j - 1));
+        }
+        if (isValid(mat, i, j + 1) && mat[i][j + 1] > mat[i][j]) {
+            res = Math.max(res, 1 + longestIncreasingPathHelper(mat, dis, i, j + 1));
+        }
+        dis[i][j] = res;
+        return res;
+    }
+
+    private boolean isValid(int[][] mat, int i, int j) {
+        return i >= 0 && i < mat.length && j >= 0 && j < mat[0].length;
+    }
+
     // 1006. Clumsy Factorial
     public int clumsy(int N) {
         if (N <= 2) {
