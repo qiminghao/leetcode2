@@ -712,6 +712,21 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
     }
 
+    // 396. Rotate Function
+    public int maxRotateFunction(int[] A) {
+        int sum = Arrays.stream(A).sum();
+        int cur = 0, n = A.length;
+        for (int i = 0; i < n; i++) {
+            cur += i * A[i];
+        }
+        int max = cur;
+        for (int i = 1; i < n; i++) {
+            cur = cur + sum - n * A[n - i];
+            max = Math.max(max, cur);
+        }
+        return max;
+    }
+
     // 199. Binary Tree Right Side View
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> res = new ArrayList<>();
