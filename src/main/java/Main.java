@@ -711,7 +711,33 @@ public class Main {
 //        System.out.println(decodeString("3[a2[c]]"));
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
 
-        System.out.println(new Main().complexNumberMultiply("78+-76i", "-86+72i"));
+//        System.out.println(new Main().complexNumberMultiply("78+-76i", "-86+72i"));
+    }
+
+    // 539. Minimum Time Difference
+    public int findMinDifference(List<String> timePoints) {
+        int[] count = new int[1440];
+        for (String timePoint : timePoints) {
+            String[] s = timePoint.split(":");
+            int minute = Integer.valueOf(s[0]) * 60 + Integer.valueOf(s[1]);
+            if (count[minute] > 0) {
+                return 0;
+            }
+            count[minute] = 1;
+        }
+        int mindiff = 1440, pre = -1, first = -1;
+        for (int i = 0; i < count.length; i++) {
+            if (count[i] == 1) {
+                if (pre != -1) {
+                    mindiff = Math.min(mindiff, i - pre);
+                } else {
+                    first = i;
+                }
+                pre = i;
+            }
+        }
+        mindiff = Math.min(mindiff, 1440 - pre + first);
+        return mindiff;
     }
 
     // 537. Complex Number Multiplication
@@ -728,6 +754,7 @@ public class Main {
             this.real = Integer.valueOf(s[0]);
             this.fake = Integer.valueOf(s[1].substring(0, s[1].length() - 1));
         }
+
         public ComplexNumber(int real, int fake) {
             this.real = real;
             this.fake = fake;
