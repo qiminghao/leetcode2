@@ -714,6 +714,24 @@ public class Main {
 //        System.out.println(new Main().complexNumberMultiply("78+-76i", "-86+72i"));
     }
 
+    // 1283. Find the Smallest Divisor Given a Threshold
+    public int smallestDivisor(int[] nums, int threshold) {
+        int l = 1, r = Arrays.stream(nums).max().getAsInt();
+        while (l < r) {
+            int mid = (l + r) / 2;
+            int sum = 0;
+            for (int x : nums) {
+                sum += (x - 1) / mid + 1;
+            }
+            if (sum > threshold) {
+                l = mid + 1;
+            } else {
+                r = mid;
+            }
+        }
+        return l;
+    }
+
     // 539. Minimum Time Difference
     public int findMinDifference(List<String> timePoints) {
         int[] count = new int[1440];
