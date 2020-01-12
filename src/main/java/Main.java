@@ -710,6 +710,39 @@ public class Main {
 //        System.out.println(decodeString("3[a]2[bc]"));
 //        System.out.println(decodeString("3[a2[c]]"));
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
+
+        System.out.println(new Main().complexNumberMultiply("78+-76i", "-86+72i"));
+    }
+
+    // 537. Complex Number Multiplication
+    public String complexNumberMultiply(String a, String b) {
+        return new ComplexNumber(a).multiply(new ComplexNumber(b)).toString();
+    }
+
+    private class ComplexNumber {
+        int real;
+        int fake;
+
+        public ComplexNumber(String str) {
+            String[] s = str.split("\\+");
+            this.real = Integer.valueOf(s[0]);
+            this.fake = Integer.valueOf(s[1].substring(0, s[1].length() - 1));
+        }
+        public ComplexNumber(int real, int fake) {
+            this.real = real;
+            this.fake = fake;
+        }
+
+        public ComplexNumber multiply(ComplexNumber multiplier) {
+            int real = this.real * multiplier.real - this.fake * multiplier.fake;
+            int fake = this.real * multiplier.fake + this.fake * multiplier.real;
+            return new ComplexNumber(real, fake);
+        }
+
+        @Override
+        public String toString() {
+            return this.real + "+" + this.fake + "i";
+        }
     }
 
     // 396. Rotate Function
