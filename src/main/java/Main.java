@@ -243,7 +243,7 @@ public class Main {
 //        System.out.println(jump(IntStream.of(1).toArray()));
 //        System.out.println(jump(IntStream.of(1, 2, 3).toArray()));
 
-        System.out.println(maximalRectangle(new char[][]{
+        System.out.println(maximalRectangle(new char[][] {
                 {'1', '0', '1', '0', '0'},
                 {'1', '0', '1', '1', '1'},
                 {'1', '1', '1', '1', '1'},
@@ -345,8 +345,8 @@ public class Main {
 //        System.out.println(findLength(new int[]{1, 2, 3, 2, 1}, new int[]{3, 2, 1, 4, 7}));
 //        System.out.println(findLength(new int[]{0,1,1,1,1}, new int[]{1,0,1,0,1}));
 
-        System.out.println(minSubArrayLen(7, new int[]{2, 3, 1, 2, 4, 3}));
-        System.out.println(minSubArrayLen(11, new int[]{1, 2, 3, 4, 5}));
+        System.out.println(minSubArrayLen(7, new int[] {2, 3, 1, 2, 4, 3}));
+        System.out.println(minSubArrayLen(11, new int[] {1, 2, 3, 4, 5}));
 
 //        SnapshotArray snapshotArr = new SnapshotArray(3); // set the length to be 3
 //        snapshotArr.set(0,5);  // Set array[0] = 5
@@ -547,9 +547,9 @@ public class Main {
 //        System.out.println(repeatedStringMatch("ab", "babababa"));
 //        System.out.println(repeatedStringMatch("aaaaaab", "ba"));
 
-        System.out.println(largestTimeFromDigits(new int[]{1, 2, 3, 4}));
-        System.out.println(largestTimeFromDigits(new int[]{5, 5, 5, 5}));
-        System.out.println(largestTimeFromDigits(new int[]{0, 3, 0, 3}));
+        System.out.println(largestTimeFromDigits(new int[] {1, 2, 3, 4}));
+        System.out.println(largestTimeFromDigits(new int[] {5, 5, 5, 5}));
+        System.out.println(largestTimeFromDigits(new int[] {0, 3, 0, 3}));
 
 //        System.out.println(merge(new int[][] {{1, 3}, {2, 6}, {8, 10}, {15, 18}}));
 //        System.out.println(merge(new int[][] {{1, 4}, {1, 5}}));
@@ -715,11 +715,38 @@ public class Main {
 
 //        System.out.println(new Main().uniqueLetterString("ABA"));
 //        System.out.println(new Main().uniqueLetterString("ABC"));
+
+//        System.out.println(new Main().kthSmallest(new int[][] {{1, 5, 9}, {10, 11, 13}, {12, 13, 15}}, 8));
+    }
+
+    // 378. Kth Smallest Element in a Sorted Matrix
+    public int kthSmallest(int[][] matrix, int k) {
+        int n = matrix.length;
+        int l = matrix[0][0], r = matrix[n - 1][n - 1];
+        while (l < r) {
+            int mid = l + (r - l) / 2;
+            int count = 0;
+            int i = n - 1, j = 0;
+            while (i >= 0 && j < n) {
+                if (matrix[i][j] <= mid) {
+                    count += i + 1;
+                    j++;
+                } else {
+                    i--;
+                }
+            }
+            if (count >= k) {
+                r = mid;
+            } else {
+                l = mid + 1;
+            }
+        }
+        return l;
     }
 
     // 828. Unique Letter String
     public int uniqueLetterString(String S) {
-        Map<Character, List<Integer> > map = new HashMap<>();
+        Map<Character, List<Integer>> map = new HashMap<>();
         int len = S.length();
         for (int i = 0; i < len; i++) {
             map.computeIfAbsent(S.charAt(i), k -> new ArrayList<>()).add(i);
@@ -1163,7 +1190,7 @@ public class Main {
 
     // 988. Smallest String Starting From Leaf
     public String smallestFromLeaf(TreeNode root) {
-        String[] res = new String[]{"{"};
+        String[] res = new String[] {"{"};
         smallestFromLeafHelper(root, new StringBuilder(), res);
         return res[0];
     }
@@ -1559,13 +1586,13 @@ public class Main {
     // 效率很好
     private static int[] robHelper2(TreeNode root) {
         if (root == null) {
-            return new int[]{0, 0};
+            return new int[] {0, 0};
         }
         int[] left = robHelper2(root.left);
         int[] right = robHelper2(root.right);
         int rob = root.val + left[0] + right[0];
         int notRob = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
-        return new int[]{notRob, rob};
+        return new int[] {notRob, rob};
     }
 
     private static int robHelper(TreeNode root) {
@@ -2137,7 +2164,7 @@ public class Main {
             next = next.next;
         }
         cur.next = pre;
-        return new ListNode[]{tail, head};
+        return new ListNode[] {tail, head};
     }
 
     // 128. Longest Consecutive Sequence
@@ -3250,7 +3277,7 @@ public class Main {
                 l++;
             }
         }
-        return new int[]{lres, rres};
+        return new int[] {lres, rres};
     }
 
     private static class Node1 {
@@ -3749,8 +3776,8 @@ public class Main {
 
     // 1154. Day of the Year
     public static int dayOfYear(String date) {
-        int[] leap = new int[]{31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-        int[] common = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        int[] leap = new int[] {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        int[] common = new int[] {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
         String[] strs = date.split("-");
         int year = Integer.valueOf(strs[0]);
         int month = Integer.valueOf(strs[1]) - 1;
@@ -3782,8 +3809,8 @@ public class Main {
 
     // 59. Spiral Matrix II
     public static int[][] generateMatrix(int n) {
-        int[] dI = new int[]{0, 1, 0, -1};
-        int[] dJ = new int[]{1, 0, -1, 0};
+        int[] dI = new int[] {0, 1, 0, -1};
+        int[] dJ = new int[] {1, 0, -1, 0};
         int dire = 0, num = n * n, i = 0, j = 0, x = 1;
         int[][] res = new int[n][n];
         while (x <= num) {
@@ -4353,7 +4380,7 @@ public class Main {
     // 57. Insert Interval
     public static int[][] insert(int[][] intervals, int[] newInterval) {
         if (intervals == null || intervals.length == 0) {
-            return new int[][]{newInterval};
+            return new int[][] {newInterval};
         }
         int len = intervals.length, l = 0, r = len - 1;
         while (l <= r) {
@@ -4389,7 +4416,7 @@ public class Main {
             res[index++] = intervals[i];
         }
         if (start <= end) {
-            res[index++] = new int[]{Math.min(intervals[start][0], newInterval[0]), Math.max(intervals[end][1], newInterval[1])};
+            res[index++] = new int[] {Math.min(intervals[start][0], newInterval[0]), Math.max(intervals[end][1], newInterval[1])};
         } else {
             res[index++] = newInterval;
         }
@@ -4426,7 +4453,7 @@ public class Main {
     // 34. Find First and Last Position of Element in Sorted Array
     public static int[] searchRange(int[] nums, int target) {
         if (nums == null || nums.length == 0) {
-            return new int[]{-1, -1};
+            return new int[] {-1, -1};
         }
         int l = 0, r = nums.length - 1;
         while (l <= r) {
@@ -4438,7 +4465,7 @@ public class Main {
             }
         }
         if (l - 1 < 0 || nums[l - 1] != target) {
-            return new int[]{-1, -1};
+            return new int[] {-1, -1};
         }
         int end = l - 1;
         r = l - 1;
@@ -4452,7 +4479,7 @@ public class Main {
             }
         }
         int start = r + 1;
-        return new int[]{start, end};
+        return new int[] {start, end};
     }
 
     // 56. Merge Intervals
@@ -4662,7 +4689,7 @@ public class Main {
         int index = 0;
         for (int i = 0; i < R; i++) {
             for (int j = 0; j < C; j++) {
-                res[index++] = new int[]{i, j};
+                res[index++] = new int[] {i, j};
             }
         }
         Arrays.sort(res, Comparator.comparingInt(o -> Math.abs(o[0] - r0) + Math.abs(o[1] - c0)));
@@ -4750,7 +4777,7 @@ public class Main {
             }
             i++;
         }
-        return new int[]{curLine, curWidth};
+        return new int[] {curLine, curWidth};
     }
 
     // 476. Number Complement
@@ -5005,7 +5032,7 @@ public class Main {
                 num2 ^= x;
             }
         }
-        return new int[]{num1, num2};
+        return new int[] {num1, num2};
     }
 
     // 60. Permutation Sequence
@@ -5178,7 +5205,7 @@ public class Main {
         } else {
             mid = (double) (mid1 + mid2) / 2;
         }
-        return new double[]{mn, mx, avg, mid, mode};
+        return new double[] {mn, mx, avg, mid, mode};
     }
 
     // 441. Arranging Coins
@@ -5188,8 +5215,8 @@ public class Main {
 
     // 1041. Robot Bounded In Circle
     public static boolean isRobotBounded(String instructions) {
-        int[] xDict = new int[]{1, 0, -1, 0};
-        int[] yDict = new int[]{0, 1, 0, -1};
+        int[] xDict = new int[] {1, 0, -1, 0};
+        int[] yDict = new int[] {0, 1, 0, -1};
         int d = 1, x = 0, y = 0;
         for (char c : instructions.toCharArray()) {
             if (c == 'G') {
@@ -5822,7 +5849,7 @@ public class Main {
         for (int i = 0; i < nums.length; i++) {
             int comp = target - nums[i];
             if (map.containsKey(comp)) {
-                return new int[]{map.get(comp), i};
+                return new int[] {map.get(comp), i};
             }
             map.put(nums[i], i);
         }
