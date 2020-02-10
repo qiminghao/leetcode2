@@ -712,6 +712,44 @@ public class Main {
 //        System.out.println(decodeString("2[abc]3[cd]ef"));
 
 //        System.out.println(new Main().complexNumberMultiply("78+-76i", "-86+72i"));
+
+//        System.out.println(new Main().uniqueLetterString("ABA"));
+//        System.out.println(new Main().uniqueLetterString("ABC"));
+    }
+
+    // 828. Unique Letter String
+    public int uniqueLetterString(String S) {
+        Map<Character, List<Integer> > map = new HashMap<>();
+        int len = S.length();
+        for (int i = 0; i < len; i++) {
+            map.computeIfAbsent(S.charAt(i), k -> new ArrayList<>()).add(i);
+        }
+        int res = 0;
+        for (List<Integer> list : map.values()) {
+            int size = list.size();
+            for (int i = 0; i < size; i++) {
+                res += (list.get(i) - (i - 1 >= 0 ? list.get(i - 1) : -1)) * ((i + 1 < size ? list.get(i + 1) : len) - list.get(i));
+            }
+        }
+        return res;
+    }
+
+    // 796. Rotate String
+    public boolean rotateString(String A, String B) {
+        if (A.length() != B.length()) {
+            return false;
+        }
+        if (A.equals(B)) {
+            return true;
+        }
+        int n = A.length();
+        A += A;
+        for (int i = 0; i < n; i++) {
+            if (A.substring(i, i + n).equals(B)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // 1283. Find the Smallest Divisor Given a Threshold
