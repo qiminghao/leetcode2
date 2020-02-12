@@ -719,6 +719,30 @@ public class Main {
 //        System.out.println(new Main().kthSmallest(new int[][] {{1, 5, 9}, {10, 11, 13}, {12, 13, 15}}, 8));
     }
 
+    // 668. Kth Smallest Number in Multiplication Table
+    public int findKthNumber(int m, int n, int k) {
+        int l = 1, r = m * n;
+        while (l < r) {
+            int mid = l + (r - l) / 2;
+            int cnt = 0;
+            int i = m, j = 1;
+            while (i > 0 && j <= n) {
+                if (i * j <= mid) {
+                    cnt += i;
+                    j++;
+                } else {
+                    i--;
+                }
+            }
+            if (cnt >= k) {
+                r = mid;
+            } else {
+                l = mid + 1;
+            }
+        }
+        return l;
+    }
+
     // 373. Find K Pairs with Smallest Sums
     public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
         List<List<Integer>> list = new ArrayList<>();
