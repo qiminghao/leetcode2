@@ -719,6 +719,29 @@ public class Main {
 //        System.out.println(new Main().kthSmallest(new int[][] {{1, 5, 9}, {10, 11, 13}, {12, 13, 15}}, 8));
     }
 
+    // 373. Find K Pairs with Smallest Sums
+    public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
+        List<List<Integer>> list = new ArrayList<>();
+        int len1 = nums1.length, len2 = nums2.length;
+        int[] idx = new int[len1];
+        int cnt = 0, total = Math.min(k, len1 * len2);
+        while (cnt < total) {
+            int min = Integer.MAX_VALUE, index = -1;
+            for (int i = 0; i < len1; i++) {
+                if (idx[i] < len2) {
+                    if (min > nums1[i] + nums2[idx[i]]) {
+                        min = nums1[i] + nums2[idx[i]];
+                        index = i;
+                    }
+                }
+            }
+            list.add(Arrays.asList(nums1[index], nums2[idx[index]]));
+            cnt++;
+            idx[index]++;
+        }
+        return list;
+    }
+
     // 378. Kth Smallest Element in a Sorted Matrix
     public int kthSmallest(int[][] matrix, int k) {
         int n = matrix.length;
