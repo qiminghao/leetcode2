@@ -717,6 +717,25 @@ public class Main {
 //        System.out.println(new Main().uniqueLetterString("ABC"));
 
 //        System.out.println(new Main().kthSmallest(new int[][] {{1, 5, 9}, {10, 11, 13}, {12, 13, 15}}, 8));
+
+//        System.out.println(new Main().findLongestChain(new int[][] {{-10, -8}, {8, 9}, {-5, 0}, {6, 10}, {-6, -4}, {1, 7}, {9, 10}, {-4, 7}}));
+    }
+
+    // 646. Maximum Length of Pair Chain
+    public int findLongestChain(int[][] pairs) {
+        Arrays.sort(pairs, (o1, o2) -> o1[0] - o2[0]);
+        int[] dp = new int[pairs.length];
+        Arrays.fill(dp, 1);
+        int res = 1;
+        for (int i = 1; i < pairs.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (pairs[i][0] > pairs[j][1]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                    res = Math.max(res, dp[i]);
+                }
+            }
+        }
+        return res;
     }
 
     // 491. Increasing Subsequences
