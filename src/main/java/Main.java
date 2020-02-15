@@ -719,6 +719,30 @@ public class Main {
 //        System.out.println(new Main().kthSmallest(new int[][] {{1, 5, 9}, {10, 11, 13}, {12, 13, 15}}, 8));
     }
 
+    // 491. Increasing Subsequences
+    public List<List<Integer>> findSubsequences(int[] nums) {
+        List<List<Integer>> res = new LinkedList<>();
+        findSubsequencesHelper(new LinkedList<>(), res, 0, nums);
+        return res;
+    }
+
+    private void findSubsequencesHelper(List<Integer> list, List<List<Integer>> res, int index, int[] nums) {
+        if (list.size() > 1) {
+            res.add(new ArrayList<>(list));
+        }
+        Set<Integer> set = new HashSet<>();
+        for (int i = index; i < nums.length; i++) {
+            if (!set.contains(nums[i])) {
+                if (list.isEmpty() || nums[i] >= list.get(list.size() - 1)) {
+                    set.add(nums[i]);
+                    list.add(nums[i]);
+                    findSubsequencesHelper(list, res, i + 1, nums);
+                    list.remove(list.size() - 1);
+                }
+            }
+        }
+    }
+
     // 668. Kth Smallest Number in Multiplication Table
     public int findKthNumber(int m, int n, int k) {
         int l = 1, r = m * n;
