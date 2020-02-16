@@ -721,6 +721,55 @@ public class Main {
 //        System.out.println(new Main().findLongestChain(new int[][] {{-10, -8}, {8, 9}, {-5, 0}, {6, 10}, {-6, -4}, {1, 7}, {9, 10}, {-4, 7}}));
     }
 
+    // 924. Minimize Malware Spread
+    public int minMalwareSpread(int[][] graph, int[] initial) {
+        int n = graph.length;
+        int[] colors = new int[n];
+        Arrays.fill(colors, -1);
+        int color = 0;
+        for (int init : initial) {
+            if (colors[init] == -1) {
+                minMalwareSpreadDFS(graph, init, colors, color++);
+            }
+        }
+        int[] size = new int[color];
+        for (int c : colors) {
+            if (c != -1) {
+                size[c]++;
+            }
+        }
+        int[] count = new int[color];
+        for (int init : initial) {
+            count[colors[init]]++;
+        }
+        int res = Integer.MAX_VALUE;
+        for (int node : initial) {
+            int c = colors[node];
+            if (count[c] == 1) {
+                if (res == Integer.MAX_VALUE) {
+                    res = node;
+                } else if (size[c] > size[colors[res]]) {
+                    res = node;
+                } else if (size[c] == size[colors[res]] && node < res) {
+                    res = node;
+                }
+            }
+        }
+        if (res == Integer.MAX_VALUE) {
+            res = Arrays.stream(initial).min().getAsInt();
+        }
+        return res;
+    }
+
+    private void minMalwareSpreadDFS(int[][] graph, int s, int[] colors, int color) {
+        colors[s] = color;
+        for (int i = 0; i < graph[s].length; i++) {
+            if (graph[s][i] == 1 && colors[i] == -1) {
+                minMalwareSpreadDFS(graph, i, colors, color);
+            }
+        }
+    }
+
     // 877. Stone Game
     public boolean stoneGame(int[] piles) {
         return true;
