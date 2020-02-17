@@ -721,6 +721,47 @@ public class Main {
 //        System.out.println(new Main().findLongestChain(new int[][] {{-10, -8}, {8, 9}, {-5, 0}, {6, 10}, {-6, -4}, {1, 7}, {9, 10}, {-4, 7}}));
     }
 
+    // 721. Accounts Merge
+    public List<List<String>> accountsMerge(List<List<String>> accounts) {
+        Map<String, String> map = new HashMap<>();
+        Map<String, List<String>> graph = new HashMap<>();
+        for (List<String> account : accounts) {
+            String name = account.get(0);
+            String node = account.get(1);
+            for (int i = account.size() - 1; i > 0; i++) {
+                map.put(account.get(i), name);
+                if (i != 1) {
+                    graph.computeIfAbsent(node, k -> new ArrayList<>()).add(account.get(i));
+                    graph.computeIfAbsent(account.get(i), k -> new ArrayList<>()).add(node);
+                }
+            }
+        }
+        Set<String> seen = new HashSet<>();
+        List<List<String>> res = new ArrayList<>();
+        for (String s : map.keySet()) {
+            if (!seen.contains(s)) {
+                LinkedList<String> list = new LinkedList<>();
+                accountsMergeDFS(graph, seen, list, s);
+                Collections.sort(list);
+                list.addFirst(map.get(s));
+                res.add(list);
+            }
+        }
+        return res;
+    }
+
+    private void accountsMergeDFS(Map<String, List<String>> graph, Set<String> seen, LinkedList<String> list, String node) {
+        list.add(node);
+        seen.add(node);
+        if (graph.containsKey(node)) {
+            for (String next : graph.get(node)) {
+                if (!seen.contains(next)) {
+                    accountsMergeDFS(graph, seen, list, next);
+                }
+            }
+        }
+    }
+
     // 684. Redundant Connection
     public int[] findRedundantConnection(int[][] edges) {
         int n = 0;
