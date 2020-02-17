@@ -721,6 +721,46 @@ public class Main {
 //        System.out.println(new Main().findLongestChain(new int[][] {{-10, -8}, {8, 9}, {-5, 0}, {6, 10}, {-6, -4}, {1, 7}, {9, 10}, {-4, 7}}));
     }
 
+    // 684. Redundant Connection
+    public int[] findRedundantConnection(int[][] edges) {
+        int n = 0;
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for (int i = 0; i < edges.length; i++) {
+            n = Math.max(n, Math.max(edges[i][0], edges[i][1]));
+            map.computeIfAbsent(edges[i][0], k -> new ArrayList<>()).add(i);
+            map.computeIfAbsent(edges[i][1], k -> new ArrayList<>()).add(i);
+        }
+        boolean[] deleted = new boolean[edges.length];
+        while (true) {
+            int[] degree = new int[n];
+            for (int i = 0; i < edges.length; i++) {
+                if (!deleted[i]) {
+                    degree[edges[i][0]]++;
+                    degree[edges[i][1]]++;
+                }
+            }
+            boolean flag = true;
+            for (int i = 0; i < n; i++) {
+                if (degree[i] == 1) {
+                    for (int x : map.get(i)) {
+                        deleted[x] = true;
+                    }
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                break;
+            }
+        }
+        for (int i = edges.length; i >= 0; i--) {
+            if (!deleted[i]) {
+                return edges[i];
+            }
+        }
+        return null;
+    }
+
     // 924. Minimize Malware Spread
     public int minMalwareSpread(int[][] graph, int[] initial) {
         int n = graph.length;
