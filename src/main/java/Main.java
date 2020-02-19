@@ -723,6 +723,22 @@ public class Main {
 //        System.out.println(new Main().removeKdigits("1432219", 3));
     }
 
+    // 738. Monotone Increasing Digits
+    public int monotoneIncreasingDigits(int N) {
+        char[] S = String.valueOf(N).toCharArray();
+        int i = 1;
+        while (i < S.length && S[i - 1] <= S[i]) {
+            i++;
+        }
+        while (0 < i && i < S.length && S[i - 1] > S[i]) {
+            S[--i]--;
+        }
+        for (int j = i + 1; j < S.length; ++j) {
+            S[j] = '9';
+        }
+        return Integer.parseInt(String.valueOf(S));
+    }
+
     // 402. Remove K Digits
     public String removeKdigits(String num, int k) {
         int count = 0, i = 0, len = num.length();
