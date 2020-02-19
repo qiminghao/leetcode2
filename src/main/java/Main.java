@@ -723,6 +723,23 @@ public class Main {
 //        System.out.println(new Main().removeKdigits("1432219", 3));
     }
 
+    // 455. Assign Cookies
+    public int findContentChildren(int[] g, int[] s) {
+        if (g == null || s == null) {
+            return 0;
+        }
+        Arrays.sort(g);
+        Arrays.sort(s);
+        int gi = 0, si = 0;
+        while (gi < g.length && si < s.length) {
+            if (g[gi] <= s[si]) {
+                gi++;
+            }
+            si++;
+        }
+        return gi;
+    }
+
     // 738. Monotone Increasing Digits
     public int monotoneIncreasingDigits(int N) {
         char[] S = String.valueOf(N).toCharArray();
