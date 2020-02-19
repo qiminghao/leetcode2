@@ -719,6 +719,33 @@ public class Main {
 //        System.out.println(new Main().kthSmallest(new int[][] {{1, 5, 9}, {10, 11, 13}, {12, 13, 15}}, 8));
 
 //        System.out.println(new Main().findLongestChain(new int[][] {{-10, -8}, {8, 9}, {-5, 0}, {6, 10}, {-6, -4}, {1, 7}, {9, 10}, {-4, 7}}));
+
+//        System.out.println(new Main().removeKdigits("1432219", 3));
+    }
+
+    // 402. Remove K Digits
+    public String removeKdigits(String num, int k) {
+        int count = 0, i = 0, len = num.length();
+        LinkedList<Character> stack = new LinkedList<>();
+        while (i < len) {
+            while (!stack.isEmpty() && count < k && num.charAt(i) < stack.peek()) {
+                stack.pop();
+                count++;
+            }
+            stack.push(num.charAt(i++));
+        }
+        while (count < k) {
+            stack.pop();
+            count++;
+        }
+        while (!stack.isEmpty() && stack.peekLast() == '0') {
+            stack.removeLast();
+        }
+        StringBuilder res = new StringBuilder();
+        while (!stack.isEmpty()) {
+            res.append(stack.removeLast());
+        }
+        return res.length() == 0 ? "0" : res.toString();
     }
 
     // 721. Accounts Merge
