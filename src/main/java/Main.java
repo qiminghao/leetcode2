@@ -725,6 +725,32 @@ public class Main {
 //        new Main().recoverFromPreorder("1-2--3--4-5--6--7");
     }
 
+    // 150. Evaluate Reverse Polish Notation
+    public int evalRPN(String[] tokens) {
+        int[] stack = new int[tokens.length];
+        int index = 0;
+        for (String s : tokens) {
+            switch (s) {
+                case "+":
+                    stack[index - 2] += stack[--index];
+                    break;
+                case "-":
+                    stack[index - 2] -= stack[--index];
+                    break;
+                case "*":
+                    stack[index - 2] *= stack[--index];
+                    break;
+                case "/":
+                    stack[index - 2] /= stack[--index];
+                    break;
+                default:
+                    stack[index++] = Integer.parseInt(s);
+                    break;
+            }
+        }
+        return stack[0];
+    }
+
     // 1028. Recover a Tree From Preorder Traversal
     public TreeNode recoverFromPreorder(String S) {
         List<int[]> list = new ArrayList<>();
