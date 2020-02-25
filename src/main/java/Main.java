@@ -721,6 +721,58 @@ public class Main {
 //        System.out.println(new Main().findLongestChain(new int[][] {{-10, -8}, {8, 9}, {-5, 0}, {6, 10}, {-6, -4}, {1, 7}, {9, 10}, {-4, 7}}));
 
 //        System.out.println(new Main().removeKdigits("1432219", 3));
+
+//        new Main().recoverFromPreorder("1-2--3--4-5--6--7");
+    }
+
+    // 1028. Recover a Tree From Preorder Traversal
+    public TreeNode recoverFromPreorder(String S) {
+        List<int[]> list = new ArrayList<>();
+        int i = 0;
+        while (i < S.length()) {
+            int j = i;
+            while (j < S.length() && !Character.isDigit(S.charAt(j))) {
+                j++;
+            }
+            int depth = j - i;
+            int val = 0;
+            while (j < S.length() && Character.isDigit(S.charAt(j))) {
+                val = val * 10 + S.charAt(j) - '0';
+                j++;
+            }
+            list.add(new int[] {val, depth});
+            i = j;
+        }
+        return builder(list, 0, list.size() - 1);
+    }
+
+    private TreeNode builder(List<int[]> list, int l, int r) {
+        if (l > r) {
+            return null;
+        }
+        TreeNode root = new TreeNode(list.get(l)[0]);
+        int depth = list.get(l)[1] + 1;
+        int cnt = 0, index1 = -1, index2 = -1;
+        for (int i = l + 1; i <= r; i++) {
+            if (depth == list.get(i)[1]) {
+                if (cnt == 0) {
+                    index1 = i;
+                    cnt++;
+                } else if (cnt == 1) {
+                    index2 = i;
+                    cnt++;
+                } else {
+                    break;
+                }
+            }
+        }
+        if (index2 != -1) {
+            root.left = builder(list, index1, index2 - 1);
+            root.right = builder(list, index2, r);
+        } else if (index1 != -1) {
+            root.left = builder(list, index1, r);
+        }
+        return root;
     }
 
     // 455. Assign Cookies
