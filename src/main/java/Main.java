@@ -725,6 +725,18 @@ public class Main {
 //        new Main().recoverFromPreorder("1-2--3--4-5--6--7");
     }
 
+    // 179. Largest Number
+    public String largestNumber(int[] nums) {
+        List<String> list = Arrays.stream(nums).mapToObj(String::valueOf).collect(Collectors.toList());
+        Collections.sort(list, (s1, s2) -> (s1 + s2).compareTo(s2 + s1));
+        String res = list.stream().reduce((s1, s2) -> s1 + s2).get();
+        int i = 0;
+        while (i < res.length() && res.charAt(i) == '0') {
+            i++;
+        }
+        return i == res.length() ? "0" : res;
+    }
+
     // 150. Evaluate Reverse Polish Notation
     public int evalRPN(String[] tokens) {
         int[] stack = new int[tokens.length];
