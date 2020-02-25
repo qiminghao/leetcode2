@@ -723,6 +723,39 @@ public class Main {
 //        System.out.println(new Main().removeKdigits("1432219", 3));
 
 //        new Main().recoverFromPreorder("1-2--3--4-5--6--7");
+
+//        System.out.println(Arrays.toString(new Main().findOrder(2, new int[][] {{1,0}})));
+    }
+
+    // 210. Course Schedule II
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        Map<Integer, List<Integer>> graph = new HashMap<>();
+        int[] inDegree = new int[numCourses];
+        for (int[] edge : prerequisites) {
+            graph.computeIfAbsent(edge[1], k -> new ArrayList<>()).add(edge[0]);
+            inDegree[edge[0]]++;
+        }
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (inDegree[i] == 0) {
+                queue.add(i);
+            }
+        }
+        int[] res = new int[numCourses];
+        int index = 0;
+        while (!queue.isEmpty()) {
+            int node = queue.remove();
+            res[index++] = node;
+            if (graph.containsKey(node)) {
+                for (int x : graph.get(node)) {
+                    inDegree[x]--;
+                    if (inDegree[x] == 0) {
+                        queue.add(x);
+                    }
+                }
+            }
+        }
+        return index != numCourses ? new int[] {} : res;
     }
 
     // 179. Largest Number
