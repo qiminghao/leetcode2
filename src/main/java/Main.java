@@ -727,6 +727,104 @@ public class Main {
 //        System.out.println(Arrays.toString(new Main().findOrder(2, new int[][] {{1,0}})));
     }
 
+    // 957. Prison Cells After N Days
+    public int[] prisonAfterNDays(int[] cells, int N) {
+        Map<Integer, Integer> seen = new HashMap();
+
+        // state  = integer representing state of prison
+        int state = 0;
+        for (int i = 0; i < 8; ++i) {
+            if (cells[i] > 0) {
+                state ^= 1 << i;
+            }
+        }
+
+        // While days remaining, simulate a day
+        while (N > 0) {
+            // If this is a cycle, fast forward by
+            // seen.get(state) - N, the period of the cycle.
+            if (seen.containsKey(state)) {
+                N %= seen.get(state) - N;
+            }
+            seen.put(state, N);
+
+            if (N >= 1) {
+                N--;
+                state = nextDay(state);
+            }
+        }
+
+        // Convert the state back to the required answer.
+        int[] ans = new int[8];
+        for (int i = 0; i < 8; ++i) {
+            if (((state >> i) & 1) > 0) {
+                ans[i] = 1;
+            }
+        }
+
+        return ans;
+    }
+
+    public int nextDay(int state) {
+        int ans = 0;
+
+        // We only loop from 1 to 6 because 0 and 7 are impossible,
+        // as those cells only have one neighbor.
+        for (int i = 1; i <= 6; ++i) {
+            if (((state >> (i - 1)) & 1) == ((state >> (i + 1)) & 1)) {
+                ans ^= 1 << i;
+            }
+        }
+
+        return ans;
+    }
+
+    private int nextDay(int[] cells) {
+        int sum = 0;
+        for (int i = 1; i < 7; i++) {
+            if ((cells[i - 1] ^ cells[i + 1]) == 0) {
+                sum ^= 1 << i;
+            }
+        }
+        return sum;
+    }
+
+    // 310. Minimum Height Trees
+    public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        List<Integer> res = new ArrayList<>();
+        List<Integer>[] graph = new List[n];
+        for (int i = 0; i < n; i++) {
+            graph[i] = new ArrayList<>();
+        }
+        for (int[] edge : edges) {
+            graph[edge[0]].add(edge[1]);
+            graph[edge[1]].add(edge[0]);
+        }
+        int minDepth = Integer.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            int[] d = new int[] {-1};
+            findMinHeightTreesHelper(graph, i, new HashSet<>(), 0, d);
+            if (d[0] == minDepth) {
+                res.add(i);
+            } else if (d[0] < minDepth) {
+                res.clear();
+                res.add(i);
+                minDepth = d[0];
+            }
+        }
+        return res;
+    }
+
+    private void findMinHeightTreesHelper(List<Integer>[] graph, int s, Set<Integer> visited, int depth, int[] maxD) {
+        visited.add(s);
+        maxD[0] = Math.max(maxD[0], depth);
+        for (int x : graph[s]) {
+            if (!visited.contains(x)) {
+                findMinHeightTreesHelper(graph, x, visited, depth + 1, maxD);
+            }
+        }
+    }
+
     // 210. Course Schedule II
     public int[] findOrder(int numCourses, int[][] prerequisites) {
         Map<Integer, List<Integer>> graph = new HashMap<>();
